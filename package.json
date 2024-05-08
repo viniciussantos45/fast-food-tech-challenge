@@ -1,0 +1,27 @@
+{
+  "name": "fast-food-tech-challenge",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc",
+    "start": "node -r module-alias dist/index.js",
+    "dev": "ts-node -r tsconfig-paths/register src/index.ts"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^7.8.0",
+    "@typescript-eslint/parser": "^7.8.0",
+    "eslint": "^9.1.1",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-prefer-arrow": "^1.2.3",
+    "prettier": "^3.2.5",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.5"
+  },
+  "_moduleAliases": {
+    "@": "dist"
+  },
+  "dependencies": {
+    "types-ddd": "^3.9.1"
+  }
+}
