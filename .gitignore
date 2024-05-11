@@ -25,5 +25,3 @@ npm-debug.log
 
 # certs
 /certs
-
-/src/core/**
