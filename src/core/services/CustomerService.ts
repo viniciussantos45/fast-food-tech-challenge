@@ -1,24 +1,24 @@
-import { Customer } from '../domain/customer/Customer';
-import { CustomerRepository } from '../domain/customer/CustomerRepository';
+import { CustomerRepository } from '../applications/ports/CustomerRepository'
+import { Customer } from '../domain/customer/Customer'
 
 export class CustomerService {
-  private customerRepository: CustomerRepository;
+  private customerRepository: CustomerRepository
 
   constructor(customerRepository: CustomerRepository) {
-    this.customerRepository = customerRepository;
+    this.customerRepository = customerRepository
   }
 
   public registerCustomer(cpf: string, name: string, email: string): void {
-    const customer = new Customer(cpf, name, email);
-    this.customerRepository.addCustomer(customer);
+    const customer = new Customer(cpf, name, email)
+    this.customerRepository.addCustomer(customer)
   }
 
   public updateCustomer(cpf: string, name: string, email: string): void {
-    const customer = this.customerRepository.getCustomerByCPF(cpf);
+    const customer = this.customerRepository.getCustomerByCPF(cpf)
     if (customer) {
-      customer.setName(name);
-      customer.setEmail(email);
-      this.customerRepository.updateCustomer(customer);
+      customer.setName(name)
+      customer.setEmail(email)
+      this.customerRepository.updateCustomer(customer)
     }
   }
 

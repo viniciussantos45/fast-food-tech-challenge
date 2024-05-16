@@ -1,5 +1,5 @@
+import { ComboRepository } from '../applications/ports/ComboRepository'
 import { Combo } from '../domain/combo/Combo'
-import { ComboRepository } from '../domain/combo/ComboRepository'
 import { Product } from '../domain/product/Product'
 
 export class ComboService {
