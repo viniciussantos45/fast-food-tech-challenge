@@ -17,6 +17,7 @@
     "eslint-plugin-import": "^2.29.1",
     "eslint-plugin-prefer-arrow": "^1.2.3",
     "prettier": "^3.2.5",
+    "prisma": "^5.14.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.4.5"
   },
@@ -24,6 +25,7 @@
     "@": "dist"
   },
   "dependencies": {
+    "@prisma/client": "^5.14.0",
     "types-ddd": "^3.9.1"
   }
 }
