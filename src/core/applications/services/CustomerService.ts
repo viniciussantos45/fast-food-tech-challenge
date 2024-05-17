@@ -1,26 +1,26 @@
-import { Customer } from '@/core/domain/entities/Customer'
+import { Customer } from '../../domain/entities/Customer'
 import { CustomerRepository } from '../ports/CustomerRepository'
 
 export class CustomerService {
-  constructor(private customerRepository: CustomerRepository) {}
+  private customerRepository: CustomerRepository
 
-  createCustomer(customer: Customer): void {
-    this.customerRepository.createCustomer(customer)
+  constructor(customerRepository: CustomerRepository) {
+    this.customerRepository = customerRepository
   }
 
-  updateCustomer(customer: Customer): void {
-    this.customerRepository.updateCustomer(customer)
+  public registerCustomer(cpf: string, name: string, email: string): void {
+    const customer = new Customer(cpf, name, email)
+    this.customerRepository.addCustomer(customer)
   }
 
-  deleteCustomer(customerId: string): void {
-    this.customerRepository.deleteCustomer(customerId)
+  public updateCustomer(cpf: string, name: string, email: string): void {
+    const customer = this.customerRepository.getCustomerByCPF(cpf)
+    if (customer) {
+      customer.setName(name)
+      customer.setEmail(email)
+      this.customerRepository.updateCustomer(customer)
+    }
   }
 
-  getCustomerById(customerId: string): Customer | undefined {
-    return this.customerRepository.getCustomerById(customerId)
-  }
-
-  getCustomers(): Customer[] {
-    return this.customerRepository.getCustomers()
-  }
+  // Other methods for managing customers
 }

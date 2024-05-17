@@ -1,18 +1,25 @@
-import { Product } from '@/core/domain/entities/Product'
+import { Product } from '../../domain/entities/Product'
 import { ProductRepository } from '../ports/ProductRepository'
 
 export class ProductService {
-  constructor(private productRepository: ProductRepository) {}
+  private productRepository: ProductRepository
 
-  addProduct(product: Product): void {
+  constructor(productRepository: ProductRepository) {
+    this.productRepository = productRepository
+  }
+
+  public addProduct(product: Product): void {
+    // Add product logic here
     this.productRepository.addProduct(product)
   }
 
-  editProduct(product: Product): void {
+  public editProduct(product: Product): void {
+    // Edit product logic here
     this.productRepository.editProduct(product)
   }
 
-  removeProduct(productId: string): void {
+  public removeProduct(productId: string): void {
+    // Remove product logic here
     this.productRepository.removeProduct(productId)
   }
 }

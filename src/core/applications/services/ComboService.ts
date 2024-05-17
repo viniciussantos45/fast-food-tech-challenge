@@ -1,22 +1,30 @@
-import { Combo } from '@/core/domain/entities/Combo'
+import { Combo } from '../../domain/entities/Combo'
+import { Product } from '../../domain/entities/Product'
 import { ComboRepository } from '../ports/ComboRepository'
 
 export class ComboService {
-  constructor(private comboRepository: ComboRepository) {}
+  private comboRepository: ComboRepository
 
-  async createCombo(combo: Combo): Promise<void> {
-    await this.comboRepository.saveCombo(combo)
+  constructor(comboRepository: ComboRepository) {
+    this.comboRepository = comboRepository
   }
 
-  async getComboById(comboId: string): Promise<Combo | null> {
-    return await this.comboRepository.getComboById(comboId)
+  public createCombo(products: Product[]): Combo {
+    // Logic to create a combo with the given products
+    const combo = new Combo(products)
+    this.comboRepository.saveCombo(combo)
+    return combo
   }
 
-  async updateCombo(combo: Combo): Promise<void> {
-    await this.comboRepository.updateCombo(combo)
+  public updateCombo(combo: Combo, products: Product[]): Combo {
+    // Logic to update the combo with the given products
+    // combo.updateProducts(products)
+    this.comboRepository.saveCombo(combo)
+    return combo
   }
 
-  async deleteCombo(comboId: string): Promise<void> {
-    await this.comboRepository.deleteCombo(comboId)
+  public deleteCombo(combo: Combo): void {
+    // Logic to delete the combo
+    this.comboRepository.deleteCombo(combo.getId())
   }
 }
