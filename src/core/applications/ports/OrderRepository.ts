@@ -1,4 +1,4 @@
-import { Order } from '../../domain/order/Order'
+import { Order } from '../../domain/entities/Order'
 
 export interface OrderRepository {
   saveOrder(order: Order): void

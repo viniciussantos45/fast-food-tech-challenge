@@ -1,5 +1,5 @@
 import { CustomerRepository } from '../applications/ports/CustomerRepository'
-import { Customer } from '../domain/customer/Customer'
+import { Customer } from '../domain/entities/Customer'
 
 export class CustomerService {
   private customerRepository: CustomerRepository

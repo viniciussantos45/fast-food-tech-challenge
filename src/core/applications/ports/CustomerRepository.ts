@@ -1,4 +1,4 @@
-import { Customer } from '../../domain/customer/Customer'
+import { Customer } from '../../domain/entities/Customer'
 
 export interface CustomerRepository {
   createCustomer(customer: Customer): void

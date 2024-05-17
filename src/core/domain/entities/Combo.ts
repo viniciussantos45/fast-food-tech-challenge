@@ -1,4 +1,4 @@
-import { Product } from '../product/Product'
+import { Product } from './Product'
 
 export class Combo {
   private id: string

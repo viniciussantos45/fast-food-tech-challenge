@@ -1,4 +1,4 @@
-import { Product } from '../../domain/product/Product'
+import { Product } from '../../domain/entities/Product'
 
 export interface ProductRepository {
   addProduct(product: Product): void

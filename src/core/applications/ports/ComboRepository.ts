@@ -1,4 +1,4 @@
-import { Combo } from '../../domain/combo/Combo'
+import { Combo } from '../../domain/entities/Combo'
 
 export interface ComboRepository {
   saveCombo(combo: Combo): Promise<void>

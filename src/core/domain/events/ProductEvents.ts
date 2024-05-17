@@ -1,6 +1,6 @@
 // File: /project-root/src/domain/product/ProductEvents.ts
 
-import { Product } from "./Product";
+import { Product } from '../entities/Product'
 
 // Event emitted when a product is registered
 export class ProductRegistered {

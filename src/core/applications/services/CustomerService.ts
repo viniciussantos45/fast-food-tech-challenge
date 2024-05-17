@@ -1,4 +1,4 @@
-import { Customer } from '@/core/domain/customer/Customer'
+import { Customer } from '@/core/domain/entities/Customer'
 import { CustomerRepository } from '../ports/CustomerRepository'
 
 export class CustomerService {

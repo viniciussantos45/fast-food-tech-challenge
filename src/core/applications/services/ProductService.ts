@@ -1,4 +1,4 @@
-import { Product } from '@/core/domain/product/Product'
+import { Product } from '@/core/domain/entities/Product'
 import { ProductRepository } from '../ports/ProductRepository'
 
 export class ProductService {

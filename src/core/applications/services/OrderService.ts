@@ -1,4 +1,4 @@
-import { Order } from '@/core/domain/order/Order'
+import { Order } from '@/core/domain/entities/Order'
 import { OrderRepository } from '../ports/OrderRepository'
 
 export class OrderService {

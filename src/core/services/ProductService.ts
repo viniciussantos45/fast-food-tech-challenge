@@ -1,5 +1,5 @@
 import { ProductRepository } from '../applications/ports/ProductRepository'
-import { Product } from '../domain/product/Product'
+import { Product } from '../domain/entities/Product'
 
 export class ProductService {
   private productRepository: ProductRepository

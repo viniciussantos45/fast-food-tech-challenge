@@ -1,6 +1,6 @@
 // OrderEvents.ts
 
-import { Order } from "./Order";
+import { Order } from '../entities/Order'
 
 // Event: OrderCreated
 export class OrderCreated {

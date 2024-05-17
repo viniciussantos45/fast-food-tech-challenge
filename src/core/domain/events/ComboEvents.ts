@@ -1,6 +1,6 @@
 // ComboEvents.ts
 
-import { Combo } from './Combo';
+import { Combo } from '../entities/Combo'
 
 // Event: ComboCreated
 export class ComboCreated {

@@ -1,4 +1,4 @@
-import { Combo } from '@/core/domain/combo/Combo'
+import { Combo } from '@/core/domain/entities/Combo'
 import { ComboRepository } from '../ports/ComboRepository'
 
 export class ComboService {
