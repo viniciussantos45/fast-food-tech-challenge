@@ -10,11 +10,11 @@ export class CustomerService {
 
   public registerCustomer(cpf: string, name: string, email: string): void {
     const customer = new Customer(cpf, name, email)
-    this.customerRepository.addCustomer(customer)
+    this.customerRepository.createCustomer(customer)
   }
 
   public updateCustomer(cpf: string, name: string, email: string): void {
-    const customer = this.customerRepository.getCustomerByCPF(cpf)
+    const customer = this.customerRepository.getCustomerById(cpf)
     if (customer) {
       customer.setName(name)
       customer.setEmail(email)
