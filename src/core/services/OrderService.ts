@@ -1,6 +1,6 @@
 import { OrderRepository } from '../applications/ports/OrderRepository'
 import { Order } from '../domain/entities/Order'
-import { OrderConfirmed, OrderCreated, OrderUpdated } from '../domain/order/OrderEvents'
+import { OrderConfirmed, OrderCreated, OrderUpdated } from '../domain/events/OrderEvents'
 
 export class OrderService {
   private orderRepository: OrderRepository
