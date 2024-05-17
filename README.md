@@ -5,29 +5,30 @@ This repository contains the source code for a project that implements a domain-
 ```
 project-root
 ├── src
-    ├── core 
-│   │    ├── domain
-│   │    │   ├── product
-│   │    │   │   ├── Product.ts
-│   │    │   │   ├── ProductRepository.ts
-│   │    │   │   └── ProductEvents.ts
-│   │    │   ├── order
-│   │    │   │   ├── Order.ts
-│   │    │   │   ├── OrderRepository.ts
-│   │    │   │   └── OrderEvents.ts
-│   │    │   ├── customer
-│   │    │   │   ├── Customer.ts
-│   │    │   │   ├── CustomerRepository.ts
-│   │    │   │   └── CustomerEvents.ts
-│   │    │   └── combo
-│   │    │       ├── Combo.ts
-│   │    │       ├── ComboRepository.ts
-│   │    │       └── ComboEvents.ts
-│   │    └── services
-│   │        ├── ProductService.ts
-│   │        ├── OrderService.ts
-│   │        ├── CustomerService.ts
-│   │        └── ComboService.ts
+│   ├── core
+│   │   ├── applications
+│   │   │   ├── ports
+│   │   │   │   ├── ComboRepository.ts
+│   │   │   │   ├── CustomerRepository.ts
+│   │   │   │   ├── OrderRepository.ts
+│   │   │   │   ├── ProductRepository.ts
+│   │   │   ├── services
+│   │   │   │   ├── ComboService.ts
+│   │   │   │   ├── CustomerService.ts
+│   │   │   │   ├── OrderService.ts
+│   │   │   │   ├── ProductService.ts
+│   │   ├── domain
+│   │   │   ├── entities
+│   │   │   │   ├── Combo.ts
+│   │   │   │   ├── Customer.ts
+│   │   │   │   ├── Order.ts
+│   │   │   │   ├── Product.ts
+│   │   │   ├── events
+│   │   │   │   ├── ComboEvents.ts
+│   │   │   │   ├── CustomerEvents.ts
+│   │   │   │   ├── OrderEvents.ts
+│   │   │   │   ├── ProductEvents.ts
+
 └── README.md
 ```
 
