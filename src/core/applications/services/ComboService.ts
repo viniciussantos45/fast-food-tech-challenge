@@ -1,6 +1,6 @@
-import { Combo } from '../domain/combo/Combo'
-import { ComboRepository } from '../domain/combo/ComboRepository'
-import { Product } from '../domain/product/Product'
+import { Combo } from '../../domain/entities/Combo'
+import { Product } from '../../domain/entities/Product'
+import { ComboRepository } from '../ports/ComboRepository'
 
 export class ComboService {
   private comboRepository: ComboRepository
