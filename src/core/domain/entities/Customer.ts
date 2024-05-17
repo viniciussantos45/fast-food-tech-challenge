@@ -1,4 +1,4 @@
-class Customer {
+export class Customer {
   private cpf: string
   private name: string
   private email: string
@@ -20,6 +20,12 @@ class Customer {
   public getEmail(): string {
     return this.email
   }
-}
 
-export { Customer }
+  public setName(name: string): void {
+    this.name = name
+  }
+
+  public setEmail(email: string): void {
+    this.email = email
+  }
+}
