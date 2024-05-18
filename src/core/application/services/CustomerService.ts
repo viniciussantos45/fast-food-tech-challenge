@@ -1,10 +1,10 @@
 import { Customer } from '../../domain/entities/Customer'
-import { CustomerRepository } from '../ports/CustomerRepository'
+import { ICustomerRepository } from '../ports/CustomerRepository'
 
 export class CustomerService {
-  private customerRepository: CustomerRepository
+  private customerRepository: ICustomerRepository
 
-  constructor(customerRepository: CustomerRepository) {
+  constructor(customerRepository: ICustomerRepository) {
     this.customerRepository = customerRepository
   }
 
@@ -13,14 +13,12 @@ export class CustomerService {
     this.customerRepository.createCustomer(customer)
   }
 
-  public updateCustomer(cpf: string, name: string, email: string): void {
-    const customer = this.customerRepository.getCustomerById(cpf)
+  public async updateCustomer(cpf: string, name: string, email: string): Promise<void> {
+    const customer = await this.customerRepository.getCustomerById(cpf)
     if (customer) {
       customer.setName(name)
       customer.setEmail(email)
       this.customerRepository.updateCustomer(customer)
     }
   }
-
-  // Other methods for managing customers
 }
