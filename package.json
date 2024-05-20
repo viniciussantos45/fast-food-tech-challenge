@@ -1,12 +1,13 @@
 {
   "name": "fast-food-tech-challenge",
   "version": "1.0.0",
+  "module": "commonjs",
   "main": "index.js",
   "license": "MIT",
   "scripts": {
     "build": "tsc",
     "start": "node -r module-alias dist/index.js",
-    "dev": "ts-node -r tsconfig-paths/register src/index.ts",
+    "dev": "nodemon",
     "test": "cucumber-js"
   },
   "devDependencies": {
@@ -29,7 +30,12 @@
     "@fastify/swagger": "^8.14.0",
     "@fastify/swagger-ui": "^3.0.0",
     "@prisma/client": "^5.14.0",
+    "ajv-errors": "^3.0.0",
     "fastify": "^4.27.0",
+    "nodemon": "^3.1.0",
     "types-ddd": "^3.9.1"
+  },
+  "resolutions": {
+    "string-width": "4.2.3"
   }
 }

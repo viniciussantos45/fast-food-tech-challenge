@@ -3,9 +3,15 @@ import Fastify from 'fastify'
 import fastifySwagger from '@fastify/swagger'
 import fastifySwaggerUi from '@fastify/swagger-ui'
 
-import { customerRoute } from './adapter/driver/http/routes/customer.route'
+import { registerRoutes } from './adapter/driver/http/routes'
 
 const server = Fastify({
+  ajv: {
+    customOptions: {
+      allErrors: true
+    },
+    plugins: [require('ajv-errors')]
+  },
   logger: true
 })
 
@@ -67,7 +73,7 @@ const start = async () => {
       transformSpecificationClone: true
     })
 
-    customerRoute(server)
+    registerRoutes(server)
 
     server.listen(
       {

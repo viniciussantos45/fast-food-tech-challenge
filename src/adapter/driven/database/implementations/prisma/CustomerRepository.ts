@@ -1,5 +1,6 @@
 import { ICustomerRepository } from '@/core/application/ports/CustomerRepository'
 import { Customer } from '@/core/domain/entities/Customer'
+import { CPF } from '@/core/domain/value-objects/CPF'
 import { PrismaClient } from '@prisma/client'
 
 export class CustomerRepository implements ICustomerRepository {
@@ -50,12 +51,12 @@ export class CustomerRepository implements ICustomerRepository {
       return undefined
     }
 
-    return new Customer(customer.cpf, customer.name, customer.email)
+    return new Customer(new CPF(customer.cpf), customer.name, customer.email)
   }
 
   public async getCustomers(): Promise<Customer[]> {
     const customers = await this.prisma.customer.findMany()
 
-    return customers.map((customer) => new Customer(customer.cpf, customer.name, customer.email))
+    return customers.map((customer) => new Customer(new CPF(customer.cpf), customer.name, customer.email))
   }
 }
