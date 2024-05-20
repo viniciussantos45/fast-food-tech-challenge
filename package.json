@@ -8,20 +8,25 @@
     "build": "tsc",
     "start": "node -r module-alias dist/index.js",
     "dev": "nodemon",
-    "test": "cucumber-js"
+    "test": "vitest run",
+    "test:cucumber": "cucumber-js"
   },
   "devDependencies": {
     "@cucumber/cucumber": "^10.6.0",
+    "@swc/core": "^1.5.7",
     "@types/node": "^20.12.12",
     "@typescript-eslint/eslint-plugin": "^7.8.0",
     "@typescript-eslint/parser": "^7.8.0",
+    "@vitest/coverage-v8": "^1.6.0",
     "eslint": "^9.1.1",
     "eslint-plugin-import": "^2.29.1",
     "eslint-plugin-prefer-arrow": "^1.2.3",
     "prettier": "^3.2.5",
     "prisma": "^5.14.0",
     "ts-node": "^10.9.2",
-    "typescript": "^5.4.5"
+    "typescript": "^5.4.5",
+    "unplugin-swc": "^1.4.5",
+    "vitest": "^1.6.0"
   },
   "_moduleAliases": {
     "@": "dist"
