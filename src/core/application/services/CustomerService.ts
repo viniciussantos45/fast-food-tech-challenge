@@ -1,5 +1,5 @@
+import { Customer } from '@/core/domain/entities/Customer'
 import { CPF } from '@/core/domain/value-objects/CPF'
-import { Customer } from '../../domain/entities/Customer'
 import { ICustomerRepository } from '../ports/CustomerRepository'
 
 export class CustomerService {

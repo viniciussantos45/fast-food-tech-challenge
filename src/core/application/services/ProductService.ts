@@ -1,10 +1,10 @@
 import { Product } from '../../domain/entities/Product'
-import { ProductRepository } from '../ports/ProductRepository'
+import { IProductRepository } from '../ports/ProductRepository'
 
 export class ProductService {
-  private productRepository: ProductRepository
+  private productRepository: IProductRepository
 
-  constructor(productRepository: ProductRepository) {
+  constructor(productRepository: IProductRepository) {
     this.productRepository = productRepository
   }
 

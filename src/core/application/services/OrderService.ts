@@ -1,11 +1,11 @@
 import { Order } from '../../domain/entities/Order'
 import { OrderConfirmed, OrderCreated, OrderUpdated } from '../../domain/events/OrderEvents'
-import { OrderRepository } from '../ports/OrderRepository'
+import { IOrderRepository } from '../ports/OrderRepository'
 
 export class OrderService {
-  private orderRepository: OrderRepository
+  private orderRepository: IOrderRepository
 
-  constructor(orderRepository: OrderRepository) {
+  constructor(orderRepository: IOrderRepository) {
     this.orderRepository = orderRepository
   }
 
