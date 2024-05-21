@@ -1,21 +1,24 @@
 // src/domain/product/Product.ts
 
+import { ProductCategory } from '../value-objects/ProductCategory'
+import { ProductImage } from '../value-objects/ProductImage'
+
 export class Product {
-  private id: string
-  private category: string
+  private id: string | null
+  private category: ProductCategory
   private price: number
   private description: string
-  private images: string[]
+  private images: ProductImage[]
 
-  constructor(category: string, price: number, description: string, images: string[]) {
-    this.id = Math.random().toString(36).substr(2, 9)
+  constructor(id: string | null, category: ProductCategory, price: number, description: string, images: ProductImage[]) {
+    this.id = id
     this.category = category
     this.price = price
     this.description = description
     this.images = images
   }
 
-  getId(): string {
+  getId(): string | null {
     return this.id
   }
 
@@ -23,11 +26,11 @@ export class Product {
     this.id = id
   }
 
-  getCategory(): string {
+  getCategory(): ProductCategory {
     return this.category
   }
 
-  setCategory(category: string): void {
+  setCategory(category: ProductCategory): void {
     this.category = category
   }
 
@@ -47,11 +50,11 @@ export class Product {
     this.description = description
   }
 
-  getImages(): string[] {
+  getImages(): ProductImage[] {
     return this.images
   }
 
-  setImages(images: string[]): void {
+  setImages(images: ProductImage[]): void {
     this.images = images
   }
 }

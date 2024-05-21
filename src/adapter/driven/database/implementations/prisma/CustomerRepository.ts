@@ -10,7 +10,7 @@ export class CustomerRepository implements ICustomerRepository {
     this.prisma = new PrismaClient()
   }
 
-  public async createCustomer(customer: Customer): Promise<void> {
+  public async createCustomer(customer: Customer): Promise<Customer | void> {
     await this.prisma.customer.create({
       data: {
         cpf: customer.getCpf(),

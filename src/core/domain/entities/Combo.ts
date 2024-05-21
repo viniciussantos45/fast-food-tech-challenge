@@ -23,10 +23,4 @@ export class Combo {
       this.products.splice(index, 1)
     }
   }
-
-  // Other methods for managing combos
-
-  // Getters and setters
-
-  // Other business logic
 }

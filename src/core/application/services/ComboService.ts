@@ -1,11 +1,11 @@
 import { Combo } from '../../domain/entities/Combo'
 import { Product } from '../../domain/entities/Product'
-import { ComboRepository } from '../ports/ComboRepository'
+import { IComboRepository } from '../ports/ComboRepository'
 
 export class ComboService {
-  private comboRepository: ComboRepository
+  private comboRepository: IComboRepository
 
-  constructor(comboRepository: ComboRepository) {
+  constructor(comboRepository: IComboRepository) {
     this.comboRepository = comboRepository
   }
 
