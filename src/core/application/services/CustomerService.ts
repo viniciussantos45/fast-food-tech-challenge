@@ -9,9 +9,17 @@ export class CustomerService {
     this.customerRepository = customerRepository
   }
 
-  public registerCustomer(cpfPlainText: string, name: string, email: string): void {
+  public async registerCustomer(cpfPlainText: string, name: string, email: string): Promise<void> {
     const cpf = new CPF(cpfPlainText)
+
+    const customerExists = await this.customerRepository.getCustomerById(cpfPlainText)
+
+    if (customerExists) {
+      throw new Error('Customer already exists')
+    }
+
     const customer = new Customer(cpf, name, email)
+
     this.customerRepository.createCustomer(customer)
   }
 

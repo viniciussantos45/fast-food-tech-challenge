@@ -1,17 +1,10 @@
 import { ICustomerRepository } from '@/core/application/ports/CustomerRepository'
 import { Customer } from '@/core/domain/entities/Customer'
-import { CPF } from '@/core/domain/value-objects/CPF'
 
 export class CustomerRepositoryMemory implements ICustomerRepository {
   public customers: Customer[] = []
 
   public async createCustomer(customer: Customer): Promise<Customer | void> {
-    const customerExists = this.customers.find((c) => c.getCpf() === customer.getCpf())
-
-    if (customerExists) {
-      return new Customer(new CPF(customerExists.getCpf()), customerExists.getName(), customerExists.getEmail())
-    }
-
     this.customers.push(customer)
   }
 

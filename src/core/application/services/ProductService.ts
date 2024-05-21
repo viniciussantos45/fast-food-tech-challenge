@@ -1,3 +1,5 @@
+import { ProductCategory } from '@/core/domain/value-objects/ProductCategory'
+import { ProductImage } from '@/core/domain/value-objects/ProductImage'
 import { Product } from '../../domain/entities/Product'
 import { IProductRepository } from '../ports/ProductRepository'
 
@@ -8,8 +10,21 @@ export class ProductService {
     this.productRepository = productRepository
   }
 
-  public addProduct(product: Product): void {
-    // Add product logic here
+  public async addProduct({
+    category,
+    description,
+    imagesUrl,
+    price
+  }: {
+    category: ProductCategory
+    description: string
+    imagesUrl: string[]
+    price: number
+  }): Promise<void> {
+    const images = imagesUrl.map((image) => new ProductImage(image))
+
+    const product = new Product(null, category, price, description, images)
+
     this.productRepository.addProduct(product)
   }
 

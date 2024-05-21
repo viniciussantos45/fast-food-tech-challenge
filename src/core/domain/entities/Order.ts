@@ -17,8 +17,4 @@ export class Order {
   public addCombo(combo: Combo): void {
     this.combos.push(combo)
   }
-
-  // Other methods for managing orders
-
-  // ...
 }

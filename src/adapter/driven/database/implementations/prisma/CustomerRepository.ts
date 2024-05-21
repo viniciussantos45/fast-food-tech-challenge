@@ -11,16 +11,6 @@ export class CustomerRepository implements ICustomerRepository {
   }
 
   public async createCustomer(customer: Customer): Promise<Customer | void> {
-    const customerExists = await this.prisma.customer.findUnique({
-      where: {
-        cpf: customer.getCpf()
-      }
-    })
-
-    if (customerExists) {
-      return new Customer(new CPF(customerExists.cpf), customerExists.name, customerExists.email)
-    }
-
     await this.prisma.customer.create({
       data: {
         cpf: customer.getCpf(),
