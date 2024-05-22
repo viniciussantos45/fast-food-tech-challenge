@@ -10,6 +10,7 @@ export class ProductRepositoryMemory implements IProductRepository {
     if (productExists) {
       return new Product(
         productExists.getId(),
+        productExists.getName(),
         productExists.getCategory(),
         productExists.getPrice(),
         productExists.getDescription(),
@@ -18,7 +19,7 @@ export class ProductRepositoryMemory implements IProductRepository {
     }
 
     if (!product.getId()) {
-      product.setId(String(this.products.length + 1))
+      product.setId(this.products.length + 1)
     }
 
     this.products.push(product)
@@ -29,7 +30,7 @@ export class ProductRepositoryMemory implements IProductRepository {
     this.products[productIndex] = product
   }
 
-  public async removeProduct(productId: string): Promise<void> {
+  public async removeProduct(productId: number): Promise<void> {
     this.products = this.products.filter((p) => p.getId() !== productId)
   }
 }

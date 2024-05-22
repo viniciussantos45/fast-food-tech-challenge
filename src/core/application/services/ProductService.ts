@@ -11,11 +11,13 @@ export class ProductService {
   }
 
   public async addProduct({
+    name,
     category,
     description,
     imagesUrl,
     price
   }: {
+    name: string
     category: ProductCategory
     description: string
     imagesUrl: string[]
@@ -23,7 +25,7 @@ export class ProductService {
   }): Promise<void> {
     const images = imagesUrl.map((image) => new ProductImage(image))
 
-    const product = new Product(null, category, price, description, images)
+    const product = new Product(null, name, category, price, description, images)
 
     this.productRepository.addProduct(product)
   }
@@ -33,7 +35,7 @@ export class ProductService {
     this.productRepository.editProduct(product)
   }
 
-  public removeProduct(productId: string): void {
+  public removeProduct(productId: number): void {
     // Remove product logic here
     this.productRepository.removeProduct(productId)
   }
