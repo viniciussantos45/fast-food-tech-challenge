@@ -7,10 +7,7 @@ import { CustomerCreateDto } from '../dtos/CustomerDtos'
 const customerRepository = new CustomerRepository()
 const customerService = new CustomerService(customerRepository)
 
-export const registerCustomer = async (
-  request: FastifyRequest<{ Body: CustomerCreateDto }>,
-  reply: FastifyReply
-): Promise<void> => {
+export async function registerCustomer(request: FastifyRequest<{ Body: CustomerCreateDto }>, reply: FastifyReply): Promise<void> {
   const { cpf, name, email } = request.body
 
   customerService.registerCustomer(cpf, name, email)
@@ -18,8 +15,10 @@ export const registerCustomer = async (
   reply.status(201).send()
 }
 
-export const updateCustomer = async (request: FastifyRequest<{ Body: CustomerCreateDto }>, reply: FastifyReply) => {
+export async function updateCustomer(request: FastifyRequest<{ Body: CustomerCreateDto }>, reply: FastifyReply) {
   const { cpf, name, email } = request.body
+
   customerService.updateCustomer(cpf, name, email)
+
   reply.status(200).send()
 }

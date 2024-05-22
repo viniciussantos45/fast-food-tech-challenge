@@ -14,6 +14,7 @@ describe('Product', () => {
 
   it('should add a product', async () => {
     const product = {
+      name: 'Product',
       category: ProductCategory.FOOD,
       price: 10,
       description: 'Description',
@@ -23,10 +24,14 @@ describe('Product', () => {
     productService.addProduct(product)
 
     expect(productRepositoryMemory.products).toHaveLength(1)
+    expect(productRepositoryMemory.products[0].getName()).toBe('Product')
+    expect(productRepositoryMemory.products[0].getCategory()).toBe(ProductCategory.FOOD)
+    expect(productRepositoryMemory.products[0].getPrice()).toBe(10)
   })
 
   it('should not add a product with invalid image URL', async () => {
     const product = {
+      name: 'Product',
       category: ProductCategory.FOOD,
       price: 10,
       description: 'Description',
