@@ -1,15 +1,15 @@
 import { Product } from './Product'
 
 export class Combo {
-  private id: string
+  private id: number | null
   private products: Product[]
 
-  constructor(products: Product[] = []) {
-    this.id = Math.random().toString(36).substr(2, 9)
+  constructor(id: number | null, products: Product[] = []) {
+    this.id = id
     this.products = products
   }
 
-  public getId(): string {
+  public getId(): number | null {
     return this.id
   }
 
