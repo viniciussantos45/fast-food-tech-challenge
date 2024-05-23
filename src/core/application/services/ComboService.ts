@@ -9,7 +9,12 @@ export class ComboService {
     this.comboRepository = comboRepository
   }
 
-  public createCombo(products: Product[]): Combo {
+  public async getComboById(id: number): Promise<Combo | null> {
+    const combo = await this.comboRepository.getComboById(id)
+    return combo
+  }
+
+  public saveCombo(products: Product[]): Combo {
     // Logic to create a combo with the given products
     const combo = new Combo(products)
     this.comboRepository.saveCombo(combo)

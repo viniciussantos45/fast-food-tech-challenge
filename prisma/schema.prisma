@@ -21,13 +21,16 @@ model Customer {
 }
 
 model Product {
-  id          Int    @id @default(autoincrement())
+  id          Int     @id @default(autoincrement())
   name        String
   category    String
-  price       Float
+  price       Decimal
   description String
 
   images ProductImages[]
+
+  combo          Combo[]
+  ProductToCombo ProductToCombo[]
 }
 
 model ProductImages {
@@ -35,4 +38,23 @@ model ProductImages {
   productId Int
   url       String
   product   Product @relation(fields: [productId], references: [id])
+}
+
+model Combo {
+  id Int @id @default(autoincrement())
+
+  products       Product[]
+  ProductToCombo ProductToCombo[]
+}
+
+model ProductToCombo {
+  product    Product @relation(fields: [product_id], references: [id])
+  product_id Int
+
+  combo    Combo @relation(fields: [combo_id], references: [id])
+  combo_id Int
+
+  created_at DateTime @default(now())
+
+  @@id([product_id, combo_id])
 }
