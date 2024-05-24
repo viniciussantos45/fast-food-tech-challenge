@@ -1,7 +1,7 @@
 import { Product } from './Product'
 
 export class Combo {
-  private id: number | null
+  private id!: number | null
   private products: Product[]
 
   constructor(products: Product[] = []) {
@@ -10,6 +10,13 @@ export class Combo {
 
   public getId(): number | null {
     return this.id
+  }
+
+  public getProductsId(productId: number): (number | null)[] {
+    // TODO
+    const product = new Product()
+    const listOfProductsId = this.products.map((product) => product.getId())
+    return listOfProductsId
   }
 
   public addProduct(product: Product): void {

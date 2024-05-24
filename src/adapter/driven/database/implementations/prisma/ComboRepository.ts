@@ -13,11 +13,7 @@ export class ComboRepository implements IComboRepository {
   async saveCombo(combo: Combo): Promise<void> {
     await this.prisma.combo.create({
       data: {
-        products: {
-          create: {
-            //  TODO: Conferir o DTO. No n:n, ver como serão inseridos os valores dos pedidos aqui
-          }
-        }
+        id: combo.getId()
       }
     })
     throw new Error('Method not implemented.')

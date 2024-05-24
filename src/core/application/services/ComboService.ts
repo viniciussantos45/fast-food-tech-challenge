@@ -30,6 +30,9 @@ export class ComboService {
 
   public deleteCombo(combo: Combo): void {
     // Logic to delete the combo
-    this.comboRepository.deleteCombo(combo.getId())
+    const comboId = combo.getId()
+    if (comboId !== null) {
+      this.comboRepository.deleteCombo(comboId)
+    }
   }
 }

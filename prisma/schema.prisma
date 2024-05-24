@@ -18,6 +18,38 @@ model Customer {
   cpf   String @unique
   name  String
   email String @unique
+
+  orders Order[]
+}
+
+model Order {
+  id Int @id @default(autoincrement())
+
+  combos Combo[]
+
+  customer    Customer @relation(fields: [customer_id], references: [id])
+  customer_id Int
+}
+
+model Combo {
+  id Int @id @default(autoincrement())
+
+  comboProducts ComboProducts[]
+
+  order    Order @relation(fields: [order_id], references: [id])
+  order_id Int
+}
+
+model ComboProducts {
+  product    Product @relation(fields: [product_id], references: [id])
+  product_id Int
+
+  combo    Combo @relation(fields: [combo_id], references: [id])
+  combo_id Int
+
+  created_at DateTime @default(now())
+
+  @@id([product_id, combo_id])
 }
 
 model Product {
@@ -29,32 +61,13 @@ model Product {
 
   images ProductImages[]
 
-  combo          Combo[]
-  ProductToCombo ProductToCombo[]
+  comboProducts ComboProducts[]
 }
 
 model ProductImages {
-  id        Int     @id @default(autoincrement())
-  productId Int
-  url       String
+  id  Int    @id @default(autoincrement())
+  url String
+
   product   Product @relation(fields: [productId], references: [id])
-}
-
-model Combo {
-  id Int @id @default(autoincrement())
-
-  products       Product[]
-  ProductToCombo ProductToCombo[]
-}
-
-model ProductToCombo {
-  product    Product @relation(fields: [product_id], references: [id])
-  product_id Int
-
-  combo    Combo @relation(fields: [combo_id], references: [id])
-  combo_id Int
-
-  created_at DateTime @default(now())
-
-  @@id([product_id, combo_id])
+  productId Int
 }
