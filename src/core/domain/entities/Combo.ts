@@ -12,11 +12,8 @@ export class Combo {
     return this.id
   }
 
-  public getProductsId(productId: number): (number | null)[] {
-    // TODO
-    const product = new Product()
-    const listOfProductsId = this.products.map((product) => product.getId())
-    return listOfProductsId
+  public getProductsIds(): number[] {
+    return this.products.map((product) => product.getId()).filter((id) => id !== null) as number[]
   }
 
   public addProduct(product: Product): void {

@@ -39,4 +39,9 @@ export class ProductService {
     // Remove product logic here
     this.productRepository.removeProduct(productId)
   }
+
+  public async getProductsByIds(productIds: number[]): Promise<Product[]> {
+    const products = await this.productRepository.getProductsByIds(productIds)
+    return products
+  }
 }

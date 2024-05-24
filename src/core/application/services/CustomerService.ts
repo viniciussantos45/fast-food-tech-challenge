@@ -31,4 +31,9 @@ export class CustomerService {
       this.customerRepository.updateCustomer(customer)
     }
   }
+
+  public async loadCustomer(cpf: string): Promise<Customer | undefined> {
+    const customer = await this.customerRepository.getCustomerById(cpf)
+    return customer
+  }
 }

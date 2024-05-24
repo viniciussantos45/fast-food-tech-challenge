@@ -4,18 +4,31 @@ import { Combo } from './Combo'
 import { Customer } from './Customer'
 
 export class Order {
+  private id: number | null
   private customer: Customer
   private combos: Combo[]
   private statusPayment: PaymentStatus
   private status: OrderStatus
   private createdAt: Date
 
-  constructor(customer: Customer, combos: Combo[], statusPayment: PaymentStatus, status: OrderStatus, createdAt: Date) {
+  constructor(
+    id: number | null,
+    customer: Customer,
+    combos: Combo[],
+    statusPayment: PaymentStatus,
+    status: OrderStatus,
+    createdAt: Date
+  ) {
+    this.id = id
     this.customer = customer
     this.combos = combos
     this.statusPayment = statusPayment
     this.status = status
     this.createdAt = createdAt
+  }
+
+  public getId(): number | null {
+    return this.id
   }
 
   public getCustomer(): Customer {

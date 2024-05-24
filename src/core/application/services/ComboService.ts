@@ -14,21 +14,21 @@ export class ComboService {
     return combo
   }
 
-  public saveCombo(products: Product[]): Combo {
+  public async saveCombo(products: Product[]): Promise<Combo> {
     // Logic to create a combo with the given products
     const combo = new Combo(products)
     this.comboRepository.saveCombo(combo)
     return combo
   }
 
-  public updateCombo(combo: Combo, products: Product[]): Combo {
+  public async updateCombo(combo: Combo, products: Product[]): Promise<Combo> {
     // Logic to update the combo with the given products
     // combo.updateProducts(products)
     this.comboRepository.saveCombo(combo)
     return combo
   }
 
-  public deleteCombo(combo: Combo): void {
+  public async deleteCombo(combo: Combo): Promise<void> {
     // Logic to delete the combo
     const comboId = combo.getId()
     if (comboId !== null) {
