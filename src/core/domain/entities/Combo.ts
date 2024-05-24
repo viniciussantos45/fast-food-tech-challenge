@@ -1,14 +1,14 @@
 import { Product } from './Product'
 
 export class Combo {
-  private id!: number
+  private id: number | null
   private products: Product[]
 
   constructor(products: Product[] = []) {
     this.products = products
   }
 
-  public getId(): number {
+  public getId(): number | null {
     return this.id
   }
 
