@@ -1,25 +1,25 @@
 import { CPF } from '../value-objects/CPF'
 
 export class Customer {
-  private cpf: CPF
+  private cpf?: CPF
   private name: string
-  private email: string
+  private email?: string
 
-  constructor(cpf: CPF, name: string, email: string) {
+  constructor(cpf: CPF | undefined, name: string, email: string | undefined) {
     this.cpf = cpf
     this.name = name
     this.email = email
   }
 
-  public getCpf(): string {
-    return this.cpf.getValue()
+  public getCpf(): string | undefined {
+    return this.cpf?.getValue()
   }
 
   public getName(): string {
     return this.name
   }
 
-  public getEmail(): string {
+  public getEmail(): string | undefined {
     return this.email
   }
 

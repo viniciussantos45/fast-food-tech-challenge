@@ -1,5 +1,6 @@
 import { ProductCategory } from '@/core/domain/value-objects/ProductCategory'
 import { ProductImage } from '@/core/domain/value-objects/ProductImage'
+
 import { Product } from '../../domain/entities/Product'
 import { IProductRepository } from '../ports/ProductRepository'
 
@@ -42,6 +43,16 @@ export class ProductService {
 
   public async getProductsByIds(productIds: number[]): Promise<Product[]> {
     const products = await this.productRepository.getProductsByIds(productIds)
+    return products
+  }
+
+  public async listProducts(): Promise<Product[]> {
+    const products = await this.productRepository.listProducts()
+    return products
+  }
+
+  public async listProductsByCategory(category: ProductCategory): Promise<Product[]> {
+    const products = await this.productRepository.listProductsByCategory(category)
     return products
   }
 }

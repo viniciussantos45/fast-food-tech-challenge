@@ -1,8 +1,9 @@
+import { PrismaClient } from '@prisma/client'
+
 import { IProductRepository } from '@/core/application/ports/ProductRepository'
 import { Product } from '@/core/domain/entities/Product'
 import { ProductCategory } from '@/core/domain/value-objects/ProductCategory'
 import { ProductImage } from '@/core/domain/value-objects/ProductImage'
-import { PrismaClient } from '@prisma/client'
 
 export class ProductRepository implements IProductRepository {
   private prisma: PrismaClient
@@ -10,6 +11,7 @@ export class ProductRepository implements IProductRepository {
   constructor() {
     this.prisma = new PrismaClient()
   }
+
   async addProduct(product: Product): Promise<void> {
     await this.prisma.product.create({
       data: {
@@ -25,6 +27,7 @@ export class ProductRepository implements IProductRepository {
       }
     })
   }
+
   async editProduct(product: Product): Promise<void> {
     const productId = product.getId()
 
@@ -49,6 +52,7 @@ export class ProductRepository implements IProductRepository {
       }
     })
   }
+
   async removeProduct(productId: number): Promise<void> {
     await this.prisma.product.delete({
       where: {
@@ -56,6 +60,7 @@ export class ProductRepository implements IProductRepository {
       }
     })
   }
+
   async getProductsByIds(productIds: number[]): Promise<Product[]> {
     const products = await this.prisma.product.findMany({
       where: {
@@ -69,6 +74,47 @@ export class ProductRepository implements IProductRepository {
     })
 
     return products.map((product) => {
+      return new Product(
+        product.id,
+        product.name,
+        new ProductCategory(product.category),
+        product.price.toNumber(),
+        product.description,
+        product.images.map((image) => new ProductImage(image.url))
+      )
+    })
+  }
+
+  async listProducts(): Promise<Product[]> {
+    const listOfProducts = await this.prisma.product.findMany({
+      include: {
+        images: true
+      }
+    })
+
+    return listOfProducts.map((product) => {
+      return new Product(
+        product.id,
+        product.name,
+        new ProductCategory(product.category),
+        product.price.toNumber(),
+        product.description,
+        product.images.map((image) => new ProductImage(image.url))
+      )
+    })
+  }
+
+  async listProductsByCategory(category: ProductCategory): Promise<Product[]> {
+    const listOfProducts = await this.prisma.product.findMany({
+      where: {
+        category: category.getValue()
+      },
+      include: {
+        images: true
+      }
+    })
+
+    return listOfProducts.map((product) => {
       return new Product(
         product.id,
         product.name,

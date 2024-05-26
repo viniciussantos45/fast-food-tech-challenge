@@ -1,8 +1,8 @@
 export enum ProductCategoryEnum {
-  FOOD = 'food',
-  DRINK = 'drink',
-  ACCOMPANIMENT = 'accompaniment',
-  DESSERT = 'dessert'
+  FOOD = 'Lanche',
+  ACCOMPANIMENT = 'Acompanhamento',
+  DRINK = 'Bebida',
+  DESSERT = 'Sobremesa'
 }
 
 export class ProductCategory {
