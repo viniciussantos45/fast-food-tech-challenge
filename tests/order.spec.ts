@@ -1,3 +1,5 @@
+import { describe, expect, it } from 'vitest'
+
 import { ComboRepositoryMemory } from '@/adapter/driven/database/implementations/memory/ComboRepository'
 import { CustomerRepositoryMemory } from '@/adapter/driven/database/implementations/memory/CustomerRepository'
 import { OrderRepositoryMemory } from '@/adapter/driven/database/implementations/memory/OrderRepository'
@@ -7,7 +9,6 @@ import { CustomerService } from '@/core/application/services/CustomerService'
 import { OrderService } from '@/core/application/services/OrderService'
 import { ProductService } from '@/core/application/services/ProductService'
 import { CPF } from '@/core/domain/value-objects/CPF'
-import { describe, expect, it } from 'vitest'
 
 const orderRepositoryMemory = new OrderRepositoryMemory()
 const comboRepositoryMemory = new ComboRepositoryMemory()
@@ -30,8 +31,13 @@ describe('Order', () => {
     await customerService.registerCustomer(customer.cpf, customer.name, customer.email)
 
     const order = await orderService.createOrder({
-      combos: [{ productIds: [1, 2, 3] }],
-      customerId: new CPF(customer.cpf)
+      productIdsByCombo: [
+        {
+          productIds: [1, 2, 3],
+          comboId: 1
+        }
+      ],
+      customerCpf: new CPF(customer.cpf)
     })
 
     expect(order).toBeDefined()

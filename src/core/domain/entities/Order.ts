@@ -4,30 +4,30 @@ import { Combo } from './Combo'
 import { Customer } from './Customer'
 
 export class Order {
-  private id: number | null
+  private id: number | undefined
   private customer: Customer
   private combos: Combo[]
-  private statusPayment: PaymentStatus
-  private status: OrderStatus
+  private statusPayment: PaymentStatus | undefined
+  private orderStatus: OrderStatus | undefined
   private createdAt: Date
 
   constructor(
-    id: number | null,
+    id: number | undefined,
     customer: Customer,
     combos: Combo[],
-    statusPayment: PaymentStatus,
-    status: OrderStatus,
+    statusPayment: PaymentStatus | undefined,
+    status: OrderStatus | undefined,
     createdAt: Date
   ) {
     this.id = id
     this.customer = customer
     this.combos = combos
     this.statusPayment = statusPayment
-    this.status = status
+    this.orderStatus = status
     this.createdAt = createdAt
   }
 
-  public getId(): number | null {
+  public getId(): number | undefined {
     return this.id
   }
 
@@ -39,12 +39,12 @@ export class Order {
     return this.combos
   }
 
-  public getStatusPayment(): PaymentStatus {
+  public getStatusPayment(): PaymentStatus | undefined {
     return this.statusPayment
   }
 
-  public getStatus(): OrderStatus {
-    return this.status
+  public getOrderStatus(): OrderStatus | undefined {
+    return this.orderStatus
   }
 
   public getCreatedAt(): Date {
@@ -63,8 +63,8 @@ export class Order {
     this.statusPayment = statusPayment
   }
 
-  public setStatus(status: OrderStatus): void {
-    this.status = status
+  public setOrderStatus(status: OrderStatus): void {
+    this.orderStatus = status
   }
 
   public setCreatedAt(createdAt: Date): void {
