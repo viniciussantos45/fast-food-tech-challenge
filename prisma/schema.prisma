@@ -14,25 +14,29 @@ datasource db {
 }
 
 model Customer {
-  id    Int    @id @default(autoincrement())
-  cpf   String @unique
+  id    Int     @id @default(autoincrement())
+  cpf   String? @unique
   name  String
-  email String @unique
+  email String? @unique
 
   orders Order[]
+
+  @@map("customer")
 }
 
 model Order {
-  id Int @id @default(autoincrement())
+  id            Int      @id @default(autoincrement())
+  statusPayment String?  @map("status_payment")
+  orderStatus   String?  @map("order_status")
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @default(now()) @map("updated_at")
 
   combos Combo[]
 
-  statusPayment String   @map("status_payment")
-  status        String
-  createdAt     DateTime @default(now()) @map("created_at")
-
   customer    Customer @relation(fields: [customer_id], references: [id])
   customer_id Int
+
+  @@map("order")
 }
 
 model Combo {
@@ -42,6 +46,8 @@ model Combo {
 
   order    Order @relation(fields: [order_id], references: [id])
   order_id Int
+
+  @@map("combo")
 }
 
 model ComboProducts {
@@ -54,18 +60,21 @@ model ComboProducts {
   created_at DateTime @default(now())
 
   @@id([product_id, combo_id])
+  @@map("combo_products")
 }
 
 model Product {
   id          Int     @id @default(autoincrement())
   name        String
   category    String
-  price       Decimal
+  price       Decimal @db.Decimal(10, 2)
   description String
 
   images ProductImages[]
 
   comboProducts ComboProducts[]
+
+  @@map("product")
 }
 
 model ProductImages {
@@ -74,4 +83,6 @@ model ProductImages {
 
   product   Product @relation(fields: [productId], references: [id])
   productId Int
+
+  @@map("product_images")
 }
