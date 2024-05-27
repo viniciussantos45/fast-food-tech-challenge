@@ -10,7 +10,7 @@ import { CustomerService } from './CustomerService'
 import { ProductService } from './ProductService'
 
 type ComboParams = {
-  productIds: number[]
+  productsIds: number[]
 }
 
 type CreateOrderDTO = {
@@ -39,7 +39,7 @@ export class OrderService {
   async createOrder({ combos, customerId }: CreateOrderDTO): Promise<Order> {
     const createdCombos = await Promise.all(
       combos.map(async (combo) => {
-        const products = await this.productService.getProductsByIds(combo.productIds)
+        const products = await this.productService.getProductsByIds(combo.productsIds)
 
         return new Combo(products)
       })

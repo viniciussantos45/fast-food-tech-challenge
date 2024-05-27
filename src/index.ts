@@ -33,7 +33,8 @@ const start = async () => {
         ],
         tags: [
           { name: 'customer', description: 'Customer related end-points' },
-          { name: 'products', description: 'Products related end-points' }
+          { name: 'products', description: 'Products related end-points' },
+          { name: 'order', description: 'Order related end-points' }
         ],
         components: {
           securitySchemes: {

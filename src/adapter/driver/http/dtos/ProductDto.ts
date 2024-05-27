@@ -1,8 +1,6 @@
-import { ProductCategory } from '@/core/domain/value-objects/ProductCategory'
-
 export class ProductCreateDto {
   name!: string
-  category!: ProductCategory
+  category!: string
   price!: number
   description!: string
   images!: string[]

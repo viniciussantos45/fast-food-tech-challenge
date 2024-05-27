@@ -1,6 +1,5 @@
 import { IComboRepository } from '@/core/application/ports/ComboRepository'
 import { Combo } from '@/core/domain/entities/Combo'
-import { Product } from '@/core/domain/entities/Product'
 import { PrismaClient } from '@prisma/client'
 
 export class ComboRepository implements IComboRepository {
@@ -9,13 +8,8 @@ export class ComboRepository implements IComboRepository {
   constructor() {
     this.prisma = new PrismaClient()
   }
-  
+
   async saveCombo(combo: Combo): Promise<void> {
-    await this.prisma.combo.create({
-      data: {
-        id: combo.getId()
-      }
-    })
     throw new Error('Method not implemented.')
   }
   getComboById(comboId: number): Promise<Combo | null> {

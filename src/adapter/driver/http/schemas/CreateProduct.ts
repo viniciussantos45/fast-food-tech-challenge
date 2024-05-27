@@ -2,7 +2,7 @@ import { FastifySchema } from 'fastify'
 
 export const createProductSchema: FastifySchema = {
   description: 'Create a new product',
-  tags: ['product'],
+  tags: ['products'],
   body: {
     type: 'object',
     required: ['name', 'category', 'price', 'description', 'images'],
