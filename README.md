@@ -1,6 +1,16 @@
-# Project README
+# FAST FOOD TECH CHALLENGE
 
-This repository contains the source code for a project that implements a domain-driven design (DDD) architecture. The project structure is as follows:
+#node #yarn #typescript #fastify #postgres
+
+This project is an API for a fast food system.
+
+## Event Storming
+
+[https://miro.com/app/board/uXjVKXKeOYw=/](https://miro.com/app/board/uXjVKXKeOYw=/)
+
+## Structure
+
+This repository contains the source code for a project that implements a domain-driven design (DDD) with hexagonal architecture. The project structure is as follows:
 
 ```
 project-root
@@ -73,14 +83,49 @@ To run the project, follow these steps:
 
 1. Clone the repository.
 2. Install the dependencies.
+    - Run in the terminal
+      ```
+      docker compose up
+      ```
+
 3. Build the project.
+    - Run in the other terminal
+
+      ```
+      yarn build
+      yarn start
+      ```
+
 4. Start the application.
 
-Feel free to explore the code and make any necessary modifications to suit your needs.
+    ```
+    yarn dev
+    ```
+
+5. Access the application [http://localhost:3000/](http://localhost:3000/)
+
+
+## Run Swagger
+
+Access the application [http://localhost:3000/docs](http://localhost:3000/docs)
 
 ## Contributing
 
-If you would like to contribute to this project, please follow the guidelines outlined in the CONTRIBUTING.md file.
+Feel free to explore the code and make any necessary modifications to suit your needs.
+
+### Commit description
+
+Use the tags:
+
+feat: (new feature for the user, not a new feature for build script)
+fix: (bug fix for the user, not a fix to a build script)
+docs: (changes to the documentation)
+style: (formatting, missing semi colons, etc; no production code change)
+refactor: (refactoring production code, eg. renaming a variable)
+test: (adding missing tests, refactoring tests; no production code change)
+chore: (updating grunt tasks etc; no production code change)
+
+Ref.: [Semantic Commit Messages](https://gist.github.com/joshbuchea/6f47e86d2510bce28f8e7f42ae84c716#file-semantic-commit-messages-md)
 
 ## License
 
