@@ -11,6 +11,7 @@
     "test": "vitest run",
     "test:cucumber": "cucumber-js"
   },
+  "type": "module",
   "devDependencies": {
     "@cucumber/cucumber": "^10.6.0",
     "@swc/core": "^1.5.7",
