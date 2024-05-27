@@ -1,9 +1,5 @@
 import { FastifySchema } from 'fastify'
 
-import { Combo } from '@/core/domain/entities/Combo'
-import { OrderStatus } from '@/core/domain/value-objects/OrderStatus'
-import { PaymentStatus } from '@/core/domain/value-objects/PaymentStatus'
-
 export const createOrderSchema: FastifySchema = {
   description: 'Create a new order',
   tags: ['order'],
@@ -12,9 +8,19 @@ export const createOrderSchema: FastifySchema = {
     required: ['customer', 'combos', 'statusPayment', 'status'],
     properties: {
       customer: { type: 'string' },
-      combos: { type: Combo },
-      statusPayment: { type: PaymentStatus },
-      status: { type: OrderStatus }
+      combos: {
+        type: 'array', // Assuming combos is an array of Combo objects
+        items: {
+          type: 'object',
+          properties: {
+            id: { type: 'number' },
+            name: { type: 'string' }
+          },
+          required: ['id', 'name']
+        }
+      },
+      statusPayment: { type: 'string' }, // Assuming statusPayment is a string
+      status: { type: 'string' } // Assuming status is a string
     }
   },
   response: {
@@ -24,9 +30,19 @@ export const createOrderSchema: FastifySchema = {
       properties: {
         id: { type: 'number' },
         customer: { type: 'string' },
-        combos: { type: Combo },
-        statusPayment: { type: PaymentStatus },
-        status: { type: OrderStatus }
+        combos: {
+          type: 'array',
+          items: {
+            type: 'object',
+            properties: {
+              id: { type: 'number' },
+              name: { type: 'string' }
+            },
+            required: ['id', 'name']
+          }
+        },
+        statusPayment: { type: 'string' },
+        status: { type: 'string' }
       }
     }
   }

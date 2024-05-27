@@ -2,6 +2,7 @@ import { FastifyReply, FastifyRequest } from 'fastify'
 
 import { CustomerRepository } from '@/adapter/driven/database/implementations/prisma'
 import { CustomerService } from '@/core/application/services/CustomerService'
+
 import { CustomerCreateDto } from '../dtos/CustomerDtos'
 
 const customerRepository = new CustomerRepository()

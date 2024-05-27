@@ -54,7 +54,7 @@ export class OrderService {
     }
 
     // Payment should be approved by default
-    const order = new Order(undefined, customer, createdCombos, PaymentStatus.APPROVED, OrderStatus.IN_PROGRESS, new Date())
+    const order = new Order(null, customer, createdCombos, PaymentStatus.APPROVED, OrderStatus.IN_PROGRESS, new Date())
 
     await this.orderRepository.saveOrder(order)
 

@@ -39,7 +39,7 @@ export class OrderRepository implements IOrderRepository {
             }
           }))
         },
-        orderStatus: order.getOrderStatus(),
+        status: order.getOrderStatus(),
         statusPayment: order.getStatusPayment()
       }
     })
@@ -98,7 +98,7 @@ export class OrderRepository implements IOrderRepository {
       )
     })
     const paymentStatus = order.statusPayment as PaymentStatus
-    const orderStatus = order.orderStatus as OrderStatus
+    const orderStatus = order.status as OrderStatus
 
     return new Order(order.id, customer, combos, paymentStatus, orderStatus, order.createdAt)
   }
@@ -145,7 +145,7 @@ export class OrderRepository implements IOrderRepository {
         )
       })
       const statusPayment = order.statusPayment as PaymentStatus
-      const orderStatus = order.orderStatus as OrderStatus
+      const orderStatus = order.status as OrderStatus
 
       return new Order(order.id, customer, combos, statusPayment, orderStatus, order.createdAt)
     })
@@ -161,12 +161,18 @@ export class OrderRepository implements IOrderRepository {
   }
 
   async updateOrderStatus(order: Order): Promise<Order> {
+    const id = order.getId()
+
+    if (!id) {
+      throw new Error('Order id not found')
+    }
+
     const updatedOrder = await this.prisma.order.update({
       where: {
-        id: order.getId()
+        id
       },
       data: {
-        orderStatus: order.getOrderStatus()
+        status: order.getOrderStatus()
       }
     })
 

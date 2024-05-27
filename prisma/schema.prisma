@@ -14,10 +14,10 @@ datasource db {
 }
 
 model Customer {
-  id    Int     @id @default(autoincrement())
-  cpf   String? @unique
+  id    Int    @id @default(autoincrement())
+  cpf   String @unique
   name  String
-  email String? @unique
+  email String @unique
 
   orders Order[]
 
@@ -26,8 +26,8 @@ model Customer {
 
 model Order {
   id            Int      @id @default(autoincrement())
-  statusPayment String?  @map("status_payment")
-  orderStatus   String?  @map("order_status")
+  statusPayment String   @map("status_payment")
+  status        String   @map("status")
   createdAt     DateTime @default(now()) @map("created_at")
   updatedAt     DateTime @default(now()) @map("updated_at")
 
