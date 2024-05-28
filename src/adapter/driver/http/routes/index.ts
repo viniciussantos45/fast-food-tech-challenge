@@ -1,5 +1,6 @@
 import { FastifyInstance } from 'fastify'
 
+import { checkOutRoutes } from './CheckOutRoutes'
 import { customerRoutes } from './CustomerRoutes'
 import { orderRoutes } from './OrderRoutes'
 import { productRoutes } from './ProductRoutes'
@@ -8,4 +9,5 @@ export const registerRoutes = (fastify: FastifyInstance): void => {
   customerRoutes(fastify)
   productRoutes(fastify)
   orderRoutes(fastify)
+  checkOutRoutes(fastify)
 }
