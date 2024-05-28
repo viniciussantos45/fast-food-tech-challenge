@@ -107,7 +107,7 @@ To run the project, follow these steps:
 
 ## Run Swagger
 
-Access the application [http://localhost:3000/docs](http://localhost:3000/docs)
+Access the application [http://localhost:3000/documentation](http://localhost:3000/documentation)
 
 ## Contributing
 
