@@ -10,7 +10,7 @@ const customerService = new CustomerService(customerRepository)
 export async function registerCustomer(request: FastifyRequest<{ Body: CustomerCreateDto }>, reply: FastifyReply): Promise<void> {
   const { cpf, name, email } = request.body
 
-  customerService.registerCustomer(cpf, name, email)
+  await customerService.registerCustomer(cpf, name, email)
 
   reply.status(201).send()
 }
@@ -18,7 +18,7 @@ export async function registerCustomer(request: FastifyRequest<{ Body: CustomerC
 export async function updateCustomer(request: FastifyRequest<{ Body: CustomerCreateDto }>, reply: FastifyReply) {
   const { cpf, name, email } = request.body
 
-  customerService.updateCustomer(cpf, name, email)
+  await customerService.updateCustomer(cpf, name, email)
 
   reply.status(200).send()
 }

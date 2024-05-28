@@ -27,17 +27,17 @@ export class ProductService {
 
     const product = new Product(null, name, category, price, description, images)
 
-    this.productRepository.addProduct(product)
+    await this.productRepository.addProduct(product)
   }
 
-  public editProduct(product: Product): void {
+  public async editProduct(product: Product): Promise<void> {
     // Edit product logic here
-    this.productRepository.editProduct(product)
+    await this.productRepository.editProduct(product)
   }
 
-  public removeProduct(productId: number): void {
+  public async removeProduct(productId: number): Promise<void> {
     // Remove product logic here
-    this.productRepository.removeProduct(productId)
+    await this.productRepository.removeProduct(productId)
   }
 
   public async getProductsByIds(productIds: number[]): Promise<Product[]> {
