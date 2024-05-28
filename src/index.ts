@@ -85,7 +85,7 @@ const start = async () => {
     await server.register(fastifySwaggerUi, {
       routePrefix: '/documentation',
       uiConfig: {
-        docExpansion: 'full',
+        docExpansion: 'list',
         deepLinking: false
       },
       uiHooks: {

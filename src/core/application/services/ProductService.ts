@@ -30,8 +30,48 @@ export class ProductService {
     await this.productRepository.addProduct(product)
   }
 
-  public async editProduct(product: Product): Promise<void> {
-    // Edit product logic here
+  public async editProduct({
+    id,
+    name,
+    category,
+    description,
+    imagesUrl,
+    price
+  }: {
+    id: number
+    name?: string
+    category?: string
+    description?: string
+    imagesUrl?: string[]
+    price?: number
+  }): Promise<void> {
+    const product = await this.productRepository.getProductById(id)
+
+    if (!product) {
+      throw new Error('Product not found')
+    }
+
+    if (name) {
+      product.setName(name)
+    }
+
+    if (category) {
+      product.setCategory(new ProductCategory(category))
+    }
+
+    if (price) {
+      product.setPrice(price)
+    }
+
+    if (description) {
+      product.setDescription(description)
+    }
+
+    if (imagesUrl) {
+      const images = imagesUrl.map((image) => new ProductImage(image))
+      product.setImages(images)
+    }
+
     await this.productRepository.editProduct(product)
   }
 

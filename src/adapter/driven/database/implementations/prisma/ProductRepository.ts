@@ -79,4 +79,28 @@ export class ProductRepository implements IProductRepository {
       )
     })
   }
+
+  async getProductById(productId: number): Promise<Product | undefined> {
+    const product = await this.prisma.product.findUnique({
+      where: {
+        id: productId
+      },
+      include: {
+        images: true
+      }
+    })
+
+    if (!product) {
+      return
+    }
+
+    return new Product(
+      product.id,
+      product.name,
+      new ProductCategory(product.category),
+      product.price.toNumber(),
+      product.description,
+      product.images.map((image) => new ProductImage(image.url))
+    )
+  }
 }

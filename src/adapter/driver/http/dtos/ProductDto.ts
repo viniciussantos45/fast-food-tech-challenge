@@ -5,3 +5,11 @@ export class ProductCreateDto {
   description!: string
   images!: string[]
 }
+
+export class ProductEditDto {
+  name?: string
+  category?: string
+  price?: number
+  description?: string
+  imagesUrl?: string[]
+}

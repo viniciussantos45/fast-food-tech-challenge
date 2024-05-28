@@ -5,4 +5,5 @@ export interface IProductRepository {
   editProduct(product: Product): Promise<void>
   removeProduct(productId: number): Promise<void>
   getProductsByIds(productIds: number[]): Promise<Product[]>
+  getProductById(productId: number): Promise<Product | undefined>
 }
