@@ -1,0 +1,2 @@
+yarn migrate
+yarn dev

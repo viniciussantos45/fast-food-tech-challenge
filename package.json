@@ -8,6 +8,7 @@
     "build": "yarn add @prisma/client && tsc",
     "start": "node -r module-alias ./dist/index.js",
     "dev": "nodemon",
+    "migrate": "yarn prisma migrate deploy",
     "test": "vitest run",
     "test:cucumber": "cucumber-js"
   },

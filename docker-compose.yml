@@ -1,8 +1,6 @@
-version: '3.8'
-
 services:
   db:
-    image: postgres:latest
+    image: postgres:alpine3.20
     container_name: postgres_container
     environment:
       POSTGRES_USER: fast-food
@@ -12,6 +10,17 @@ services:
       - '5432:5432'
     volumes:
       - postgres_data:/var/lib/postgresql/data
+
+  app:
+    depends_on:
+      - db
+    container_name: fastify_container
+    environment:
+      DATABASE_URL: postgresql://fast-food:strongpassword@db:5432/fast-food
+    build: .
+    ports:
+      - 3000:3000
+    command: "./run.sh"
 
 volumes:
   postgres_data:
