@@ -1,5 +1,5 @@
-import { OrderStatus } from '../value-objects/OrderStatus'
-import { PaymentStatus } from '../value-objects/PaymentStatus'
+import { OrderStatus, OrderStatusMessage } from '../value-objects/OrderStatus'
+import { PaymentStatus, PaymentStatusMessage } from '../value-objects/PaymentStatus'
 import { Combo } from './Combo'
 import { Customer } from './Customer'
 
@@ -73,5 +73,13 @@ export class Order {
 
   public addCombo(combo: Combo): void {
     this.combos.push(combo)
+  }
+
+  public getStatusMessage(): string {
+    return OrderStatusMessage[this.status]
+  }
+
+  public getPaymentStatusMessage(): string {
+    return PaymentStatusMessage[this.statusPayment]
   }
 }

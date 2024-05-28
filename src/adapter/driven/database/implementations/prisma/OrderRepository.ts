@@ -109,4 +109,48 @@ export class OrderRepository implements IOrderRepository {
       }
     })
   }
+
+  async listOrders(): Promise<Order[]> {
+    const orders = await this.prisma.order.findMany({
+      include: {
+        customer: true,
+        combos: {
+          include: {
+            comboProducts: {
+              include: {
+                product: {
+                  include: {
+                    images: true
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    })
+
+    return orders.map((order) => {
+      const customer = new Customer(new CPF(order.customer.cpf), order.customer.name, order.customer.email)
+      const combos = order.combos.map((combo) => {
+        return new Combo(
+          combo.comboProducts.map(
+            (comboProduct) =>
+              new Product(
+                comboProduct.product.id,
+                comboProduct.product.name,
+                new ProductCategory(comboProduct.product.category),
+                comboProduct.product.price.toNumber(),
+                comboProduct.product.description,
+                comboProduct.product.images.map((image) => new ProductImage(image.url))
+              )
+          )
+        )
+      })
+      const paymentStatus = order.statusPayment as PaymentStatus
+      const orderStatus = order.status as OrderStatus
+
+      return new Order(order.id, customer, combos, paymentStatus, orderStatus, order.createdAt)
+    })
+  }
 }

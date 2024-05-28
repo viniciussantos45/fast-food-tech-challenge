@@ -52,7 +52,7 @@ export class OrderService {
     }
 
     // Payment should be approved by default
-    const order = new Order(null, customer, createdCombos, PaymentStatus.APPROVED, OrderStatus.IN_PROGRESS, new Date())
+    const order = new Order(null, customer, createdCombos, PaymentStatus.APPROVED, OrderStatus.RECEIVED, new Date())
 
     await this.orderRepository.saveOrder(order)
 
@@ -61,6 +61,34 @@ export class OrderService {
     // Emit the order created event
 
     return order
+  }
+
+  async listOrders() {
+    const orders = await this.orderRepository.listOrders()
+
+    return orders.map((order) => {
+      return {
+        id: order.getId(),
+        customer: {
+          cpf: order.getCustomer().getCpf(),
+          name: order.getCustomer().getName()
+        },
+        combos: order.getCombos().map((combo) => {
+          return {
+            products: combo.getProducts().map((product) => {
+              return {
+                id: product.getId(),
+                name: product.getName(),
+                price: product.getPrice()
+              }
+            })
+          }
+        }),
+        status: order.getStatusMessage(),
+        statusPayment: order.getPaymentStatusMessage(),
+        createdAt: order.getCreatedAt()
+      }
+    })
   }
 
   updateOrder(order: Order): Order {

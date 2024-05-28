@@ -16,4 +16,8 @@ export class OrderRepositoryMemory implements IOrderRepository {
     this.orders = this.orders.filter((order) => order.getId() !== orderId)
     return Promise.resolve()
   }
+
+  listOrders(): Promise<Order[]> {
+    return Promise.resolve(this.orders)
+  }
 }

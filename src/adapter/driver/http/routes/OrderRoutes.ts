@@ -1,15 +1,25 @@
 import { FastifyInstance } from 'fastify'
 
-import { createOrder } from '../controllers/OrderController'
+import { createOrder, listOrders } from '../controllers/OrderController'
 import { createOrderSchema } from '../schemas/CreateOrder'
+import { listOrdersSchema } from '../schemas/ListOrders'
 
 export const orderRoutes = (fastify: FastifyInstance) => {
-  // POST /product
+  // POST /order
   fastify.post(
     '/order',
     {
       schema: createOrderSchema
     },
     createOrder
+  )
+
+  // GET /orders
+  fastify.get(
+    '/orders',
+    {
+      schema: listOrdersSchema
+    },
+    listOrders
   )
 }

@@ -12,6 +12,14 @@ export class Combo {
     return this.id
   }
 
+  public setId(id: number): void {
+    this.id = id
+  }
+
+  public getProducts(): Product[] {
+    return this.products
+  }
+
   public getProductsIds(): number[] {
     return this.products.map((product) => product.getId()).filter((id) => id !== null) as number[]
   }
