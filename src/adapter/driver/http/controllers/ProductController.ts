@@ -37,3 +37,13 @@ export async function removeProduct(request: FastifyRequest<{ Params: { id: stri
 
   reply.status(204).send()
 }
+
+export async function getProductsByCategory(request: FastifyRequest<{ Params: { category: string } }>, reply: FastifyReply) {
+  const { category } = request.params
+
+  const categoryValue = new ProductCategory(category)
+
+  const products = await productService.getProductsByCategory(categoryValue)
+
+  reply.status(200).send(products)
+}

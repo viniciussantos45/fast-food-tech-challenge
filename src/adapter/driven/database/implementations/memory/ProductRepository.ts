@@ -41,4 +41,8 @@ export class ProductRepositoryMemory implements IProductRepository {
   public async getProductById(productId: number): Promise<Product | undefined> {
     return this.products.find((product) => product.getId() === productId)
   }
+
+  public async getProductsByCategory(category: string): Promise<Product[]> {
+    return this.products.filter((product) => product.getCategory().getValue() === category)
+  }
 }

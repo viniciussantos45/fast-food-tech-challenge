@@ -6,6 +6,8 @@ export class CustomerRepositoryMemory implements ICustomerRepository {
 
   public async createCustomer(customer: Customer): Promise<Customer | void> {
     this.customers.push(customer)
+
+    return customer
   }
 
   public async updateCustomer(customer: Customer): Promise<void> {
@@ -19,6 +21,10 @@ export class CustomerRepositoryMemory implements ICustomerRepository {
 
   public async getCustomerById(customerId: string): Promise<Customer | undefined> {
     return this.customers.find((c) => c.getCpf() === customerId)
+  }
+
+  public async getCustomerByEmail(email: string): Promise<Customer | undefined> {
+    return this.customers.find((c) => c.getEmail() === email)
   }
 
   public async getCustomers(): Promise<Customer[]> {

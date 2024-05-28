@@ -1,8 +1,10 @@
 import { FastifyInstance } from 'fastify'
-import { addProduct, editProduct, removeProduct } from '../controllers/ProductController'
+import { addProduct, editProduct, getProductsByCategory, removeProduct } from '../controllers/ProductController'
 import { createProductSchema } from '../schemas/CreateProduct'
 import { deleteProductSchema } from '../schemas/DeleteProduct'
 import { editProductSchema } from '../schemas/EditProduct'
+
+import { getProductsByCategorySchema } from '../schemas/ListProductsByCategory'
 
 export const productRoutes = (fastify: FastifyInstance) => {
   // POST /product
@@ -30,5 +32,14 @@ export const productRoutes = (fastify: FastifyInstance) => {
       schema: deleteProductSchema
     },
     removeProduct
+  )
+
+  // GET /product/:category
+  fastify.get(
+    '/product/:category',
+    {
+      schema: getProductsByCategorySchema
+    },
+    getProductsByCategory
   )
 }

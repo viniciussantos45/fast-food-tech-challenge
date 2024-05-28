@@ -6,4 +6,5 @@ export interface IProductRepository {
   removeProduct(productId: number): Promise<void>
   getProductsByIds(productIds: number[]): Promise<Product[]>
   getProductById(productId: number): Promise<Product | undefined>
+  getProductsByCategory(category: string): Promise<Product[]>
 }

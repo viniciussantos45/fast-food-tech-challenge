@@ -3,7 +3,6 @@ import { CPF } from '@/core/domain/value-objects/CPF'
 import { OrderStatus } from '@/core/domain/value-objects/OrderStatus'
 import { PaymentStatus } from '@/core/domain/value-objects/PaymentStatus'
 import { Order } from '../../domain/entities/Order'
-import { OrderConfirmed, OrderUpdated } from '../../domain/events/OrderEvents'
 import { IOrderRepository } from '../ports/OrderRepository'
 import { ComboService } from './ComboService'
 import { CustomerService } from './CustomerService'
@@ -36,7 +35,7 @@ export class OrderService {
     this.customerService = customerService
   }
 
-  async createOrder({ combos, customerId }: CreateOrderDTO): Promise<Order> {
+  async createOrder({ combos, customerId }: CreateOrderDTO) {
     const createdCombos = await Promise.all(
       combos.map(async (combo) => {
         const products = await this.productService.getProductsByIds(combo.productsIds)
@@ -52,15 +51,35 @@ export class OrderService {
     }
 
     // Payment should be approved by default
-    const order = new Order(null, customer, createdCombos, PaymentStatus.APPROVED, OrderStatus.RECEIVED, new Date())
+    const preOrder = new Order(null, customer, createdCombos, PaymentStatus.APPROVED, OrderStatus.RECEIVED, new Date())
 
-    await this.orderRepository.saveOrder(order)
+    const order = await this.orderRepository.saveOrder(preOrder)
 
     // // Perform any additional logic or validations here
     // const orderCreatedEvent = new OrderCreated(order)
     // Emit the order created event
 
-    return order
+    return {
+      id: order.getId(),
+      customer: {
+        cpf: order.getCustomer().getCpf(),
+        name: order.getCustomer().getName()
+      },
+      combos: order.getCombos().map((combo) => {
+        return {
+          products: combo.getProducts().map((product) => {
+            return {
+              id: product.getId(),
+              name: product.getName(),
+              price: product.getPrice()
+            }
+          })
+        }
+      }),
+      status: order.getStatusMessage(),
+      statusPayment: order.getPaymentStatusMessage(),
+      createdAt: order.getCreatedAt()
+    }
   }
 
   async listOrders() {
@@ -93,14 +112,14 @@ export class OrderService {
 
   updateOrder(order: Order): Order {
     // Perform any necessary updates to the order
-    const orderUpdatedEvent = new OrderUpdated(order)
+    // const orderUpdatedEvent = new OrderUpdated(order)
     // Emit the order updated event
     return order
   }
 
   confirmOrder(order: Order): Order {
     // Perform any necessary confirmation logic
-    const orderConfirmedEvent = new OrderConfirmed(order)
+    // const orderConfirmedEvent = new OrderConfirmed(order)
     // Emit the order confirmed event
     return order
   }

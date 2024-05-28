@@ -1,5 +1,5 @@
 export enum ProductCategoryEnum {
-  FOOD = 'food',
+  SANDWICH = 'sandwich',
   DRINK = 'drink',
   ACCOMPANIMENT = 'accompaniment',
   DESSERT = 'dessert'

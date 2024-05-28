@@ -84,4 +84,9 @@ export class ProductService {
     const products = await this.productRepository.getProductsByIds(productIds)
     return products
   }
+
+  public async getProductsByCategory(category: ProductCategory): Promise<Product[]> {
+    const products = await this.productRepository.getProductsByCategory(category.getValue())
+    return products
+  }
 }

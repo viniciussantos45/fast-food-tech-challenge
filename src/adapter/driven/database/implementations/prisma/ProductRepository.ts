@@ -103,4 +103,26 @@ export class ProductRepository implements IProductRepository {
       product.images.map((image) => new ProductImage(image.url))
     )
   }
+
+  async getProductsByCategory(category: string): Promise<Product[]> {
+    const products = await this.prisma.product.findMany({
+      where: {
+        category
+      },
+      include: {
+        images: true
+      }
+    })
+
+    return products.map((product) => {
+      return new Product(
+        product.id,
+        product.name,
+        new ProductCategory(product.category),
+        product.price.toNumber(),
+        product.description,
+        product.images.map((image) => new ProductImage(image.url))
+      )
+    })
+  }
 }

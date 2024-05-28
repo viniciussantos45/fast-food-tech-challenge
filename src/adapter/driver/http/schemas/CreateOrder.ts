@@ -9,6 +9,7 @@ export const createOrderSchema: FastifySchema = {
     properties: {
       customerId: {
         type: 'string',
+        examples: ['06045337050'],
         description: 'Identificador único do cliente'
       },
       combos: {
@@ -30,34 +31,39 @@ export const createOrderSchema: FastifySchema = {
   },
   response: {
     201: {
-      description: 'Ordem criada com sucesso',
+      description: 'Pedido cadastrado com sucesso',
       type: 'object',
       properties: {
-        id: { type: 'number', description: 'Identificador único da ordem' },
-        customer: { type: 'string', description: 'Nome do cliente' },
+        id: { type: 'number' },
+        customer: {
+          type: 'object',
+          properties: {
+            cpf: { type: 'string' },
+            name: { type: 'string' }
+          }
+        },
         combos: {
           type: 'array',
           items: {
             type: 'object',
-            required: ['id', 'name'],
             properties: {
-              id: { type: 'number', description: 'Identificador único do combo' },
-              name: { type: 'string', description: 'Nome do combo' }
+              products: {
+                type: 'array',
+                items: {
+                  type: 'object',
+                  properties: {
+                    id: { type: 'number' },
+                    name: { type: 'string' },
+                    price: { type: 'number' }
+                  }
+                }
+              }
             }
           }
         },
-        statusPayment: {
-          type: 'string',
-          description: 'Status do pagamento',
-          enum: ['pending', 'completed', 'failed'],
-          default: 'pending'
-        },
-        status: {
-          type: 'string',
-          description: 'Status da ordem',
-          enum: ['preparing', 'ready', 'delivered'],
-          default: 'preparing'
-        }
+        status: { type: 'string' },
+        statusPayment: { type: 'string' },
+        createdAt: { type: 'string' }
       }
     },
     400: {

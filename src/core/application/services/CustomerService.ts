@@ -18,9 +18,15 @@ export class CustomerService {
       throw new Error('Customer already exists')
     }
 
+    const emailExists = await this.customerRepository.getCustomerByEmail(email)
+
+    if (emailExists) {
+      throw new Error('Email already exists')
+    }
+
     const customer = new Customer(cpf, name, email)
 
-    this.customerRepository.createCustomer(customer)
+    await this.customerRepository.createCustomer(customer)
   }
 
   public async updateCustomer(cpf: string, name: string, email: string): Promise<void> {

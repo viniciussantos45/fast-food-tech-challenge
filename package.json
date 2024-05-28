@@ -5,7 +5,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "build": "yarn add @prisma/client && tsc",
+    "build": "tsc",
     "start": "node -r module-alias ./dist/index.js",
     "dev": "nodemon",
     "migrate": "yarn prisma migrate deploy",

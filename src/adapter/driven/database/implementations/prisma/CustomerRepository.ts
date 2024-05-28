@@ -54,6 +54,20 @@ export class CustomerRepository implements ICustomerRepository {
     return new Customer(new CPF(customer.cpf), customer.name, customer.email)
   }
 
+  public async getCustomerByEmail(email: string): Promise<Customer | undefined> {
+    const customer = await this.prisma.customer.findUnique({
+      where: {
+        email: email
+      }
+    })
+
+    if (!customer) {
+      return undefined
+    }
+
+    return new Customer(new CPF(customer.cpf), customer.name, customer.email)
+  }
+
   public async getCustomers(): Promise<Customer[]> {
     const customers = await this.prisma.customer.findMany()
 

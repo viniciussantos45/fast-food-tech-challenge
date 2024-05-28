@@ -6,6 +6,7 @@ export const identifyCustomerSchema = {
     properties: {
       cpf: {
         type: 'string',
+        examples: ['06045337050'],
         description: 'CPF do cliente'
       }
     }

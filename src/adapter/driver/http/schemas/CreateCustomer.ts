@@ -12,6 +12,7 @@ export const createCustomerSchema: FastifySchema = {
         type: 'string',
         format: 'regex',
         pattern: '^(?:\\d{11})$',
+        examples: ['06045337050'],
         errorMessage: {
           pattern: 'Formato de CPF inválido. O formato esperado é XXX.XXX.XXX-XX.'
         }
@@ -26,6 +27,7 @@ export const createCustomerSchema: FastifySchema = {
       name: {
         type: 'string',
         minLength: 2,
+        examples: ['João da Silva'],
         errorMessage: {
           minLength: 'O nome deve ter pelo menos 2 caracteres'
         }
