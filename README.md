@@ -84,6 +84,7 @@ To run the project, follow these steps:
 1. Clone the repository.
 2. Install the dependencies.
     - Run in the terminal
+
       ```
       docker compose up
       ```
@@ -93,7 +94,6 @@ To run the project, follow these steps:
 
       ```
       yarn build
-      yarn start
       ```
 
 4. Start the application.
@@ -104,10 +104,27 @@ To run the project, follow these steps:
 
 5. Access the application [http://localhost:3000/](http://localhost:3000/)
 
-
 ## Run Swagger
 
 Access the application [http://localhost:3000/documentation](http://localhost:3000/documentation)
+
+## Run test
+
+### Unit test
+
+After setup de application, run:
+
+  ```
+  yarn test
+  ```
+
+### Integration test
+
+After setup de application standalone, run:
+
+  ```
+  yarn test:cucumber
+  ```
 
 ## Contributing
 
