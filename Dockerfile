@@ -1,14 +1,19 @@
 FROM node:20.12.2-alpine AS builder
+
 WORKDIR /app
 
 COPY package.json .
 
-RUN yarn install --ignore-optional
+RUN yarn
 
 COPY . .
 
-RUN yarn global add typescript
+RUN sed -i 's/\r$//' run.sh && chmod +x run.sh
 
 EXPOSE 3000
 
+RUN npx prisma generate
+
 RUN yarn build
+
+CMD ["./run.sh"]
