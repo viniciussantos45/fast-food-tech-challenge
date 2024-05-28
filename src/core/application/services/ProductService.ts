@@ -27,16 +27,61 @@ export class ProductService {
 
     const product = new Product(null, name, category, price, description, images)
 
-    this.productRepository.addProduct(product)
+    await this.productRepository.addProduct(product)
   }
 
-  public editProduct(product: Product): void {
-    // Edit product logic here
-    this.productRepository.editProduct(product)
+  public async editProduct({
+    id,
+    name,
+    category,
+    description,
+    imagesUrl,
+    price
+  }: {
+    id: number
+    name?: string
+    category?: string
+    description?: string
+    imagesUrl?: string[]
+    price?: number
+  }): Promise<void> {
+    const product = await this.productRepository.getProductById(id)
+
+    if (!product) {
+      throw new Error('Product not found')
+    }
+
+    if (name) {
+      product.setName(name)
+    }
+
+    if (category) {
+      product.setCategory(new ProductCategory(category))
+    }
+
+    if (price) {
+      product.setPrice(price)
+    }
+
+    if (description) {
+      product.setDescription(description)
+    }
+
+    if (imagesUrl) {
+      const images = imagesUrl.map((image) => new ProductImage(image))
+      product.setImages(images)
+    }
+
+    await this.productRepository.editProduct(product)
   }
 
-  public removeProduct(productId: number): void {
+  public async removeProduct(productId: number): Promise<void> {
     // Remove product logic here
-    this.productRepository.removeProduct(productId)
+    await this.productRepository.removeProduct(productId)
+  }
+
+  public async getProductsByIds(productIds: number[]): Promise<Product[]> {
+    const products = await this.productRepository.getProductsByIds(productIds)
+    return products
   }
 }

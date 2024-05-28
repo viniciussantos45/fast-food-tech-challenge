@@ -1,6 +1,6 @@
 import { ProductRepositoryMemory } from '@/adapter/driven/database/implementations/memory/ProductRepository'
 import { ProductService } from '@/core/application/services/ProductService'
-import { ProductCategory } from '@/core/domain/value-objects/ProductCategory'
+import { ProductCategory, ProductCategoryEnum } from '@/core/domain/value-objects/ProductCategory'
 import { beforeAll, describe, expect, it } from 'vitest'
 
 let productRepositoryMemory: ProductRepositoryMemory
@@ -15,7 +15,7 @@ describe('Product', () => {
   it('should add a product', async () => {
     const product = {
       name: 'Product',
-      category: ProductCategory.FOOD,
+      category: new ProductCategory(ProductCategoryEnum.FOOD),
       price: 10,
       description: 'Description',
       imagesUrl: ['http://qdqwdqdw', 'https://adsasdqwdqwd']
@@ -25,14 +25,14 @@ describe('Product', () => {
 
     expect(productRepositoryMemory.products).toHaveLength(1)
     expect(productRepositoryMemory.products[0].getName()).toBe('Product')
-    expect(productRepositoryMemory.products[0].getCategory()).toBe(ProductCategory.FOOD)
+    expect(productRepositoryMemory.products[0].getCategory().getValue()).toBe(ProductCategoryEnum.FOOD)
     expect(productRepositoryMemory.products[0].getPrice()).toBe(10)
   })
 
   it('should not add a product with invalid image URL', async () => {
     const product = {
       name: 'Product',
-      category: ProductCategory.FOOD,
+      category: new ProductCategory(ProductCategoryEnum.FOOD),
       price: 10,
       description: 'Description',
       imagesUrl: ['qdqwdqdw', 'https://adsasdqwdqwd']

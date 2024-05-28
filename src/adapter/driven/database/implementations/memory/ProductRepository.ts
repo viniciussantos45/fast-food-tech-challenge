@@ -33,4 +33,12 @@ export class ProductRepositoryMemory implements IProductRepository {
   public async removeProduct(productId: number): Promise<void> {
     this.products = this.products.filter((p) => p.getId() !== productId)
   }
+
+  public async getProductsByIds(productIds: number[]): Promise<Product[]> {
+    return this.products.filter((product) => productIds.includes(product.getId() as number))
+  }
+
+  public async getProductById(productId: number): Promise<Product | undefined> {
+    return this.products.find((product) => product.getId() === productId)
+  }
 }

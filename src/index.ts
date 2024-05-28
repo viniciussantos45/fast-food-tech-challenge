@@ -5,14 +5,35 @@ import fastifySwaggerUi from '@fastify/swagger-ui'
 
 import { registerRoutes } from './adapter/driver/http/routes'
 
+import ajvErrors from 'ajv-errors'
+
 const server = Fastify({
   ajv: {
     customOptions: {
       allErrors: true
     },
-    plugins: [require('ajv-errors')]
+    plugins: [ajvErrors]
   },
   logger: true
+})
+
+server.setErrorHandler((error, request, reply) => {
+  const statusCode = error.statusCode || 500
+  const message = error.message || 'Unexpected error'
+
+  // Log do erro para diagnóstico
+  server.log.error(error)
+
+  // Resposta de erro padronizada
+  reply.status(statusCode).send(
+    JSON.stringify({
+      // TODO: Utilizar o método de serialização do fastify, pois esta retornando objeto vazio quando validado o schema
+      success: false,
+      code: statusCode,
+      message: message,
+      errors: error.validation || undefined // AJV errors, se houver
+    })
+  )
 })
 
 const start = async () => {
@@ -32,8 +53,18 @@ const start = async () => {
           }
         ],
         tags: [
-          { name: 'customer', description: 'Customer related end-points' },
-          { name: 'products', description: 'Products related end-points' }
+          {
+            name: 'cliente',
+            description: 'Endpoints que lidam com informações cliente'
+          },
+          {
+            name: 'produtos',
+            description: 'Endpoints que lidam com informações de produtos'
+          },
+          {
+            name: 'pedido',
+            description: 'Endpoints que lidam com informações de pedidos'
+          }
         ],
         components: {
           securitySchemes: {
@@ -54,7 +85,7 @@ const start = async () => {
     await server.register(fastifySwaggerUi, {
       routePrefix: '/documentation',
       uiConfig: {
-        docExpansion: 'full',
+        docExpansion: 'list',
         deepLinking: false
       },
       uiHooks: {

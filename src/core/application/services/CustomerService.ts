@@ -31,4 +31,30 @@ export class CustomerService {
       this.customerRepository.updateCustomer(customer)
     }
   }
+
+  public async loadCustomer(cpf: string): Promise<Customer | undefined> {
+    const customer = await this.customerRepository.getCustomerById(cpf)
+    return customer
+  }
+
+  public async identifyCustomer(cpf: string): Promise<
+    | {
+        cpf: string
+        name: string
+        email: string
+      }
+    | undefined
+  > {
+    const customer = await this.customerRepository.getCustomerById(cpf)
+
+    if (!customer) {
+      throw new Error('Customer not found')
+    }
+
+    return {
+      cpf: customer.getCpf(),
+      name: customer.getName(),
+      email: customer.getEmail()
+    }
+  }
 }

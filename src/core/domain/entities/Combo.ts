@@ -1,16 +1,27 @@
 import { Product } from './Product'
 
 export class Combo {
-  private id: string
+  private id!: number | null
   private products: Product[]
 
   constructor(products: Product[] = []) {
-    this.id = Math.random().toString(36).substr(2, 9)
     this.products = products
   }
 
-  public getId(): string {
+  public getId(): number | null {
     return this.id
+  }
+
+  public setId(id: number): void {
+    this.id = id
+  }
+
+  public getProducts(): Product[] {
+    return this.products
+  }
+
+  public getProductsIds(): number[] {
+    return this.products.map((product) => product.getId()).filter((id) => id !== null) as number[]
   }
 
   public addProduct(product: Product): void {

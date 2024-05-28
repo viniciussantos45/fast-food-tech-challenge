@@ -1,11 +1,20 @@
-import { FastifySchema } from 'fastify'
-
-export const createProductSchema: FastifySchema = {
-  description: 'Cria um novo produto',
+export const editProductSchema = {
+  description: 'Editar um produto pelo id',
   tags: ['produtos'],
+  params: {
+    type: 'object',
+    required: ['id'],
+    properties: {
+      id: {
+        type: 'number',
+        errorMessage: {
+          type: 'O id do produto deve ser um número.'
+        }
+      }
+    }
+  },
   body: {
     type: 'object',
-    required: ['name', 'category', 'price', 'description', 'images'],
     properties: {
       name: {
         type: 'string',
@@ -34,7 +43,7 @@ export const createProductSchema: FastifySchema = {
           minLength: 'A descrição deve ter pelo menos 10 caracteres.'
         }
       },
-      images: {
+      imagesUrl: {
         type: 'array',
         minItems: 1,
         items: {
@@ -47,30 +56,6 @@ export const createProductSchema: FastifySchema = {
         errorMessage: {
           minItems: 'Deve haver pelo menos uma imagem do produto.'
         }
-      }
-    }
-  },
-  response: {
-    201: {
-      description: 'Produto criado com sucesso',
-      type: 'object',
-      properties: {
-        id: { type: 'number' },
-        name: { type: 'string' },
-        category: { type: 'string' },
-        price: { type: 'number' },
-        description: { type: 'string' },
-        images: {
-          type: 'array',
-          items: { type: 'string' }
-        }
-      }
-    },
-    400: {
-      description: 'Dados inválidos fornecidos',
-      type: 'object',
-      properties: {
-        error: { type: 'string', description: 'Descrição do erro' }
       }
     }
   }
