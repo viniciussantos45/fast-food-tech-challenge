@@ -1,7 +1,8 @@
 import { FastifyInstance } from 'fastify'
-import { registerCustomer } from '../controllers/CustomerController'
+import { identifyCustomer, registerCustomer } from '../controllers/CustomerController'
 
 import { createCustomerSchema } from '../schemas/CreateCustomer'
+import { identifyCustomerSchema } from '../schemas/IdentifyCustomerSchema'
 
 export const customerRoutes = (fastify: FastifyInstance) => {
   // POST /customer
@@ -11,5 +12,14 @@ export const customerRoutes = (fastify: FastifyInstance) => {
       schema: createCustomerSchema
     },
     registerCustomer
+  )
+
+  // GET /customer/:cpf
+  fastify.get(
+    '/customer/:cpf',
+    {
+      schema: identifyCustomerSchema
+    },
+    identifyCustomer
   )
 }
