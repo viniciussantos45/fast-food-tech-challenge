@@ -32,9 +32,18 @@ const start = async () => {
           }
         ],
         tags: [
-          { name: 'customer', description: 'Customer related end-points' },
-          { name: 'products', description: 'Products related end-points' },
-          { name: 'order', description: 'Order related end-points' }
+          {
+            name: 'cliente',
+            description: 'Endpoints que lidam com informações cliente'
+          },
+          {
+            name: 'produtos',
+            description: 'Endpoints que lidam com informações de produtos'
+          },
+          {
+            name: 'pedido',
+            description: 'Endpoints que lidam com informações de pedidos'
+          }
         ],
         components: {
           securitySchemes: {

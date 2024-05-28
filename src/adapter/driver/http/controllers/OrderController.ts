@@ -28,7 +28,7 @@ export async function createOrder(request: FastifyRequest<{ Body: OrderCreateDto
 
   const cpf = new CPF(customerId)
 
-  orderService.createOrder({ customerId: cpf, combos })
+  const order = await orderService.createOrder({ customerId: cpf, combos })
 
-  reply.status(201).send()
+  reply.status(201).send(order)
 }

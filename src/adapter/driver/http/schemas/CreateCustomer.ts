@@ -2,8 +2,8 @@ import { FastifySchema } from 'fastify'
 
 // see https://ajv.js.org/packages/ajv-formats.html
 export const createCustomerSchema: FastifySchema = {
-  description: 'Create a new customer',
-  tags: ['customer'],
+  description: 'Cria um novo cliente',
+  tags: ['cliente'],
   body: {
     type: 'object',
     required: ['cpf', 'name', 'email'],
@@ -13,19 +13,38 @@ export const createCustomerSchema: FastifySchema = {
         format: 'regex',
         pattern: '^(?:\\d{11})$',
         errorMessage: {
-          pattern: 'Invalid CPF format'
+          pattern: 'Formato de CPF inválido. O formato esperado é XXX.XXX.XXX-XX.'
         }
       },
-      email: { type: 'string', format: 'email' },
-      name: { type: 'string' }
+      email: {
+        type: 'string',
+        format: 'email',
+        errorMessage: {
+          format: 'Formato de e-mail inválido'
+        }
+      },
+      name: {
+        type: 'string',
+        minLength: 2,
+        errorMessage: {
+          minLength: 'O nome deve ter pelo menos 2 caracteres'
+        }
+      }
     }
   },
   response: {
     201: {
-      description: 'Customer created successfully',
+      description: 'Cliente criado com sucesso',
       type: 'object',
       properties: {
-        message: { type: 'string' }
+        message: { type: 'string', default: 'Cliente criado com sucesso!' }
+      }
+    },
+    400: {
+      description: 'Dados inválidos fornecidos',
+      type: 'object',
+      properties: {
+        error: { type: 'string', description: 'Descrição do erro' }
       }
     }
   }
