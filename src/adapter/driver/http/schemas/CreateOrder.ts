@@ -1,7 +1,7 @@
 import { FastifySchema } from 'fastify'
 
 export const createOrderSchema: FastifySchema = {
-  description: 'Cria uma nova ordem',
+  description: 'Cria uma nova ordem - Realiza CHECKOUT de um pedido',
   tags: ['pedido'],
   body: {
     type: 'object',
