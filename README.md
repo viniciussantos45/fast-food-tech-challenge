@@ -1,6 +1,6 @@
 # FAST FOOD TECH CHALLENGE
 
-#node #yarn #typescript #fastify #postgres
+#docker #node #yarn #typescript #fastify #prisma #postgres
 
 This project is an API for a fast food system.
 
@@ -79,6 +79,24 @@ Please refer to the individual files for more details on their implementation.
 
 ## Getting Started
 
+### With Docker
+
+1. Clone the repository.
+2. Build the project.
+    - Run in the terminal
+
+      ```
+      docker compose build
+      ```
+
+3. Start the application.
+    - Run in the terminal
+
+      ```
+      docker compose up
+      ```
+
+### Standalone
 To run the project, follow these steps:
 
 1. Clone the repository.
@@ -86,7 +104,7 @@ To run the project, follow these steps:
     - Run in the terminal
 
       ```
-      docker compose up
+      docker compose up db
       ```
 
 3. Build the project.
@@ -94,6 +112,7 @@ To run the project, follow these steps:
 
       ```
       yarn build
+      yarn migrate
       ```
 
 4. Start the application.
@@ -107,6 +126,25 @@ To run the project, follow these steps:
 ## Run Swagger
 
 Access the application [http://localhost:3000/documentation](http://localhost:3000/documentation)
+
+## Access database
+1. Access container
+
+    ```
+    docker exec -it postgres_container bash
+    ```
+
+2. Conect database
+
+    ```
+    psql -U fast-food -d fast-food
+    ```
+
+3. List tables
+
+    ```
+    \dt
+    ```
 
 ## Run test
 
