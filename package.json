@@ -47,5 +47,6 @@
   },
   "resolutions": {
     "string-width": "4.2.3"
-  }
+  },
+  "packageManager": "yarn@4.3.1"
 }
