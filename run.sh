@@ -6,7 +6,7 @@ fi
 
 # Running Prisma migration
 echo "Running Prisma migration..."
-npx prisma migrate dev
+npx prisma migrate deploy
 
 # Check if the migration was successful
 if [ $? -eq 0 ]; then
