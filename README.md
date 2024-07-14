@@ -102,30 +102,24 @@ Please refer to the individual files for more details on their implementation.
 
 1. Clone the repository.
 
-2. Create PG database.
+2. Build the app image and push it to Docker Hub
 
    - Run in the terminal
 
      ```bash
-     kubectl apply -f ./K8S/db
+     sudo docker build -t <your_username>/<your_image_name>:<image_version>
+     docker push <your_username>/<your_image_name>:<image_version>
      ```
 
-4. Create DB schema and tables
+3. Create PG database.
 
-   - Run in terminal
+   - Run in the terminal
 
-   ```bash
-   yarn prisma generate
-   yarn prisma db push
-   ```
+     ```bash
+     kubectl apply -f /K8S/db
+     kubectl apply -f /K8S/app
+     ```
 
-5. Run app locally.
-
-   - Run in terminal
-
-   ```bash
-   yarn dev
-   ```
 
 ### Standalone
 
