@@ -4,9 +4,18 @@ if [ ! -d "node_modules" ] || ! command -v npx &> /dev/null; then
     exit 1
 fi
 
+# Running Prisma generate
+echo "Running Prisma generation..."
+npx prisma generate
+
 # Running Prisma migration
-echo "Running Prisma migration..."
-npx prisma migrate deploy
+if [ $NODE_ENV == 'production' ]; then
+    echo "Running Prisma migration..."
+    npx prisma migrate deploy
+else
+    echo "Running Prisma migration..."
+    npx prisma migrate dev
+fi
 
 # Check if the migration was successful
 if [ $? -eq 0 ]; then
@@ -17,5 +26,10 @@ else
 fi
 
 # Start the development server or run development script
-echo "Starting development environment..."
-yarn dev
+if [ $NODE_ENV == 'production' ]; then
+    echo "Starting production environment..."
+    yarn start
+else
+    echo "Starting development environment..."
+    yarn dev
+fi

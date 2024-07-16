@@ -26,10 +26,6 @@ services:
     build: .
     ports:
       - 3000:3000
-    command: './run.sh'
-    volumes:
-      - ./run.sh:/app/run.sh
-      - ./src:/app/src
 
 volumes:
   postgres_data:
