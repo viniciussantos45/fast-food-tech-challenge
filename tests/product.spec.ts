@@ -15,7 +15,7 @@ describe('Product', () => {
   it('should add a product', async () => {
     const product = {
       name: 'Product',
-      category: new ProductCategory(ProductCategoryEnum.FOOD),
+      category: new ProductCategory(ProductCategoryEnum.SANDWICH),
       price: 10,
       description: 'Description',
       imagesUrl: ['http://qdqwdqdw', 'https://adsasdqwdqwd']
@@ -25,14 +25,14 @@ describe('Product', () => {
 
     expect(productRepositoryMemory.products).toHaveLength(1)
     expect(productRepositoryMemory.products[0].getName()).toBe('Product')
-    expect(productRepositoryMemory.products[0].getCategory().getValue()).toBe(ProductCategoryEnum.FOOD)
+    expect(productRepositoryMemory.products[0].getCategory().getValue()).toBe(ProductCategoryEnum.SANDWICH)
     expect(productRepositoryMemory.products[0].getPrice()).toBe(10)
   })
 
   it('should not add a product with invalid image URL', async () => {
     const product = {
       name: 'Product',
-      category: new ProductCategory(ProductCategoryEnum.FOOD),
+      category: new ProductCategory(ProductCategoryEnum.SANDWICH),
       price: 10,
       description: 'Description',
       imagesUrl: ['qdqwdqdw', 'https://adsasdqwdqwd']
