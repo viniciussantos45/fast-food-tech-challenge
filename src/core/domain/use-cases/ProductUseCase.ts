@@ -1,9 +1,9 @@
 import { ProductCategory } from '@/core/domain/value-objects/ProductCategory'
 import { ProductImage } from '@/core/domain/value-objects/ProductImage'
-import { Product } from '../../domain/entities/Product'
-import { IProductRepository } from '../ports/ProductRepository'
+import { IProductRepository } from '../../repositories/ProductRepository'
+import { Product } from '../entities/Product'
 
-export class ProductService {
+export class ProductUseCase {
   private productRepository: IProductRepository
 
   constructor(productRepository: IProductRepository) {

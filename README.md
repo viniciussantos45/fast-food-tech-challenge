@@ -22,11 +22,11 @@ project-root
 │   │   │   │   ├── CustomerRepository.ts
 │   │   │   │   ├── OrderRepository.ts
 │   │   │   │   ├── ProductRepository.ts
-│   │   │   ├── services
-│   │   │   │   ├── ComboService.ts
-│   │   │   │   ├── CustomerService.ts
-│   │   │   │   ├── OrderService.ts
-│   │   │   │   ├── ProductService.ts
+│   │   │   ├── useCases
+│   │   │   │   ├── ComboUseCase.ts
+│   │   │   │   ├── CustomerUseCase.ts
+│   │   │   │   ├── OrderUseCase.ts
+│   │   │   │   ├── ProductUseCase.ts
 │   │   ├── domain
 │   │   │   ├── entities
 │   │   │   │   ├── Combo.ts
@@ -68,12 +68,12 @@ project-root
 - `ComboRepository.ts`: Interface for the combo repository.
 - `ComboEvents.ts`: Events like `ComboCreated` and `ComboUpdated`.
 
-## Domain Services
+## Domain UseCases
 
-- `ProductService.ts`: Services related to product management.
-- `OrderService.ts`: Services for handling orders, including confirmation and status updates.
-- `CustomerService.ts`: Services for managing customers, including registration and data updates.
-- `ComboService.ts`: Services for managing the creation and modification of combos.
+- `ProductUseCase.ts`: UseCases related to product management.
+- `OrderUseCase.ts`: UseCases for handling orders, including confirmation and status updates.
+- `CustomerUseCase.ts`: UseCases for managing customers, including registration and data updates.
+- `ComboUseCase.ts`: UseCases for managing the creation and modification of combos.
 
 Please refer to the individual files for more details on their implementation.
 

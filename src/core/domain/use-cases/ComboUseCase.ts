@@ -1,8 +1,8 @@
-import { Combo } from '../../domain/entities/Combo'
-import { Product } from '../../domain/entities/Product'
-import { IComboRepository } from '../ports/ComboRepository'
+import { IComboRepository } from '../../repositories/ComboRepository'
+import { Combo } from '../entities/Combo'
+import { Product } from '../entities/Product'
 
-export class ComboService {
+export class ComboUseCase {
   private comboRepository: IComboRepository
 
   constructor(comboRepository: IComboRepository) {

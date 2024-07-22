@@ -1,8 +1,8 @@
 import { Customer } from '@/core/domain/entities/Customer'
 import { CPF } from '@/core/domain/value-objects/CPF'
-import { ICustomerRepository } from '../ports/CustomerRepository'
+import { ICustomerRepository } from '../../repositories/CustomerRepository'
 
-export class CustomerService {
+export class CustomerUseCase {
   private customerRepository: ICustomerRepository
 
   constructor(customerRepository: ICustomerRepository) {

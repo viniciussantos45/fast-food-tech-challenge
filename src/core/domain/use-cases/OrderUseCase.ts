@@ -2,11 +2,11 @@ import { Combo } from '@/core/domain/entities/Combo'
 import { CPF } from '@/core/domain/value-objects/CPF'
 import { OrderStatus } from '@/core/domain/value-objects/OrderStatus'
 import { PaymentStatus } from '@/core/domain/value-objects/PaymentStatus'
-import { Order } from '../../domain/entities/Order'
-import { IOrderRepository } from '../ports/OrderRepository'
-import { ComboService } from './ComboService'
-import { CustomerService } from './CustomerService'
-import { ProductService } from './ProductService'
+import { IOrderRepository } from '../../repositories/OrderRepository'
+import { Order } from '../entities/Order'
+import { ComboUseCase } from './ComboUseCase'
+import { CustomerUseCase } from './CustomerUseCase'
+import { ProductUseCase } from './ProductUseCase'
 
 type ComboParams = {
   productsIds: number[]
@@ -17,34 +17,34 @@ type CreateOrderDTO = {
   customerId: CPF
 }
 
-export class OrderService {
+export class OrderUseCase {
   private orderRepository: IOrderRepository
-  private comboService: ComboService
-  private productService: ProductService
-  private customerService: CustomerService
+  private comboUseCase: ComboUseCase
+  private productUseCase: ProductUseCase
+  private customerUseCase: CustomerUseCase
 
   constructor(
     orderRepository: IOrderRepository,
-    comboService: ComboService,
-    productService: ProductService,
-    customerService: CustomerService
+    comboUseCase: ComboUseCase,
+    productUseCase: ProductUseCase,
+    customerUseCase: CustomerUseCase
   ) {
     this.orderRepository = orderRepository
-    this.comboService = comboService
-    this.productService = productService
-    this.customerService = customerService
+    this.comboUseCase = comboUseCase
+    this.productUseCase = productUseCase
+    this.customerUseCase = customerUseCase
   }
 
   async createOrder({ combos, customerId }: CreateOrderDTO) {
     const createdCombos = await Promise.all(
       combos.map(async (combo) => {
-        const products = await this.productService.getProductsByIds(combo.productsIds)
+        const products = await this.productUseCase.getProductsByIds(combo.productsIds)
 
         return new Combo(products)
       })
     )
 
-    const customer = await this.customerService.loadCustomer(customerId.getValue())
+    const customer = await this.customerUseCase.loadCustomer(customerId.getValue())
 
     if (!customer) {
       throw new Error('Customer not found')

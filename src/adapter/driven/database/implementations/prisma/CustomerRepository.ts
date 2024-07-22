@@ -1,6 +1,6 @@
-import { ICustomerRepository } from '@/core/application/ports/CustomerRepository'
 import { Customer } from '@/core/domain/entities/Customer'
 import { CPF } from '@/core/domain/value-objects/CPF'
+import { ICustomerRepository } from '@/core/repositories/CustomerRepository'
 import { PrismaClient } from '@prisma/client'
 
 export class CustomerRepository implements ICustomerRepository {

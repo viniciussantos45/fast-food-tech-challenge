@@ -1,15 +1,15 @@
 import { beforeAll, describe, expect, it } from 'vitest'
 
 import { CustomerRepositoryMemory } from '@/adapter/driven/database/implementations/memory/CustomerRepository'
-import { CustomerService } from '@/core/application/services/CustomerService'
+import { CustomerUseCase } from '@/core/domain/use-cases/CustomerUseCase'
 
 let customerRepositoryMemory: CustomerRepositoryMemory
-let customerService: CustomerService
+let customerUseCase: CustomerUseCase
 
 describe('Customer', () => {
   beforeAll(() => {
     customerRepositoryMemory = new CustomerRepositoryMemory()
-    customerService = new CustomerService(customerRepositoryMemory)
+    customerUseCase = new CustomerUseCase(customerRepositoryMemory)
   })
 
   it('should be able to create a new customer', async () => {
@@ -19,7 +19,7 @@ describe('Customer', () => {
       email: 'john-doe@gmail.com'
     }
 
-    await customerService.registerCustomer(customer.cpf, customer.name, customer.email)
+    await customerUseCase.registerCustomer(customer.cpf, customer.name, customer.email)
 
     const customerRegistered = await customerRepositoryMemory.getCustomerById(customer.cpf)
 
@@ -35,7 +35,7 @@ describe('Customer', () => {
       email: 'john-doe@gmail.com'
     }
 
-    await expect(customerService.registerCustomer(customer.cpf, customer.name, customer.email)).rejects.toThrowError(
+    await expect(customerUseCase.registerCustomer(customer.cpf, customer.name, customer.email)).rejects.toThrowError(
       'Customer already exists'
     )
   })
@@ -47,7 +47,7 @@ describe('Customer', () => {
       email: 'john-doe@gmail.com'
     }
 
-    await expect(customerService.registerCustomer(customer.cpf, customer.name, customer.email)).rejects.toThrowError(
+    await expect(customerUseCase.registerCustomer(customer.cpf, customer.name, customer.email)).rejects.toThrowError(
       'Invalid CPF'
     )
   })

@@ -1,5 +1,5 @@
-import { ICustomerRepository } from '@/core/application/ports/CustomerRepository'
 import { Customer } from '@/core/domain/entities/Customer'
+import { ICustomerRepository } from '@/core/repositories/CustomerRepository'
 
 export class CustomerRepositoryMemory implements ICustomerRepository {
   public customers: Customer[] = []

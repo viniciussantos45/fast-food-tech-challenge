@@ -1,4 +1,4 @@
-import { Product } from '../../domain/entities/Product'
+import { Product } from '../domain/entities/Product'
 
 export interface IProductRepository {
   addProduct(product: Product): Promise<Product | void>

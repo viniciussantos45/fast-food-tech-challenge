@@ -2,10 +2,10 @@ import { ComboRepositoryMemory } from '@/adapter/driven/database/implementations
 import { CustomerRepositoryMemory } from '@/adapter/driven/database/implementations/memory/CustomerRepository'
 import { OrderRepositoryMemory } from '@/adapter/driven/database/implementations/memory/OrderRepository'
 import { ProductRepositoryMemory } from '@/adapter/driven/database/implementations/memory/ProductRepository'
-import { ComboService } from '@/core/application/services/ComboService'
-import { CustomerService } from '@/core/application/services/CustomerService'
-import { OrderService } from '@/core/application/services/OrderService'
-import { ProductService } from '@/core/application/services/ProductService'
+import { ComboUseCase } from '@/core/domain/use-cases/ComboUseCase'
+import { CustomerUseCase } from '@/core/domain/use-cases/CustomerUseCase'
+import { OrderUseCase } from '@/core/domain/use-cases/OrderUseCase'
+import { ProductUseCase } from '@/core/domain/use-cases/ProductUseCase'
 import { CPF } from '@/core/domain/value-objects/CPF'
 import { describe, expect, it } from 'vitest'
 
@@ -14,10 +14,10 @@ const comboRepositoryMemory = new ComboRepositoryMemory()
 const productRepository = new ProductRepositoryMemory()
 const customerRepository = new CustomerRepositoryMemory()
 
-const comboService = new ComboService(comboRepositoryMemory)
-const productService = new ProductService(productRepository)
-const customerService = new CustomerService(customerRepository)
-const orderService = new OrderService(orderRepositoryMemory, comboService, productService, customerService)
+const comboUseCase = new ComboUseCase(comboRepositoryMemory)
+const productUseCase = new ProductUseCase(productRepository)
+const customerUseCase = new CustomerUseCase(customerRepository)
+const orderUseCase = new OrderUseCase(orderRepositoryMemory, comboUseCase, productUseCase, customerUseCase)
 
 describe('Order', () => {
   it('should be able to create a new order', async () => {
@@ -27,9 +27,9 @@ describe('Order', () => {
       email: 'john-doe@gmail.com'
     }
 
-    await customerService.registerCustomer(customer.cpf, customer.name, customer.email)
+    await customerUseCase.registerCustomer(customer.cpf, customer.name, customer.email)
 
-    const order = await orderService.createOrder({
+    const order = await orderUseCase.createOrder({
       combos: [{ productIds: [1, 2, 3] }],
       customerId: new CPF(customer.cpf)
     })

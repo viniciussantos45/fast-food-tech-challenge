@@ -1,4 +1,3 @@
-import { IOrderRepository } from '@/core/application/ports/OrderRepository'
 import { Combo } from '@/core/domain/entities/Combo'
 import { Customer } from '@/core/domain/entities/Customer'
 import { Order } from '@/core/domain/entities/Order'
@@ -8,6 +7,7 @@ import { OrderStatus } from '@/core/domain/value-objects/OrderStatus'
 import { PaymentStatus } from '@/core/domain/value-objects/PaymentStatus'
 import { ProductCategory } from '@/core/domain/value-objects/ProductCategory'
 import { ProductImage } from '@/core/domain/value-objects/ProductImage'
+import { IOrderRepository } from '@/core/repositories/OrderRepository'
 import { PrismaClient } from '@prisma/client'
 
 export class OrderRepository implements IOrderRepository {

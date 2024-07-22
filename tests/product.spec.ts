@@ -1,15 +1,15 @@
 import { ProductRepositoryMemory } from '@/adapter/driven/database/implementations/memory/ProductRepository'
-import { ProductService } from '@/core/application/services/ProductService'
+import { ProductUseCase } from '@/core/domain/use-cases/ProductUseCase'
 import { ProductCategory, ProductCategoryEnum } from '@/core/domain/value-objects/ProductCategory'
 import { beforeAll, describe, expect, it } from 'vitest'
 
 let productRepositoryMemory: ProductRepositoryMemory
-let productService: ProductService
+let productUseCase: ProductUseCase
 
 describe('Product', () => {
   beforeAll(() => {
     productRepositoryMemory = new ProductRepositoryMemory()
-    productService = new ProductService(productRepositoryMemory)
+    productUseCase = new ProductUseCase(productRepositoryMemory)
   })
 
   it('should add a product', async () => {
@@ -21,7 +21,7 @@ describe('Product', () => {
       imagesUrl: ['http://qdqwdqdw', 'https://adsasdqwdqwd']
     }
 
-    productService.addProduct(product)
+    productUseCase.addProduct(product)
 
     expect(productRepositoryMemory.products).toHaveLength(1)
     expect(productRepositoryMemory.products[0].getName()).toBe('Product')
@@ -38,7 +38,7 @@ describe('Product', () => {
       imagesUrl: ['qdqwdqdw', 'https://adsasdqwdqwd']
     }
 
-    await expect(productService.addProduct(product)).rejects.toThrowError('Invalid image URL')
+    await expect(productUseCase.addProduct(product)).rejects.toThrowError('Invalid image URL')
 
     expect(productRepositoryMemory.products).toHaveLength(1)
   })

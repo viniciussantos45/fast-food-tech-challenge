@@ -1,5 +1,5 @@
-import { IComboRepository } from '@/core/application/ports/ComboRepository'
 import { Combo } from '@/core/domain/entities/Combo'
+import { IComboRepository } from '@/core/repositories/ComboRepository'
 
 export class ComboRepositoryMemory implements IComboRepository {
   private combos: Combo[] = []
