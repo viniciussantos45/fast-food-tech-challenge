@@ -1,6 +1,6 @@
 # FAST FOOD TECH CHALLENGE
 
-#docker #node #yarn #typescript #fastify #prisma #postgres
+# docker #node #yarn #typescript #fastify #prisma #postgres
 
 This project is an API for a fast food system.
 
@@ -12,33 +12,78 @@ This project is an API for a fast food system.
 
 This repository contains the source code for a project that implements a domain-driven design (DDD) with hexagonal architecture. The project structure is as follows:
 
-```
+```folder
 project-root
-├── src
-│   ├── core
-│   │   ├── applications
-│   │   │   ├── ports
-│   │   │   │   ├── ComboRepository.ts
-│   │   │   │   ├── CustomerRepository.ts
-│   │   │   │   ├── OrderRepository.ts
-│   │   │   │   ├── ProductRepository.ts
-│   │   │   ├── useCases
-│   │   │   │   ├── ComboUseCase.ts
-│   │   │   │   ├── CustomerUseCase.ts
-│   │   │   │   ├── OrderUseCase.ts
-│   │   │   │   ├── ProductUseCase.ts
-│   │   ├── domain
-│   │   │   ├── entities
-│   │   │   │   ├── Combo.ts
-│   │   │   │   ├── Customer.ts
-│   │   │   │   ├── Order.ts
-│   │   │   │   ├── Product.ts
-│   │   │   ├── events
-│   │   │   │   ├── ComboEvents.ts
-│   │   │   │   ├── CustomerEvents.ts
-│   │   │   │   ├── OrderEvents.ts
-│   │   │   │   ├── ProductEvents.ts
-
+│── src
+│   ├── application
+│   │   ├── controllers
+│   │   │   ├── CustomerController.ts
+│   │   │   ├── OrderController.ts
+│   │   │   └── ProductController.ts
+│   │   ├── dtos
+│   │   │   ├── ComboDto.ts
+│   │   │   ├── CustomerDtos.ts
+│   │   │   ├── OrderDto.ts
+│   │   │   └── ProductDto.ts
+│   │   ├── routes
+│   │   │   ├── CustomerRoutes.ts
+│   │   │   ├── index.ts
+│   │   │   ├── OrderRoutes.ts
+│   │   │   └── ProductRoutes.ts
+│   │   └── schemas
+│   │       ├── CreateCustomer.ts
+│   │       ├── CreateOrder.ts
+│   │       ├── CreateProduct.ts
+│   │       ├── DeleteProduct.ts
+│   │       ├── EditProduct.ts
+│   │       ├── IdentifyCustomerSchema.ts
+│   │       ├── ListOrders.ts
+│   │       └── ListProductsByCategory.ts
+│   ├── config
+│   │   └── app.ts
+│   ├── core
+│   │   ├── domain
+│   │   │   ├── entities
+│   │   │   │   ├── Combo.ts
+│   │   │   │   ├── Customer.ts
+│   │   │   │   ├── Order.ts
+│   │   │   │   └── Product.ts
+│   │   │   ├── events
+│   │   │   │   ├── ComboEvents.ts
+│   │   │   │   ├── CustomerEvents.ts
+│   │   │   │   ├── OrderEvents.ts
+│   │   │   │   └── ProductEvents.ts
+│   │   │   ├── use-cases
+│   │   │   │   ├── ComboUseCase.ts
+│   │   │   │   ├── CustomerUseCase.ts
+│   │   │   │   ├── OrderUseCase.ts
+│   │   │   │   └── ProductUseCase.ts
+│   │   │   └── value-objects
+│   │   │       ├── CPF.ts
+│   │   │       ├── OrderStatus.ts
+│   │   │       ├── PaymentStatus.ts
+│   │   │       ├── ProductCategory.ts
+│   │   │       └── ProductImage.ts
+│   │   └── repositories
+│   │       ├── ComboRepository.ts
+│   │       ├── CustomerRepository.ts
+│   │       ├── OrderRepository.ts
+│   │       └── ProductRepository.ts
+│   ├── index.ts
+│   └── infra
+│       └── repositories
+│           ├── memory
+│           │   ├── ComboRepository.ts
+│           │   ├── CustomerRepository.ts
+│           │   ├── OrderRepository.ts
+│           │   └── ProductRepository.ts
+│           └── prisma
+│               ├── ComboRepository.ts
+│               ├── CustomerRepository.ts
+│               ├── index.ts
+│               ├── OrderRepository.ts
+│               └── ProductRepository.ts
+├── tests
 └── README.md
 ```
 
@@ -97,6 +142,7 @@ Please refer to the individual files for more details on their implementation.
       ```
 
 ### Standalone
+
 To run the project, follow these steps:
 
 1. Clone the repository.
@@ -128,6 +174,7 @@ To run the project, follow these steps:
 Access the application [http://localhost:3000/documentation](http://localhost:3000/documentation)
 
 ## Access database
+
 1. Access container
 
     ```
