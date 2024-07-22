@@ -1,12 +1,12 @@
-import { ComboRepositoryMemory } from '@/adapter/driven/database/implementations/memory/ComboRepository'
-import { CustomerRepositoryMemory } from '@/adapter/driven/database/implementations/memory/CustomerRepository'
-import { OrderRepositoryMemory } from '@/adapter/driven/database/implementations/memory/OrderRepository'
-import { ProductRepositoryMemory } from '@/adapter/driven/database/implementations/memory/ProductRepository'
 import { ComboUseCase } from '@/core/domain/use-cases/ComboUseCase'
 import { CustomerUseCase } from '@/core/domain/use-cases/CustomerUseCase'
 import { OrderUseCase } from '@/core/domain/use-cases/OrderUseCase'
 import { ProductUseCase } from '@/core/domain/use-cases/ProductUseCase'
 import { CPF } from '@/core/domain/value-objects/CPF'
+import { ComboRepositoryMemory } from '@/infra/repositories/memory/ComboRepository'
+import { CustomerRepositoryMemory } from '@/infra/repositories/memory/CustomerRepository'
+import { OrderRepositoryMemory } from '@/infra/repositories/memory/OrderRepository'
+import { ProductRepositoryMemory } from '@/infra/repositories/memory/ProductRepository'
 import { describe, expect, it } from 'vitest'
 
 const orderRepositoryMemory = new OrderRepositoryMemory()

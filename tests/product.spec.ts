@@ -1,6 +1,6 @@
-import { ProductRepositoryMemory } from '@/adapter/driven/database/implementations/memory/ProductRepository'
 import { ProductUseCase } from '@/core/domain/use-cases/ProductUseCase'
 import { ProductCategory, ProductCategoryEnum } from '@/core/domain/value-objects/ProductCategory'
+import { ProductRepositoryMemory } from '@/infra/repositories/memory/ProductRepository'
 import { beforeAll, describe, expect, it } from 'vitest'
 
 let productRepositoryMemory: ProductRepositoryMemory

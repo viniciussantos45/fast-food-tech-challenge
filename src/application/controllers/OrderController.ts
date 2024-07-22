@@ -1,14 +1,14 @@
 import { FastifyReply, FastifyRequest } from 'fastify'
 
-import { CustomerRepository } from '@/adapter/driven/database/implementations/prisma'
-import { ComboRepository } from '@/adapter/driven/database/implementations/prisma/ComboRepository'
-import { OrderRepository } from '@/adapter/driven/database/implementations/prisma/OrderRepository'
-import { ProductRepository } from '@/adapter/driven/database/implementations/prisma/ProductRepository'
 import { ComboUseCase } from '@/core/domain/use-cases/ComboUseCase'
 import { CustomerUseCase } from '@/core/domain/use-cases/CustomerUseCase'
 import { OrderUseCase } from '@/core/domain/use-cases/OrderUseCase'
 import { ProductUseCase } from '@/core/domain/use-cases/ProductUseCase'
 import { CPF } from '@/core/domain/value-objects/CPF'
+import { CustomerRepository } from '@/infra/repositories/prisma'
+import { ComboRepository } from '@/infra/repositories/prisma/ComboRepository'
+import { OrderRepository } from '@/infra/repositories/prisma/OrderRepository'
+import { ProductRepository } from '@/infra/repositories/prisma/ProductRepository'
 import { OrderCreateDto } from '../dtos/OrderDto'
 
 const comboRepository = new ComboRepository()

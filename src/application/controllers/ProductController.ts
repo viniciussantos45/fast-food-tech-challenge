@@ -1,6 +1,6 @@
-import { ProductRepository } from '@/adapter/driven/database/implementations/prisma/ProductRepository'
 import { ProductUseCase } from '@/core/domain/use-cases/ProductUseCase'
 import { ProductCategory } from '@/core/domain/value-objects/ProductCategory'
+import { ProductRepository } from '@/infra/repositories/prisma/ProductRepository'
 import { FastifyReply, FastifyRequest } from 'fastify'
 import { ProductCreateDto, ProductEditDto } from '../dtos/ProductDto'
 

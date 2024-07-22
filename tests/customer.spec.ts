@@ -1,7 +1,7 @@
 import { beforeAll, describe, expect, it } from 'vitest'
 
-import { CustomerRepositoryMemory } from '@/adapter/driven/database/implementations/memory/CustomerRepository'
 import { CustomerUseCase } from '@/core/domain/use-cases/CustomerUseCase'
+import { CustomerRepositoryMemory } from '@/infra/repositories/memory/CustomerRepository'
 
 let customerRepositoryMemory: CustomerRepositoryMemory
 let customerUseCase: CustomerUseCase
