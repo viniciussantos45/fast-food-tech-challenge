@@ -27,6 +27,10 @@ export class Order {
     this.createdAt = createdAt
   }
 
+  public setId(id: number): void {
+    this.id = id
+  }
+
   public getId(): number | null {
     return this.id
   }

@@ -5,6 +5,8 @@ export class OrderRepositoryMemory implements IOrderRepository {
   public orders: Order[] = []
 
   saveOrder(order: Order): Promise<Order> {
+    const id = this.orders.length + 1
+    order.setId(id)
     this.orders.push(order)
     return Promise.resolve(order)
   }
