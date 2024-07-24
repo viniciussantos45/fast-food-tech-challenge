@@ -1,4 +1,4 @@
-import { Order } from '../../domain/entities/Order'
+import { Order } from '../domain/entities/Order'
 
 export interface IOrderRepository {
   saveOrder(order: Order): Promise<Order>

@@ -1,5 +1,5 @@
-import { IOrderRepository } from '@/core/application/ports/OrderRepository'
 import { Order } from '@/core/domain/entities/Order'
+import { IOrderRepository } from '@/core/repositories/OrderRepository'
 
 export class OrderRepositoryMemory implements IOrderRepository {
   public orders: Order[] = []

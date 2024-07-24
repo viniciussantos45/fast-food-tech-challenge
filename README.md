@@ -1,6 +1,6 @@
 # FAST FOOD TECH CHALLENGE
 
-#docker #node #yarn #typescript #fastify #prisma #postgres
+# docker #node #yarn #typescript #fastify #prisma #postgres
 
 This project is an API for a fast food system.
 
@@ -12,33 +12,78 @@ This project is an API for a fast food system.
 
 This repository contains the source code for a project that implements a domain-driven design (DDD) with hexagonal architecture. The project structure is as follows:
 
-```
+```folder
 project-root
-├── src
-│   ├── core
-│   │   ├── applications
-│   │   │   ├── ports
-│   │   │   │   ├── ComboRepository.ts
-│   │   │   │   ├── CustomerRepository.ts
-│   │   │   │   ├── OrderRepository.ts
-│   │   │   │   ├── ProductRepository.ts
-│   │   │   ├── services
-│   │   │   │   ├── ComboService.ts
-│   │   │   │   ├── CustomerService.ts
-│   │   │   │   ├── OrderService.ts
-│   │   │   │   ├── ProductService.ts
-│   │   ├── domain
-│   │   │   ├── entities
-│   │   │   │   ├── Combo.ts
-│   │   │   │   ├── Customer.ts
-│   │   │   │   ├── Order.ts
-│   │   │   │   ├── Product.ts
-│   │   │   ├── events
-│   │   │   │   ├── ComboEvents.ts
-│   │   │   │   ├── CustomerEvents.ts
-│   │   │   │   ├── OrderEvents.ts
-│   │   │   │   ├── ProductEvents.ts
-
+│── src
+│   ├── application
+│   │   ├── controllers
+│   │   │   ├── CustomerController.ts
+│   │   │   ├── OrderController.ts
+│   │   │   └── ProductController.ts
+│   │   ├── dtos
+│   │   │   ├── ComboDto.ts
+│   │   │   ├── CustomerDtos.ts
+│   │   │   ├── OrderDto.ts
+│   │   │   └── ProductDto.ts
+│   │   ├── routes
+│   │   │   ├── CustomerRoutes.ts
+│   │   │   ├── index.ts
+│   │   │   ├── OrderRoutes.ts
+│   │   │   └── ProductRoutes.ts
+│   │   └── schemas
+│   │       ├── CreateCustomer.ts
+│   │       ├── CreateOrder.ts
+│   │       ├── CreateProduct.ts
+│   │       ├── DeleteProduct.ts
+│   │       ├── EditProduct.ts
+│   │       ├── IdentifyCustomerSchema.ts
+│   │       ├── ListOrders.ts
+│   │       └── ListProductsByCategory.ts
+│   ├── config
+│   │   └── app.ts
+│   ├── core
+│   │   ├── domain
+│   │   │   ├── entities
+│   │   │   │   ├── Combo.ts
+│   │   │   │   ├── Customer.ts
+│   │   │   │   ├── Order.ts
+│   │   │   │   └── Product.ts
+│   │   │   ├── events
+│   │   │   │   ├── ComboEvents.ts
+│   │   │   │   ├── CustomerEvents.ts
+│   │   │   │   ├── OrderEvents.ts
+│   │   │   │   └── ProductEvents.ts
+│   │   │   ├── use-cases
+│   │   │   │   ├── ComboUseCase.ts
+│   │   │   │   ├── CustomerUseCase.ts
+│   │   │   │   ├── OrderUseCase.ts
+│   │   │   │   └── ProductUseCase.ts
+│   │   │   └── value-objects
+│   │   │       ├── CPF.ts
+│   │   │       ├── OrderStatus.ts
+│   │   │       ├── PaymentStatus.ts
+│   │   │       ├── ProductCategory.ts
+│   │   │       └── ProductImage.ts
+│   │   └── repositories
+│   │       ├── ComboRepository.ts
+│   │       ├── CustomerRepository.ts
+│   │       ├── OrderRepository.ts
+│   │       └── ProductRepository.ts
+│   ├── index.ts
+│   └── infra
+│       └── repositories
+│           ├── memory
+│           │   ├── ComboRepository.ts
+│           │   ├── CustomerRepository.ts
+│           │   ├── OrderRepository.ts
+│           │   └── ProductRepository.ts
+│           └── prisma
+│               ├── ComboRepository.ts
+│               ├── CustomerRepository.ts
+│               ├── index.ts
+│               ├── OrderRepository.ts
+│               └── ProductRepository.ts
+├── tests
 └── README.md
 ```
 
@@ -68,12 +113,12 @@ project-root
 - `ComboRepository.ts`: Interface for the combo repository.
 - `ComboEvents.ts`: Events like `ComboCreated` and `ComboUpdated`.
 
-## Domain Services
+## Domain UseCases
 
-- `ProductService.ts`: Services related to product management.
-- `OrderService.ts`: Services for handling orders, including confirmation and status updates.
-- `CustomerService.ts`: Services for managing customers, including registration and data updates.
-- `ComboService.ts`: Services for managing the creation and modification of combos.
+- `ProductUseCase.ts`: UseCases related to product management.
+- `OrderUseCase.ts`: UseCases for handling orders, including confirmation and status updates.
+- `CustomerUseCase.ts`: UseCases for managing customers, including registration and data updates.
+- `ComboUseCase.ts`: UseCases for managing the creation and modification of combos.
 
 Please refer to the individual files for more details on their implementation.
 
@@ -97,6 +142,7 @@ Please refer to the individual files for more details on their implementation.
       ```
 
 ### Standalone
+
 To run the project, follow these steps:
 
 1. Clone the repository.
@@ -128,6 +174,7 @@ To run the project, follow these steps:
 Access the application [http://localhost:3000/documentation](http://localhost:3000/documentation)
 
 ## Access database
+
 1. Access container
 
     ```

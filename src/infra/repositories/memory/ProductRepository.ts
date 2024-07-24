@@ -1,5 +1,5 @@
-import { IProductRepository } from '@/core/application/ports/ProductRepository'
 import { Product } from '@/core/domain/entities/Product'
+import { IProductRepository } from '@/core/repositories/ProductRepository'
 
 export class ProductRepositoryMemory implements IProductRepository {
   public products: Product[] = []

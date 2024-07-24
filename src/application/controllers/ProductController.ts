@@ -1,18 +1,18 @@
-import { ProductRepository } from '@/adapter/driven/database/implementations/prisma/ProductRepository'
-import { ProductService } from '@/core/application/services/ProductService'
+import { ProductUseCase } from '@/core/domain/use-cases/ProductUseCase'
 import { ProductCategory } from '@/core/domain/value-objects/ProductCategory'
+import { ProductRepository } from '@/infra/repositories/prisma/ProductRepository'
 import { FastifyReply, FastifyRequest } from 'fastify'
 import { ProductCreateDto, ProductEditDto } from '../dtos/ProductDto'
 
 const productRepository = new ProductRepository()
-const productService = new ProductService(productRepository)
+const productUseCase = new ProductUseCase(productRepository)
 
 export async function addProduct(request: FastifyRequest<{ Body: ProductCreateDto }>, reply: FastifyReply) {
   const { name, category: categoryPlainText, price, description, images } = request.body
 
   const category = new ProductCategory(categoryPlainText)
 
-  const product = await productService.addProduct({ name, category, price, description, imagesUrl: images })
+  const product = await productUseCase.addProduct({ name, category, price, description, imagesUrl: images })
 
   reply.status(201).send(product)
 }
@@ -25,7 +25,7 @@ export async function editProduct(
 
   const productId = Number(request.params.id)
 
-  await productService.editProduct({ id: productId, ...data })
+  await productUseCase.editProduct({ id: productId, ...data })
 
   reply.status(200).send()
 }
@@ -33,7 +33,7 @@ export async function editProduct(
 export async function removeProduct(request: FastifyRequest<{ Params: { id: string } }>, reply: FastifyReply) {
   const { id } = request.params
 
-  await productService.removeProduct(Number(id))
+  await productUseCase.removeProduct(Number(id))
 
   reply.status(204).send()
 }
@@ -43,7 +43,7 @@ export async function getProductsByCategory(request: FastifyRequest<{ Params: { 
 
   const categoryValue = new ProductCategory(category)
 
-  const products = await productService.getProductsByCategory(categoryValue)
+  const products = await productUseCase.getProductsByCategory(categoryValue)
 
   reply.status(200).send(products)
 }

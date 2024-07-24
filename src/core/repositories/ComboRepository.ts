@@ -1,4 +1,4 @@
-import { Combo } from '../../domain/entities/Combo'
+import { Combo } from '../domain/entities/Combo'
 
 export interface IComboRepository {
   saveCombo(combo: Combo): Promise<void>

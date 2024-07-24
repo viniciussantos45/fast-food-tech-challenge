@@ -1,4 +1,4 @@
-import { Customer } from '../../domain/entities/Customer'
+import { Customer } from '../domain/entities/Customer'
 
 export interface ICustomerRepository {
   createCustomer(customer: Customer): Promise<Customer | void>

@@ -1,5 +1,5 @@
-import { IComboRepository } from '@/core/application/ports/ComboRepository'
 import { Combo } from '@/core/domain/entities/Combo'
+import { IComboRepository } from '@/core/repositories/ComboRepository'
 import { PrismaClient } from '@prisma/client'
 
 export class ComboRepository implements IComboRepository {
