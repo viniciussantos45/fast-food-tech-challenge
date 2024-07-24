@@ -57,6 +57,27 @@ describe('Order', () => {
     expect(orderRepositoryMemory.orders).toHaveLength(1)
     expect(orderRepositoryMemory.orders[0].getCombos()).toHaveLength(1)
     expect(order.id).not.toBeNull()
-    console.log(order)
+  })
+
+  it('should be return status payment for an specific order', async () => {
+    const customer = {
+      name: 'John Doe2',
+      cpf: '17674185079',
+      email: 'john-doe2@gmail.com'
+    }
+
+    await customerUseCase.registerCustomer(customer.cpf, customer.name, customer.email)
+
+    const order = await orderUseCase.createOrder({
+      combos: [{ productsIds: products.map((product) => product.getId()) as number[] }],
+      customerId: new CPF(customer.cpf)
+    })
+
+    expect(order).toBeDefined()
+    expect(order.id).not.toBeNull()
+
+    const statusPayment = await orderUseCase.getStatusPayment(order.id as number)
+
+    expect(statusPayment).toBeDefined()
   })
 })

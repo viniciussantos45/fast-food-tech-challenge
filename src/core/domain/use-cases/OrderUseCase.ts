@@ -110,6 +110,12 @@ export class OrderUseCase {
     })
   }
 
+  async getStatusPayment(orderId: number) {
+    const order = await this.orderRepository.getOrderById(orderId)
+
+    return order.getPaymentStatusMessage()
+  }
+
   updateOrder(order: Order): Order {
     // Perform any necessary updates to the order
     // const orderUpdatedEvent = new OrderUpdated(order)
