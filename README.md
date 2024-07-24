@@ -193,6 +193,10 @@ After setup de application standalone, run:
 yarn test:cucumber
 ```
 
+## Diagrams
+
+![Kubernetes App and DB diagram](./public/K8S_diagram.png)
+
 ## Contributing
 
 Feel free to explore the code and make any necessary modifications to suit your needs.
