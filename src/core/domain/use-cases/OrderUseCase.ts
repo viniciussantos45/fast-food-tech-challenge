@@ -51,7 +51,7 @@ export class OrderUseCase {
     }
 
     // Payment should be approved by default
-    const preOrder = new Order(null, customer, createdCombos, PaymentStatus.APPROVED, OrderStatus.RECEIVED, new Date())
+    const preOrder = new Order(null, customer, createdCombos, PaymentStatus.PENDING, OrderStatus.RECEIVED, new Date())
 
     const order = await this.orderRepository.saveOrder(preOrder)
 
@@ -77,7 +77,7 @@ export class OrderUseCase {
         }
       }),
       status: order.getStatusMessage(),
-      statusPayment: order.getPaymentStatusMessage(),
+      statusPayment: order.getStatusPayment(),
       createdAt: order.getCreatedAt()
     }
   }
@@ -114,6 +114,30 @@ export class OrderUseCase {
     const order = await this.orderRepository.getOrderById(orderId)
 
     return order.getPaymentStatusMessage()
+  }
+
+  async changePaymentStatus(orderId: number, status: PaymentStatus) {
+    const order = await this.orderRepository.getOrderById(orderId)
+
+    if (!order) {
+      throw new Error('Order not found')
+    }
+
+    if (status === PaymentStatus.APPROVED || status === PaymentStatus.REFUNDED || status === PaymentStatus.REJECTED) {
+      order.setStatusPayment(status)
+    } else {
+      throw new Error('Invalid payment status')
+    }
+
+    order.setStatusPayment(status)
+
+    await this.orderRepository.saveOrder(order)
+
+    return order
+  }
+
+  async getById(orderId: number) {
+    return await this.orderRepository.getOrderById(orderId)
   }
 
   updateOrder(order: Order): Order {

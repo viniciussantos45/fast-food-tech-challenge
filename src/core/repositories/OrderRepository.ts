@@ -5,4 +5,5 @@ export interface IOrderRepository {
   getOrderById(orderId: number): Promise<Order>
   removeOrder(orderId: number): Promise<void>
   listOrders(): Promise<Order[]>
+  updateOrder(order: Order): Promise<Order>
 }

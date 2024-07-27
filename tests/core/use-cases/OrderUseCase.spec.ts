@@ -4,6 +4,7 @@ import { CustomerUseCase } from '@/core/domain/use-cases/CustomerUseCase'
 import { OrderUseCase } from '@/core/domain/use-cases/OrderUseCase'
 import { ProductUseCase } from '@/core/domain/use-cases/ProductUseCase'
 import { CPF } from '@/core/domain/value-objects/CPF'
+import { PaymentStatus } from '@/core/domain/value-objects/PaymentStatus'
 import { ProductCategory, ProductCategoryEnum } from '@/core/domain/value-objects/ProductCategory'
 import { ProductImage } from '@/core/domain/value-objects/ProductImage'
 import { ComboRepositoryMemory } from '@/infra/repositories/memory/ComboRepository'
@@ -79,5 +80,29 @@ describe('Order', () => {
     const statusPayment = await orderUseCase.getStatusPayment(order.id as number)
 
     expect(statusPayment).toBeDefined()
+  })
+
+  it('should be able to change payment status for an specific order', async () => {
+    const customer = {
+      name: 'John Doe3',
+      cpf: '01973324040',
+      email: 'john-doe3@gmail.com'
+    }
+
+    await customerUseCase.registerCustomer(customer.cpf, customer.name, customer.email)
+
+    const order = await orderUseCase.createOrder({
+      combos: [{ productsIds: products.map((product) => product.getId()) as number[] }],
+      customerId: new CPF(customer.cpf)
+    })
+
+    expect(order).toBeDefined()
+    expect(order.statusPayment).toBe(PaymentStatus.PENDING)
+
+    await orderUseCase.changePaymentStatus(order.id as number, PaymentStatus.APPROVED)
+    console.log(order.id)
+    const statusPayment = await orderUseCase.getById(order.id as number)
+
+    expect(statusPayment).toBe(PaymentStatus.APPROVED)
   })
 })

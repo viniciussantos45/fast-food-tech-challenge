@@ -4,6 +4,16 @@ import { IOrderRepository } from '@/core/repositories/OrderRepository'
 export class OrderRepositoryMemory implements IOrderRepository {
   public orders: Order[] = []
 
+  updateOrder(order: Order): Promise<Order> {
+    const updatedOrder = this.orders.find((o) => o.getId() === order.getId())
+    if (!updatedOrder) {
+      throw new Error('Order not found')
+    }
+    updatedOrder.setStatus(order.getStatus())
+    updatedOrder.setStatusPayment(order.getStatusPayment())
+    return Promise.resolve(updatedOrder)
+  }
+
   saveOrder(order: Order): Promise<Order> {
     const id = this.orders.length + 1
     order.setId(id)

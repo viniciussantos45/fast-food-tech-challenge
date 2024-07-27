@@ -16,6 +16,30 @@ export class OrderRepository implements IOrderRepository {
   constructor() {
     this.prisma = new PrismaClient()
   }
+  async updateOrder(order: Order): Promise<Order> {
+    if (!order.getId()) {
+      throw new Error('Order ID is required')
+    }
+
+    const updatedOrder = await this.prisma.order.update({
+      where: {
+        id: Number(order.getId())
+      },
+      data: {
+        status: order.getStatus(),
+        statusPayment: order.getStatusPayment()
+      }
+    })
+
+    return new Order(
+      updatedOrder.id,
+      order.getCustomer(),
+      order.getCombos(),
+      order.getStatusPayment(),
+      order.getStatus(),
+      order.getCreatedAt()
+    )
+  }
 
   async saveOrder(order: Order): Promise<Order> {
     const createdOrder = await this.prisma.order.create({
