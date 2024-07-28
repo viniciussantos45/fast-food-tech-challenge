@@ -5,6 +5,7 @@ import { CustomerUseCase } from '@/core/domain/use-cases/CustomerUseCase'
 import { OrderUseCase } from '@/core/domain/use-cases/OrderUseCase'
 import { ProductUseCase } from '@/core/domain/use-cases/ProductUseCase'
 import { CPF } from '@/core/domain/value-objects/CPF'
+import { OrderStatus } from '@/core/domain/value-objects/OrderStatus'
 import { PaymentStatus } from '@/core/domain/value-objects/PaymentStatus'
 import { CustomerRepository } from '@/infra/repositories/prisma'
 import { ComboRepository } from '@/infra/repositories/prisma/ComboRepository'
@@ -49,6 +50,18 @@ export async function statusPayment(
   const statusPayment = await orderUseCase.getStatusPayment(Number(orderId))
 
   reply.status(200).send(statusPayment)
+}
+
+export async function updateOrderStatus(
+  request: FastifyRequest<{ Params: { orderId: string }; Body: { status: OrderStatus } }>,
+  reply: FastifyReply
+): Promise<void> {
+  const { orderId } = request.params
+  const { status } = request.body
+
+  await orderUseCase.changeOrderStatus(Number(orderId), status)
+
+  reply.status(204).send()
 }
 
 export async function webhookPaymentStatus(

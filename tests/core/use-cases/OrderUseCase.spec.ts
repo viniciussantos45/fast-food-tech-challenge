@@ -4,6 +4,7 @@ import { CustomerUseCase } from '@/core/domain/use-cases/CustomerUseCase'
 import { OrderUseCase } from '@/core/domain/use-cases/OrderUseCase'
 import { ProductUseCase } from '@/core/domain/use-cases/ProductUseCase'
 import { CPF } from '@/core/domain/value-objects/CPF'
+import { OrderStatus } from '@/core/domain/value-objects/OrderStatus'
 import { PaymentStatus, PaymentStatusMessage } from '@/core/domain/value-objects/PaymentStatus'
 import { ProductCategory, ProductCategoryEnum } from '@/core/domain/value-objects/ProductCategory'
 import { ProductImage } from '@/core/domain/value-objects/ProductImage'
@@ -104,5 +105,30 @@ describe('Order', () => {
     const statusPayment = await orderUseCase.getStatusPayment(order.id as number)
 
     expect(statusPayment).toBe(PaymentStatusMessage.APPROVED)
+  })
+
+  it('should be able to change status for an specific order', async () => {
+    const customer = {
+      name: 'John Doe3',
+      cpf: '06041772089',
+      email: 'john-doe4@gmail.com'
+    }
+
+    await customerUseCase.registerCustomer(customer.cpf, customer.name, customer.email)
+
+    const order = await orderUseCase.createOrder({
+      combos: [{ productsIds: products.map((product) => product.getId()) as number[] }],
+      customerId: new CPF(customer.cpf)
+    })
+
+    expect(order).toBeDefined()
+    expect(order.status).toBe(OrderStatus.RECEIVED)
+
+    await orderUseCase.changeOrderStatus(order.id as number, OrderStatus.IN_PROGRESS)
+
+    const orderUpdated = await orderUseCase.getById(order.id as number)
+
+    expect(orderUpdated).toBeDefined()
+    expect(orderUpdated.getStatus()).toBe(OrderStatus.IN_PROGRESS)
   })
 })

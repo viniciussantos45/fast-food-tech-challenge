@@ -76,7 +76,7 @@ export class OrderUseCase {
           })
         }
       }),
-      status: order.getStatusMessage(),
+      status: order.getStatus(),
       statusPayment: order.getStatusPayment(),
       createdAt: order.getCreatedAt()
     }
@@ -130,6 +130,20 @@ export class OrderUseCase {
     }
 
     order.setStatusPayment(status)
+
+    await this.orderRepository.updateOrder(order)
+
+    return order
+  }
+
+  async changeOrderStatus(orderId: number, status: OrderStatus) {
+    const order = await this.orderRepository.getOrderById(orderId)
+
+    if (!order) {
+      throw new Error('Order not found')
+    }
+
+    order.setStatus(status)
 
     await this.orderRepository.updateOrder(order)
 
