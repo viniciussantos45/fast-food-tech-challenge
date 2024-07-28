@@ -4,7 +4,7 @@ import { CustomerUseCase } from '@/core/domain/use-cases/CustomerUseCase'
 import { OrderUseCase } from '@/core/domain/use-cases/OrderUseCase'
 import { ProductUseCase } from '@/core/domain/use-cases/ProductUseCase'
 import { CPF } from '@/core/domain/value-objects/CPF'
-import { PaymentStatus } from '@/core/domain/value-objects/PaymentStatus'
+import { PaymentStatus, PaymentStatusMessage } from '@/core/domain/value-objects/PaymentStatus'
 import { ProductCategory, ProductCategoryEnum } from '@/core/domain/value-objects/ProductCategory'
 import { ProductImage } from '@/core/domain/value-objects/ProductImage'
 import { ComboRepositoryMemory } from '@/infra/repositories/memory/ComboRepository'
@@ -100,9 +100,9 @@ describe('Order', () => {
     expect(order.statusPayment).toBe(PaymentStatus.PENDING)
 
     await orderUseCase.changePaymentStatus(order.id as number, PaymentStatus.APPROVED)
-    console.log(order.id)
-    const statusPayment = await orderUseCase.getById(order.id as number)
 
-    expect(statusPayment).toBe(PaymentStatus.APPROVED)
+    const statusPayment = await orderUseCase.getStatusPayment(order.id as number)
+
+    expect(statusPayment).toBe(PaymentStatusMessage.APPROVED)
   })
 })

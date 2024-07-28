@@ -131,7 +131,7 @@ export class OrderUseCase {
 
     order.setStatusPayment(status)
 
-    await this.orderRepository.saveOrder(order)
+    await this.orderRepository.updateOrder(order)
 
     return order
   }

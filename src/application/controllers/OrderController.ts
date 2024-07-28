@@ -5,6 +5,7 @@ import { CustomerUseCase } from '@/core/domain/use-cases/CustomerUseCase'
 import { OrderUseCase } from '@/core/domain/use-cases/OrderUseCase'
 import { ProductUseCase } from '@/core/domain/use-cases/ProductUseCase'
 import { CPF } from '@/core/domain/value-objects/CPF'
+import { PaymentStatus } from '@/core/domain/value-objects/PaymentStatus'
 import { CustomerRepository } from '@/infra/repositories/prisma'
 import { ComboRepository } from '@/infra/repositories/prisma/ComboRepository'
 import { OrderRepository } from '@/infra/repositories/prisma/OrderRepository'
@@ -37,4 +38,28 @@ export async function listOrders(request: FastifyRequest, reply: FastifyReply): 
   const orders = await orderUseCase.listOrders()
 
   reply.status(200).send(orders)
+}
+
+export async function statusPayment(
+  request: FastifyRequest<{ Params: { orderId: string } }>,
+  reply: FastifyReply
+): Promise<void> {
+  const { orderId } = request.params
+
+  const statusPayment = await orderUseCase.getStatusPayment(Number(orderId))
+
+  reply.status(200).send(statusPayment)
+}
+
+export async function webhookPaymentStatus(
+  request: FastifyRequest<{ Body: { orderId: string; status: PaymentStatus } }>,
+  reply: FastifyReply
+): Promise<void> {
+  const { orderId, status } = request.body
+
+  if (status === PaymentStatus.APPROVED) {
+    await orderUseCase.changePaymentStatus(Number(orderId), PaymentStatus.APPROVED)
+  }
+
+  reply.status(204).send()
 }

@@ -11,6 +11,9 @@ export class OrderRepositoryMemory implements IOrderRepository {
     }
     updatedOrder.setStatus(order.getStatus())
     updatedOrder.setStatusPayment(order.getStatusPayment())
+
+    this.orders = this.orders.map((o) => (o.getId() === order.getId() ? updatedOrder : o))
+
     return Promise.resolve(updatedOrder)
   }
 
