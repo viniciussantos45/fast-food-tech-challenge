@@ -36,7 +36,7 @@ export async function createOrder(request: FastifyRequest<{ Body: OrderCreateDto
 }
 
 export async function listOrders(request: FastifyRequest, reply: FastifyReply): Promise<void> {
-  const orders = await orderUseCase.listOrders()
+  const orders = await orderUseCase.listOrdersGroupedByStatus()
 
   reply.status(200).send(orders)
 }

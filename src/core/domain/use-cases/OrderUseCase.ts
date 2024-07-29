@@ -154,6 +154,10 @@ export class OrderUseCase {
     return await this.orderRepository.getOrderById(orderId)
   }
 
+  async listOrdersGroupedByStatus() {
+    return await this.orderRepository.listOrdersGroupedByStatus()
+  }
+
   updateOrder(order: Order): Order {
     // Perform any necessary updates to the order
     // const orderUpdatedEvent = new OrderUpdated(order)

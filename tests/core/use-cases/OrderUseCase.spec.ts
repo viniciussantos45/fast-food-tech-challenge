@@ -12,17 +12,17 @@ import { ComboRepositoryMemory } from '@/infra/repositories/memory/ComboReposito
 import { CustomerRepositoryMemory } from '@/infra/repositories/memory/CustomerRepository'
 import { OrderRepositoryMemory } from '@/infra/repositories/memory/OrderRepository'
 import { ProductRepositoryMemory } from '@/infra/repositories/memory/ProductRepository'
-import { beforeAll, describe, expect, it } from 'vitest'
+import { beforeAll, beforeEach, describe, expect, it } from 'vitest'
 
-const orderRepositoryMemory = new OrderRepositoryMemory()
-const comboRepositoryMemory = new ComboRepositoryMemory()
-const productRepository = new ProductRepositoryMemory()
-const customerRepository = new CustomerRepositoryMemory()
+let orderRepositoryMemory: OrderRepositoryMemory
+let comboRepositoryMemory: ComboRepositoryMemory
+let productRepository: ProductRepositoryMemory
+let customerRepository: CustomerRepositoryMemory
 
-const comboUseCase = new ComboUseCase(comboRepositoryMemory)
-const productUseCase = new ProductUseCase(productRepository)
-const customerUseCase = new CustomerUseCase(customerRepository)
-const orderUseCase = new OrderUseCase(orderRepositoryMemory, comboUseCase, productUseCase, customerUseCase)
+let comboUseCase: ComboUseCase
+let productUseCase: ProductUseCase
+let customerUseCase: CustomerUseCase
+let orderUseCase: OrderUseCase
 
 let products: Product[]
 
@@ -39,6 +39,17 @@ describe('Order', () => {
         new ProductImage('https://example.com/image.jpg')
       ])
     ]
+  })
+
+  beforeEach(() => {
+    orderRepositoryMemory = new OrderRepositoryMemory()
+    comboRepositoryMemory = new ComboRepositoryMemory()
+    productRepository = new ProductRepositoryMemory()
+    customerRepository = new CustomerRepositoryMemory()
+    comboUseCase = new ComboUseCase(comboRepositoryMemory)
+    productUseCase = new ProductUseCase(productRepository)
+    customerUseCase = new CustomerUseCase(customerRepository)
+    orderUseCase = new OrderUseCase(orderRepositoryMemory, comboUseCase, productUseCase, customerUseCase)
   })
 
   it('should be able to create a new order', async () => {
@@ -130,5 +141,65 @@ describe('Order', () => {
 
     expect(orderUpdated).toBeDefined()
     expect(orderUpdated.getStatus()).toBe(OrderStatus.IN_PROGRESS)
+  })
+
+  it('should be able to list all orders', async () => {
+    const customer = {
+      name: 'John Doe4',
+      cpf: '06041772089',
+      email: 'john-doe5@gmail.com'
+    }
+
+    await customerUseCase.registerCustomer(customer.cpf, customer.name, customer.email)
+
+    const orders = [
+      await orderUseCase.createOrder({
+        combos: [{ productsIds: products.map((product) => product.getId()) as number[] }],
+        customerId: new CPF(customer.cpf)
+      }),
+      await orderUseCase.createOrder({
+        combos: [{ productsIds: products.map((product) => product.getId()) as number[] }],
+        customerId: new CPF(customer.cpf)
+      }),
+      await orderUseCase.createOrder({
+        combos: [{ productsIds: products.map((product) => product.getId()) as number[] }],
+        customerId: new CPF(customer.cpf)
+      }),
+      await orderUseCase.createOrder({
+        combos: [{ productsIds: products.map((product) => product.getId()) as number[] }],
+        customerId: new CPF(customer.cpf)
+      }),
+      await orderUseCase.createOrder({
+        combos: [{ productsIds: products.map((product) => product.getId()) as number[] }],
+        customerId: new CPF(customer.cpf)
+      }),
+      await orderUseCase.createOrder({
+        combos: [{ productsIds: products.map((product) => product.getId()) as number[] }],
+        customerId: new CPF(customer.cpf)
+      }),
+      await orderUseCase.createOrder({
+        combos: [{ productsIds: products.map((product) => product.getId()) as number[] }],
+        customerId: new CPF(customer.cpf)
+      }),
+      await orderUseCase.createOrder({
+        combos: [{ productsIds: products.map((product) => product.getId()) as number[] }],
+        customerId: new CPF(customer.cpf)
+      })
+    ]
+
+    await orderUseCase.changeOrderStatus(orders[0].id as number, OrderStatus.IN_PROGRESS)
+    await orderUseCase.changeOrderStatus(orders[1].id as number, OrderStatus.IN_PROGRESS)
+    await orderUseCase.changeOrderStatus(orders[2].id as number, OrderStatus.READY)
+    await orderUseCase.changeOrderStatus(orders[3].id as number, OrderStatus.READY)
+    await orderUseCase.changeOrderStatus(orders[4].id as number, OrderStatus.FINISHED)
+    await orderUseCase.changeOrderStatus(orders[5].id as number, OrderStatus.FINISHED)
+
+    const listOrders = await orderUseCase.listOrdersGroupedByStatus()
+
+    expect(listOrders).toBeDefined()
+    expect(listOrders.finished).toHaveLength(2)
+    expect(listOrders.in_progress).toHaveLength(2)
+    expect(listOrders.ready).toHaveLength(2)
+    expect(listOrders.received).toHaveLength(2)
   })
 })
