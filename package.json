@@ -40,10 +40,14 @@
     "@fastify/swagger-ui": "^3.0.0",
     "@prisma/client": "^5.14.0",
     "ajv-errors": "^3.0.0",
+    "axios": "^1.7.2",
+    "dotenv": "^16.4.5",
     "fastify": "^4.27.0",
+    "mercadopago": "^2.0.11",
     "module-alias": "^2.2.3",
     "nodemon": "^3.1.0",
-    "types-ddd": "^3.9.1"
+    "types-ddd": "^3.9.1",
+    "uuid": "^10.0.0"
   },
   "resolutions": {
     "string-width": "4.2.3"

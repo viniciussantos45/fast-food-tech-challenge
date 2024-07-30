@@ -9,6 +9,7 @@ export class Order {
   private combos: Combo[]
   private statusPayment: PaymentStatus
   private status: OrderStatus
+  private paymentGatewayId?: string
   private createdAt: Date
 
   constructor(
@@ -25,6 +26,10 @@ export class Order {
     this.statusPayment = statusPayment
     this.status = status
     this.createdAt = createdAt
+  }
+
+  public setId(id: number): void {
+    this.id = id
   }
 
   public getId(): number | null {
@@ -81,5 +86,13 @@ export class Order {
 
   public getPaymentStatusMessage(): string {
     return PaymentStatusMessage[this.statusPayment]
+  }
+
+  public setPaymentGatewayId(paymentGatewayId: string): void {
+    this.paymentGatewayId = paymentGatewayId
+  }
+
+  public getPaymentGatewayId(): string | undefined {
+    return this.paymentGatewayId
   }
 }

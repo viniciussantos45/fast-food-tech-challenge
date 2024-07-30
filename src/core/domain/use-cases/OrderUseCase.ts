@@ -6,6 +6,7 @@ import { IOrderRepository } from '../../repositories/OrderRepository'
 import { Order } from '../entities/Order'
 import { ComboUseCase } from './ComboUseCase'
 import { CustomerUseCase } from './CustomerUseCase'
+import { PaymentGatewayUseCase } from './PaymentGatewayUseCase'
 import { ProductUseCase } from './ProductUseCase'
 
 type ComboParams = {
@@ -22,17 +23,20 @@ export class OrderUseCase {
   private comboUseCase: ComboUseCase
   private productUseCase: ProductUseCase
   private customerUseCase: CustomerUseCase
+  private paymentGatewayUseCase: PaymentGatewayUseCase
 
   constructor(
     orderRepository: IOrderRepository,
     comboUseCase: ComboUseCase,
     productUseCase: ProductUseCase,
-    customerUseCase: CustomerUseCase
+    customerUseCase: CustomerUseCase,
+    paymentGatewayUseCase: PaymentGatewayUseCase
   ) {
     this.orderRepository = orderRepository
     this.comboUseCase = comboUseCase
     this.productUseCase = productUseCase
     this.customerUseCase = customerUseCase
+    this.paymentGatewayUseCase = paymentGatewayUseCase
   }
 
   async createOrder({ combos, customerId }: CreateOrderDTO) {
@@ -51,13 +55,29 @@ export class OrderUseCase {
     }
 
     // Payment should be approved by default
-    const preOrder = new Order(null, customer, createdCombos, PaymentStatus.APPROVED, OrderStatus.RECEIVED, new Date())
+    const preOrder = new Order(null, customer, createdCombos, PaymentStatus.PENDING, OrderStatus.RECEIVED, new Date())
 
     const order = await this.orderRepository.saveOrder(preOrder)
 
-    // // Perform any additional logic or validations here
-    // const orderCreatedEvent = new OrderCreated(order)
-    // Emit the order created event
+    // Todo with payment gateway
+    const amount: number = order.getCombos().reduce((acc, combo) => {
+      const comboPrice = combo.getProducts().reduce((acc, product) => acc + product.getPrice(), 0)
+      return acc + comboPrice
+    }, 0)
+
+    const pixPayment = await this.paymentGatewayUseCase.processPaymentQRcode({
+      amount,
+      description: 'Order payment',
+      payer: {
+        email: customer.getEmail()
+      }
+    })
+
+    if (!pixPayment) {
+      throw new Error('Payment failed')
+    }
+
+    await this.orderRepository.addPaymentGatewayId(order.getId() as number, pixPayment.gatewayId)
 
     return {
       id: order.getId(),
@@ -76,8 +96,8 @@ export class OrderUseCase {
           })
         }
       }),
-      status: order.getStatusMessage(),
-      statusPayment: order.getPaymentStatusMessage(),
+      status: order.getStatus(),
+      statusPayment: order.getStatusPayment(),
       createdAt: order.getCreatedAt()
     }
   }
@@ -108,6 +128,54 @@ export class OrderUseCase {
         createdAt: order.getCreatedAt()
       }
     })
+  }
+
+  async getStatusPayment(orderId: number) {
+    const order = await this.orderRepository.getOrderById(orderId)
+
+    return order.getPaymentStatusMessage()
+  }
+
+  async changePaymentStatus(orderId: number, status: PaymentStatus) {
+    const order = await this.orderRepository.getOrderById(orderId)
+
+    if (!order) {
+      throw new Error('Order not found')
+    }
+
+    if (status === PaymentStatus.APPROVED || status === PaymentStatus.REFUNDED || status === PaymentStatus.REJECTED) {
+      order.setStatusPayment(status)
+    } else {
+      throw new Error('Invalid payment status')
+    }
+
+    order.setStatusPayment(status)
+
+    await this.orderRepository.updateOrder(order)
+
+    return order
+  }
+
+  async changeOrderStatus(orderId: number, status: OrderStatus) {
+    const order = await this.orderRepository.getOrderById(orderId)
+
+    if (!order) {
+      throw new Error('Order not found')
+    }
+
+    order.setStatus(status)
+
+    await this.orderRepository.updateOrder(order)
+
+    return order
+  }
+
+  async getById(orderId: number) {
+    return await this.orderRepository.getOrderById(orderId)
+  }
+
+  async listOrdersGroupedByStatus() {
+    return await this.orderRepository.listOrdersGroupedByStatus()
   }
 
   updateOrder(order: Order): Order {

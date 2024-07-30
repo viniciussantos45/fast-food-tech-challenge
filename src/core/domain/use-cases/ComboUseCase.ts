@@ -21,7 +21,7 @@ export class ComboUseCase {
     return combo
   }
 
-  public async updateCombo(combo: Combo, products: Product[]): Promise<Combo> {
+  public async updateCombo(combo: Combo, _products: Product[]): Promise<Combo> {
     // Logic to update the combo with the given products
     // combo.updateProducts(products)
     this.comboRepository.saveCombo(combo)

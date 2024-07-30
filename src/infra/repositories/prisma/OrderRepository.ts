@@ -17,6 +17,31 @@ export class OrderRepository implements IOrderRepository {
     this.prisma = new PrismaClient()
   }
 
+  async updateOrder(order: Order): Promise<Order> {
+    if (!order.getId()) {
+      throw new Error('Order ID is required')
+    }
+
+    const updatedOrder = await this.prisma.order.update({
+      where: {
+        id: Number(order.getId())
+      },
+      data: {
+        status: order.getStatus(),
+        statusPayment: order.getStatusPayment()
+      }
+    })
+
+    return new Order(
+      updatedOrder.id,
+      order.getCustomer(),
+      order.getCombos(),
+      order.getStatusPayment(),
+      order.getStatus(),
+      order.getCreatedAt()
+    )
+  }
+
   async saveOrder(order: Order): Promise<Order> {
     const createdOrder = await this.prisma.order.create({
       data: {
@@ -151,6 +176,83 @@ export class OrderRepository implements IOrderRepository {
       const orderStatus = order.status as OrderStatus
 
       return new Order(order.id, customer, combos, paymentStatus, orderStatus, order.createdAt)
+    })
+  }
+  async listOrdersFilteredAndSorted(filters: { status: OrderStatus }, sorted: Array<'createdAt'>): Promise<Order[]> {
+    const orders = await this.prisma.order.findMany({
+      where: {
+        status: filters.status
+      },
+      include: {
+        customer: true,
+        combos: {
+          include: {
+            comboProducts: {
+              include: {
+                product: {
+                  include: {
+                    images: true
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      orderBy: {
+        ...() => {
+          return sorted.map((sort) => {
+            return {
+              [sort]: 'asc'
+            }
+          })
+        }
+      }
+    })
+
+    return orders.map((order) => {
+      const customer = new Customer(new CPF(order.customer.cpf), order.customer.name, order.customer.email)
+      const combos = order.combos.map((combo) => {
+        return new Combo(
+          combo.comboProducts.map(
+            (comboProduct) =>
+              new Product(
+                comboProduct.product.id,
+                comboProduct.product.name,
+                new ProductCategory(comboProduct.product.category),
+                comboProduct.product.price.toNumber(),
+                comboProduct.product.description,
+                comboProduct.product.images.map((image) => new ProductImage(image.url))
+              )
+          )
+        )
+      })
+      const paymentStatus = order.statusPayment as PaymentStatus
+      const orderStatus = order.status as OrderStatus
+
+      return new Order(order.id, customer, combos, paymentStatus, orderStatus, order.createdAt)
+    })
+  }
+
+  async listOrdersGroupedByStatus(): Promise<Record<OrderStatus, Order[]>> {
+    const ordersGrouped = {
+      [OrderStatus.RECEIVED]: await this.listOrdersFilteredAndSorted({ status: OrderStatus.RECEIVED }, ['createdAt']),
+      [OrderStatus.IN_PROGRESS]: await this.listOrdersFilteredAndSorted({ status: OrderStatus.IN_PROGRESS }, ['createdAt']),
+      [OrderStatus.READY]: await this.listOrdersFilteredAndSorted({ status: OrderStatus.READY }, ['createdAt']),
+      [OrderStatus.FINISHED]: await this.listOrdersFilteredAndSorted({ status: OrderStatus.FINISHED }, ['createdAt'])
+    }
+
+    return ordersGrouped
+  }
+
+  async addPaymentGatewayId(orderId: number, gatewayId: string): Promise<void> {
+    await this.prisma.order.update({
+      where: {
+        id: orderId
+      },
+      data: {
+        paymentGatewayId: gatewayId
+      }
     })
   }
 }
