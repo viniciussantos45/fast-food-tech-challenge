@@ -31,9 +31,9 @@ export class MercadoPagoPaymentGateway implements IPaymentGateway {
       })
 
       return {
-        gatewayId: data.id,
-        base64: data.transaction_data.qr_code_base64,
-        qrCode: data.transaction_data.qr_code
+        gatewayId: data.id.toString(),
+        base64: data.point_of_interaction.transaction_data.qr_code_base64,
+        qrCode: data.point_of_interaction.transaction_data.qr_code
       }
     } catch (error) {
       if (error instanceof Error) {

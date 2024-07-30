@@ -27,9 +27,10 @@ model Order {
 
   combos Combo[]
 
-  statusPayment String   @map("status_payment")
-  status        String
-  createdAt     DateTime @default(now()) @map("created_at")
+  statusPayment    String   @map("status_payment")
+  status           String
+  paymentGatewayId String?  @map("payment_gateway_id")
+  createdAt        DateTime @default(now()) @map("created_at")
 
   customer    Customer @relation(fields: [customer_id], references: [id])
   customer_id Int

@@ -3,6 +3,7 @@ import { OrderStatus } from '../domain/value-objects/OrderStatus'
 
 export interface IOrderRepository {
   saveOrder(order: Order): Promise<Order>
+  addPaymentGatewayId(orderId: number, gatewayId: string): Promise<void>
   getOrderById(orderId: number): Promise<Order>
   removeOrder(orderId: number): Promise<void>
   listOrders(): Promise<Order[]>

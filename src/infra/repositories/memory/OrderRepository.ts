@@ -66,4 +66,14 @@ export class OrderRepositoryMemory implements IOrderRepository {
   listOrders(): Promise<Order[]> {
     return Promise.resolve(this.orders)
   }
+
+  addPaymentGatewayId(orderId: number, gatewayId: string): Promise<void> {
+    const order = this.orders.find((order) => order.getId() === orderId)
+    if (!order) {
+      throw new Error('Order not found')
+    }
+    order.setPaymentGatewayId(gatewayId)
+
+    return Promise.resolve()
+  }
 }

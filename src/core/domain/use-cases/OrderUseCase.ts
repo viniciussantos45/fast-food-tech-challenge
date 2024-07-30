@@ -60,18 +60,24 @@ export class OrderUseCase {
     const order = await this.orderRepository.saveOrder(preOrder)
 
     // Todo with payment gateway
-    // const amount: number = order.getCombos().reduce((acc, combo) => {
-    //   const comboPrice = combo.getProducts().reduce((acc, product) => acc + product.getPrice(), 0)
-    //   return acc + comboPrice
-    // }, 0)
+    const amount: number = order.getCombos().reduce((acc, combo) => {
+      const comboPrice = combo.getProducts().reduce((acc, product) => acc + product.getPrice(), 0)
+      return acc + comboPrice
+    }, 0)
 
-    // await this.paymentGatewayUseCase.processPaymentQRcode({
-    //   amount,
-    //   description: 'Order payment',
-    //   payer: {
-    //     email: customer.getEmail()
-    //   }
-    // })
+    const pixPayment = await this.paymentGatewayUseCase.processPaymentQRcode({
+      amount,
+      description: 'Order payment',
+      payer: {
+        email: customer.getEmail()
+      }
+    })
+
+    if (!pixPayment) {
+      throw new Error('Payment failed')
+    }
+
+    await this.orderRepository.addPaymentGatewayId(order.getId() as number, pixPayment.gatewayId)
 
     return {
       id: order.getId(),

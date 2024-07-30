@@ -244,4 +244,15 @@ export class OrderRepository implements IOrderRepository {
 
     return ordersGrouped
   }
+
+  async addPaymentGatewayId(orderId: number, gatewayId: string): Promise<void> {
+    await this.prisma.order.update({
+      where: {
+        id: orderId
+      },
+      data: {
+        paymentGatewayId: gatewayId
+      }
+    })
+  }
 }
