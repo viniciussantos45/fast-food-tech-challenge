@@ -128,18 +128,43 @@ Please refer to the individual files for more details on their implementation.
 
 1. Clone the repository.
 2. Build the project.
-    - Run in the terminal
 
-      ```
-      docker compose build
-      ```
+   - Run in the terminal
+
+     ```
+     docker compose build
+     ```
 
 3. Start the application.
-    - Run in the terminal
 
-      ```
-      docker compose up
-      ```
+   - Run in the terminal
+
+     ```
+     docker compose up
+     ```
+
+### With Kubernetes
+
+1. Clone the repository.
+
+2. Build the app image and push it to Docker Hub
+
+   - Run in the terminal
+
+     ```bash
+     sudo docker build -t <your_username>/<your_image_name>:<image_version>
+     docker push <your_username>/<your_image_name>:<image_version>
+     ```
+
+3. Create PG database.
+
+   - Run in the terminal
+
+     ```bash
+     kubectl apply -f /K8S/db
+     kubectl apply -f /K8S/app
+     ```
+
 
 ### Standalone
 
@@ -147,25 +172,27 @@ To run the project, follow these steps:
 
 1. Clone the repository.
 2. Install the dependencies.
-    - Run in the terminal
 
-      ```
-      docker compose up db
-      ```
+   - Run in the terminal
+
+     ```
+     docker compose up db
+     ```
 
 3. Build the project.
-    - Run in the other terminal
 
-      ```
-      yarn build
-      yarn migrate
-      ```
+   - Run in the other terminal
+
+     ```
+     yarn build
+     yarn migrate
+     ```
 
 4. Start the application.
 
-    ```
-    yarn dev
-    ```
+   ```
+   yarn dev
+   ```
 
 5. Access the application [http://localhost:3000/](http://localhost:3000/)
 
@@ -177,21 +204,25 @@ Access the application [http://localhost:3000/documentation](http://localhost:30
 
 1. Access container
 
-    ```
-    docker exec -it postgres_container bash
-    ```
+   ```
+   <!-- For Docker -->
+   docker exec -it postgres_container bash
+
+   <!-- For K8S -->
+   kubectl exec -it <pod_name> bash
+   ```
 
 2. Conect database
 
-    ```
-    psql -U fast-food -d fast-food
-    ```
+   ```
+   psql -U fast-food -d fast-food
+   ```
 
 3. List tables
 
-    ```
-    \dt
-    ```
+   ```
+   \dt
+   ```
 
 ## Run test
 
@@ -199,17 +230,25 @@ Access the application [http://localhost:3000/documentation](http://localhost:30
 
 After setup de application, run:
 
-  ```
-  yarn test
-  ```
+```
+yarn test
+```
 
 ### Integration test
 
 After setup de application standalone, run:
 
-  ```
-  yarn test:cucumber
-  ```
+```
+yarn test:cucumber
+```
+
+## Diagrams
+
+### System architecture
+![System arquitecture](./public/Arquitetura.png)
+
+### Kubernetes infrastructure
+![Kubernetes App and DB diagram](./public/K8S_diagram.png)
 
 ## Contributing
 
@@ -219,13 +258,7 @@ Feel free to explore the code and make any necessary modifications to suit your 
 
 Use the tags:
 
-feat: (new feature for the user, not a new feature for build script)
-fix: (bug fix for the user, not a fix to a build script)
-docs: (changes to the documentation)
-style: (formatting, missing semi colons, etc; no production code change)
-refactor: (refactoring production code, eg. renaming a variable)
-test: (adding missing tests, refactoring tests; no production code change)
-chore: (updating grunt tasks etc; no production code change)
+feat: (new feature for the user, not a new feature for build script) fix: (bug fix for the user, not a fix to a build script) docs: (changes to the documentation) style: (formatting, missing semi colons, etc; no production code change) refactor: (refactoring production code, eg. renaming a variable) test: (adding missing tests, refactoring tests; no production code change) chore: (updating grunt tasks etc; no production code change)
 
 Ref.: [Semantic Commit Messages](https://gist.github.com/joshbuchea/6f47e86d2510bce28f8e7f42ae84c716#file-semantic-commit-messages-md)
 

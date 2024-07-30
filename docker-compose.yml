@@ -10,20 +10,22 @@ services:
       - '5432:5432'
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U fast-food -d fast-food"]
+      interval: 3s
+      timeout: 5s
+      retries: 5
 
   app:
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     container_name: fastify_container
     environment:
       DATABASE_URL: postgresql://fast-food:strongpassword@db:5432/fast-food
     build: .
     ports:
       - 3000:3000
-    command: './run.sh'
-    volumes:
-      - ./run.sh:/app/run.sh
-      - ./src:/app/src
 
 volumes:
   postgres_data:
