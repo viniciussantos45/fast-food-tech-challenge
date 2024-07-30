@@ -9,7 +9,7 @@ import { OrderStatus } from '@/core/domain/value-objects/OrderStatus'
 import { PaymentStatus, PaymentStatusMessage } from '@/core/domain/value-objects/PaymentStatus'
 import { ProductCategory, ProductCategoryEnum } from '@/core/domain/value-objects/ProductCategory'
 import { ProductImage } from '@/core/domain/value-objects/ProductImage'
-import { MercadoPagoPaymentGateway } from '@/infra/gateways/MercadoPagoPaymentGateway'
+import { MercadoPagoPaymentGatewayFake } from '@/infra/gateways/MercadoPagoPaymentGatewayFake'
 import { ComboRepositoryMemory } from '@/infra/repositories/memory/ComboRepository'
 import { CustomerRepositoryMemory } from '@/infra/repositories/memory/CustomerRepository'
 import { OrderRepositoryMemory } from '@/infra/repositories/memory/OrderRepository'
@@ -52,7 +52,7 @@ describe('Order', () => {
     comboUseCase = new ComboUseCase(comboRepositoryMemory)
     productUseCase = new ProductUseCase(productRepository)
     customerUseCase = new CustomerUseCase(customerRepository)
-    paymentGatewayUseCase = new PaymentGatewayUseCase(new MercadoPagoPaymentGateway())
+    paymentGatewayUseCase = new PaymentGatewayUseCase(new MercadoPagoPaymentGatewayFake())
     orderUseCase = new OrderUseCase(orderRepositoryMemory, comboUseCase, productUseCase, customerUseCase, paymentGatewayUseCase)
   })
 
