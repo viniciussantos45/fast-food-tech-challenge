@@ -6,6 +6,7 @@ import { IOrderRepository } from '../../repositories/OrderRepository'
 import { Order } from '../entities/Order'
 import { ComboUseCase } from './ComboUseCase'
 import { CustomerUseCase } from './CustomerUseCase'
+import { PaymentGatewayUseCase } from './PaymentGatewayUseCase'
 import { ProductUseCase } from './ProductUseCase'
 
 type ComboParams = {
@@ -22,17 +23,20 @@ export class OrderUseCase {
   private comboUseCase: ComboUseCase
   private productUseCase: ProductUseCase
   private customerUseCase: CustomerUseCase
+  private paymentGatewayUseCase: PaymentGatewayUseCase
 
   constructor(
     orderRepository: IOrderRepository,
     comboUseCase: ComboUseCase,
     productUseCase: ProductUseCase,
-    customerUseCase: CustomerUseCase
+    customerUseCase: CustomerUseCase,
+    paymentGatewayUseCase: PaymentGatewayUseCase
   ) {
     this.orderRepository = orderRepository
     this.comboUseCase = comboUseCase
     this.productUseCase = productUseCase
     this.customerUseCase = customerUseCase
+    this.paymentGatewayUseCase = paymentGatewayUseCase
   }
 
   async createOrder({ combos, customerId }: CreateOrderDTO) {
@@ -55,9 +59,19 @@ export class OrderUseCase {
 
     const order = await this.orderRepository.saveOrder(preOrder)
 
-    // // Perform any additional logic or validations here
-    // const orderCreatedEvent = new OrderCreated(order)
-    // Emit the order created event
+    // Todo with payment gateway
+    // const amount: number = order.getCombos().reduce((acc, combo) => {
+    //   const comboPrice = combo.getProducts().reduce((acc, product) => acc + product.getPrice(), 0)
+    //   return acc + comboPrice
+    // }, 0)
+
+    // await this.paymentGatewayUseCase.processPaymentQRcode({
+    //   amount,
+    //   description: 'Order payment',
+    //   payer: {
+    //     email: customer.getEmail()
+    //   }
+    // })
 
     return {
       id: order.getId(),

@@ -2,12 +2,14 @@ import { Product } from '@/core/domain/entities/Product'
 import { ComboUseCase } from '@/core/domain/use-cases/ComboUseCase'
 import { CustomerUseCase } from '@/core/domain/use-cases/CustomerUseCase'
 import { OrderUseCase } from '@/core/domain/use-cases/OrderUseCase'
+import { PaymentGatewayUseCase } from '@/core/domain/use-cases/PaymentGatewayUseCase'
 import { ProductUseCase } from '@/core/domain/use-cases/ProductUseCase'
 import { CPF } from '@/core/domain/value-objects/CPF'
 import { OrderStatus } from '@/core/domain/value-objects/OrderStatus'
 import { PaymentStatus, PaymentStatusMessage } from '@/core/domain/value-objects/PaymentStatus'
 import { ProductCategory, ProductCategoryEnum } from '@/core/domain/value-objects/ProductCategory'
 import { ProductImage } from '@/core/domain/value-objects/ProductImage'
+import { MercadoPagoPaymentGateway } from '@/infra/gateways/MercadoPagoPaymentGateway'
 import { ComboRepositoryMemory } from '@/infra/repositories/memory/ComboRepository'
 import { CustomerRepositoryMemory } from '@/infra/repositories/memory/CustomerRepository'
 import { OrderRepositoryMemory } from '@/infra/repositories/memory/OrderRepository'
@@ -23,6 +25,7 @@ let comboUseCase: ComboUseCase
 let productUseCase: ProductUseCase
 let customerUseCase: CustomerUseCase
 let orderUseCase: OrderUseCase
+let paymentGatewayUseCase: PaymentGatewayUseCase
 
 let products: Product[]
 
@@ -49,7 +52,8 @@ describe('Order', () => {
     comboUseCase = new ComboUseCase(comboRepositoryMemory)
     productUseCase = new ProductUseCase(productRepository)
     customerUseCase = new CustomerUseCase(customerRepository)
-    orderUseCase = new OrderUseCase(orderRepositoryMemory, comboUseCase, productUseCase, customerUseCase)
+    paymentGatewayUseCase = new PaymentGatewayUseCase(new MercadoPagoPaymentGateway())
+    orderUseCase = new OrderUseCase(orderRepositoryMemory, comboUseCase, productUseCase, customerUseCase, paymentGatewayUseCase)
   })
 
   it('should be able to create a new order', async () => {

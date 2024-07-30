@@ -3,10 +3,12 @@ import { FastifyReply, FastifyRequest } from 'fastify'
 import { ComboUseCase } from '@/core/domain/use-cases/ComboUseCase'
 import { CustomerUseCase } from '@/core/domain/use-cases/CustomerUseCase'
 import { OrderUseCase } from '@/core/domain/use-cases/OrderUseCase'
+import { PaymentGatewayUseCase } from '@/core/domain/use-cases/PaymentGatewayUseCase'
 import { ProductUseCase } from '@/core/domain/use-cases/ProductUseCase'
 import { CPF } from '@/core/domain/value-objects/CPF'
 import { OrderStatus } from '@/core/domain/value-objects/OrderStatus'
 import { PaymentStatus } from '@/core/domain/value-objects/PaymentStatus'
+import { MercadoPagoPaymentGateway } from '@/infra/gateways/MercadoPagoPaymentGateway'
 import { CustomerRepository } from '@/infra/repositories/prisma'
 import { ComboRepository } from '@/infra/repositories/prisma/ComboRepository'
 import { OrderRepository } from '@/infra/repositories/prisma/OrderRepository'
@@ -22,8 +24,10 @@ const productUseCase = new ProductUseCase(productRepository)
 const customerRepository = new CustomerRepository()
 const customerUseCase = new CustomerUseCase(customerRepository)
 
+const paymentGatewayUseCase = new PaymentGatewayUseCase(new MercadoPagoPaymentGateway())
+
 const orderRepository = new OrderRepository()
-const orderUseCase = new OrderUseCase(orderRepository, comboUseCase, productUseCase, customerUseCase)
+const orderUseCase = new OrderUseCase(orderRepository, comboUseCase, productUseCase, customerUseCase, paymentGatewayUseCase)
 
 export async function createOrder(request: FastifyRequest<{ Body: OrderCreateDto }>, reply: FastifyReply): Promise<void> {
   const { customerId, combos } = request.body
