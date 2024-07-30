@@ -160,7 +160,11 @@ Access the application [http://localhost:3000/documentation](http://localhost:30
 1. Access container
 
    ```
+   <!-- For Docker -->
    docker exec -it postgres_container bash
+
+   <!-- For K8S -->
+   kubectl exec -it <pod_name> bash
    ```
 
 2. Conect database
@@ -195,6 +199,10 @@ yarn test:cucumber
 
 ## Diagrams
 
+### System architecture
+![System arquitecture](./public/Arquitetura.png)
+
+### Kubernetes infrastructure
 ![Kubernetes App and DB diagram](./public/K8S_diagram.png)
 
 ## Contributing
