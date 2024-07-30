@@ -200,6 +200,10 @@ To run the project, follow these steps:
 
 Access the application [http://localhost:3000/documentation](http://localhost:3000/documentation)
 
+or
+
+Access the webpage from [swagger.json](https://viniciussantos45.github.io/fast-food-tech-challenge/swagger.html)
+
 ## Access database
 
 1. Access container
