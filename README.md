@@ -8,6 +8,10 @@ This project is an API for a fast food system.
 
 [https://miro.com/app/board/uXjVKXKeOYw=/](https://miro.com/app/board/uXjVKXKeOYw=/)
 
+## Video
+
+[Link to video that explain this project](https://www.youtube.com/watch?v=Swbv0xAlRPw)
+
 ## Structure
 
 This repository contains the source code for a project that implements a domain-driven design (DDD) with hexagonal architecture. The project structure is as follows:
@@ -253,6 +257,8 @@ yarn test:cucumber
 
 ### Kubernetes infrastructure
 ![Kubernetes App and DB diagram](./public/K8S_diagram.png)
+
+
 
 ## Contributing
 
