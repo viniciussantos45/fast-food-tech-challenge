@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: app
-          image: lucasnoman/fast-food-tech-challenge:v1.2
+          image: lucasnoman/fast-food-tech-challenge:v1.3.1
           ports:
             - containerPort: 3000
           envFrom:
