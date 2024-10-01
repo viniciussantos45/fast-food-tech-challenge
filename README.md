@@ -388,7 +388,7 @@ yarn test:cucumber
 
 ### Kubernetes infrastructure
 
-![Kubernetes App and DB diagram](./public/K8S_diagram.png
+![Kubernetes App and DB diagram](./public/K8S_diagram.png)
 
 ### DER
 
