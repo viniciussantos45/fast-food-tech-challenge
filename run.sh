@@ -10,10 +10,10 @@ npx prisma generate
 
 # Running Prisma migration
 if [ $NODE_ENV == 'production' ]; then
-    echo "Running Prisma migration..."
+    echo "Running Prisma migration in PRD..."
     npx prisma migrate deploy
 else
-    echo "Running Prisma migration..."
+    echo "Running Prisma migration in DEV..."
     npx prisma migrate dev
 fi
 
@@ -27,9 +27,9 @@ fi
 
 # Start the development server or run development script
 if [ $NODE_ENV == 'production' ]; then
-    echo "Starting production environment..."
+    echo "Starting PRD environment..."
     yarn start
 else
-    echo "Starting development environment..."
+    echo "Starting DEV environment..."
     yarn dev
 fi

@@ -19,10 +19,15 @@ COPY --from=builder /app/dist dist/
 COPY --from=builder /app/prisma .
 COPY --from=builder /app/run.sh .
 
-RUN export NODE_ENV=production
+ENV NODE_ENV=production
+
 RUN sed -i 's/\r$//' run.sh && chmod +x run.sh
 
 RUN yarn global add prisma
+
+# Não lembro porque adicionei esse make e g++, mas o app só funcionou com ele
+RUN apk add --no-cache python3 py3-pip make g++
+
 RUN yarn install --production
 
 EXPOSE 3000
