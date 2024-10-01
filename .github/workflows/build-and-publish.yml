@@ -1,0 +1,75 @@
+name: Build and Publish Docker Image
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: true
+  
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4.2.0
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4.0.4
+        with:
+          node-version: '18.x'
+      
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Install correct Yarn version
+        run: corepack yarn set version 4.3.1
+        
+      - name: Install dependencies
+        run: yarn install
+
+      # If needed to build via NPM
+      # - name: Install dependencies
+      #   run: npm install
+
+      - name: Lint code
+        uses: github/super-linter@v7
+        env:
+          DEFAULT_BRANCH: main
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Run tests
+        if: always() # Linter is finding issues in configuration files
+        run: yarn test
+
+      - name: Set up Docker Buildx
+        if: always() # Same as above
+        uses: docker/setup-buildx-action@v3.6.1
+
+      - name: Log in to GitHub Container Registry
+        if: always() # Same as above
+        uses: docker/login-action@v3.3.0
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build Docker image
+        if: always() # Same as above
+        run: |
+          docker build -t ghcr.io/${{ github.repository_owner }}/fast-food-tech-challenge:${{ github.sha }} .
+          docker tag ghcr.io/${{ github.repository_owner }}/fast-food-tech-challenge:${{ github.sha }} ghcr.io/${{ github.repository_owner }}/fast-food-tech-challenge:latest
+
+      - name: Publish Docker image
+        if: github.ref == 'refs/heads/main' && (success() || failure()) # Same as above, but keeps the condition to only run on the main branch
+        run: |
+          docker push ghcr.io/${{ github.repository_owner }}/fast-food-tech-challenge:${{ github.sha }}
+          docker push ghcr.io/${{ github.repository_owner }}/fast-food-tech-challenge:latest

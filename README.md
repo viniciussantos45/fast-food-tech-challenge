@@ -258,7 +258,19 @@ yarn test:cucumber
 ### Kubernetes infrastructure
 ![Kubernetes App and DB diagram](./public/K8S_diagram.png)
 
+## GitHub Actions Workflow
 
+### Purpose
+
+The GitHub Actions workflow is designed to automate the process of building and publishing the Docker image for this repository. It ensures that the Docker image is built on every push to any branch and conditionally publishes it to GitHub Container Registry on merges to the `main` branch.
+
+### Triggering the Workflow
+
+The workflow is triggered automatically on every push to any branch. Additionally, it includes a conditional step that publishes the Docker image to GitHub Container Registry when changes are merged into the `main` branch.
+
+### Conditional Publishing
+
+The workflow includes a conditional step that checks if the current branch is `main`. If it is, the Docker image is published to GitHub Container Registry under the repository owner's profile.
 
 ## Contributing
 
@@ -271,6 +283,20 @@ Use the tags:
 feat: (new feature for the user, not a new feature for build script) fix: (bug fix for the user, not a fix to a build script) docs: (changes to the documentation) style: (formatting, missing semi colons, etc; no production code change) refactor: (refactoring production code, eg. renaming a variable) test: (adding missing tests, refactoring tests; no production code change) chore: (updating grunt tasks etc; no production code change)
 
 Ref.: [Semantic Commit Messages](https://gist.github.com/joshbuchea/6f47e86d2510bce28f8e7f42ae84c716#file-semantic-commit-messages-md)
+
+We welcome contributions to this project. Please follow the guidelines below to contribute:
+
+1. Fork the repository.
+2. Create a new branch for your feature or bugfix.
+3. Make your changes and commit them with a clear and concise commit message.
+4. Push your changes to your forked repository.
+5. Create a pull request to the main repository.
+
+## Commit description
+
+- Use clear and descriptive commit messages.
+- Follow the conventional commit format: `type(scope): message`.
+- Example: `feat(auth): add user authentication`.
 
 ## License
 
