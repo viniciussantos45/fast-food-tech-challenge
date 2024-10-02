@@ -394,6 +394,10 @@ yarn test:cucumber
 
 ![Entity Relation Diagram](./public/DER.png)
 
+### Infra and Pipelines
+
+![Infra Cloud and pipelines](./docs/Diagram-infra.png)
+
 ## GitHub Actions Workflow
 
 ### Purpose
