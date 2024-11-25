@@ -1,5 +1,5 @@
 import { Combo } from '@/core/domain/entities/Combo'
-import { IComboRepository } from '@/core/repositories/ComboRepository'
+import { IComboRepository } from '@/shared-kernel/repositories/ComboRepository'
 
 export class ComboRepositoryMemory implements IComboRepository {
   private combos: Combo[] = []

@@ -1,13 +1,13 @@
-import { Combo } from '@/core/domain/entities/Combo'
 import { Customer } from '@/core/domain/entities/Customer'
 import { Order } from '@/core/domain/entities/Order'
-import { Product } from '@/core/domain/entities/Product'
 import { CPF } from '@/core/domain/value-objects/CPF'
 import { OrderStatus } from '@/core/domain/value-objects/OrderStatus'
 import { PaymentStatus } from '@/core/domain/value-objects/PaymentStatus'
-import { ProductCategory } from '@/core/domain/value-objects/ProductCategory'
-import { ProductImage } from '@/core/domain/value-objects/ProductImage'
 import { IOrderRepository } from '@/core/repositories/OrderRepository'
+import { Combo } from '@/shared-kernel/entities/Combo'
+import { Product } from '@/shared-kernel/entities/Product'
+import { ProductCategory } from '@/shared-kernel/value-objects/ProductCategory'
+import { ProductImage } from '@/shared-kernel/value-objects/ProductImage'
 import { PrismaClient } from '@prisma/client'
 
 export class OrderRepository implements IOrderRepository {

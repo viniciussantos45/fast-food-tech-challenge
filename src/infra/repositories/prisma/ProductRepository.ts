@@ -1,7 +1,7 @@
-import { Product } from '@/core/domain/entities/Product'
-import { ProductCategory } from '@/core/domain/value-objects/ProductCategory'
-import { ProductImage } from '@/core/domain/value-objects/ProductImage'
-import { IProductRepository } from '@/core/repositories/ProductRepository'
+import { Product } from '@/shared-kernel/entities/Product'
+import { IProductRepository } from '@/shared-kernel/repositories/ProductRepository'
+import { ProductCategory } from '@/shared-kernel/value-objects/ProductCategory'
+import { ProductImage } from '@/shared-kernel/value-objects/ProductImage'
 import { PrismaClient } from '@prisma/client'
 
 export class ProductRepository implements IProductRepository {

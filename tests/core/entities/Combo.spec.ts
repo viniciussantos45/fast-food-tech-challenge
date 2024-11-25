@@ -1,7 +1,7 @@
-import { Combo } from '@/core/domain/entities/Combo'
-import { Product } from '@/core/domain/entities/Product'
-import { ProductCategory, ProductCategoryEnum } from '@/core/domain/value-objects/ProductCategory'
-import { ProductImage } from '@/core/domain/value-objects/ProductImage'
+import { Combo } from '@/shared-kernel/entities/Combo'
+import { Product } from '@/shared-kernel/entities/Product'
+import { ProductCategory, ProductCategoryEnum } from '@/shared-kernel/value-objects/ProductCategory'
+import { ProductImage } from '@/shared-kernel/value-objects/ProductImage'
 import { describe, expect, it } from 'vitest'
 
 describe('Combo Entity', () => {

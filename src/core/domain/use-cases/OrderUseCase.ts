@@ -1,7 +1,7 @@
-import { Combo } from '@/core/domain/entities/Combo'
 import { CPF } from '@/core/domain/value-objects/CPF'
 import { OrderStatus } from '@/core/domain/value-objects/OrderStatus'
 import { PaymentStatus } from '@/core/domain/value-objects/PaymentStatus'
+import { Combo } from '@/shared-kernel/entities/Combo'
 import { IOrderRepository } from '../../repositories/OrderRepository'
 import { Order } from '../entities/Order'
 import { ComboUseCase } from './ComboUseCase'

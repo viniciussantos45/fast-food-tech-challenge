@@ -1,5 +1,5 @@
-import { Product } from '@/core/domain/entities/Product'
-import { IProductRepository } from '@/core/repositories/ProductRepository'
+import { Product } from '@/shared-kernel/entities/Product'
+import { IProductRepository } from '@/shared-kernel/repositories/ProductRepository'
 
 export class ProductRepositoryMemory implements IProductRepository {
   public products: Product[] = []

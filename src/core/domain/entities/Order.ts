@@ -1,6 +1,6 @@
+import { Combo } from '@/shared-kernel/entities/Combo'
 import { OrderStatus, OrderStatusMessage } from '../value-objects/OrderStatus'
 import { PaymentStatus, PaymentStatusMessage } from '../value-objects/PaymentStatus'
-import { Combo } from './Combo'
 import { Customer } from './Customer'
 
 export class Order {

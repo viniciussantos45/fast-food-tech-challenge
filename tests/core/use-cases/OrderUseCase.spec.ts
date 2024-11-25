@@ -1,4 +1,3 @@
-import { Product } from '@/core/domain/entities/Product'
 import { ComboUseCase } from '@/core/domain/use-cases/ComboUseCase'
 import { CustomerUseCase } from '@/core/domain/use-cases/CustomerUseCase'
 import { OrderUseCase } from '@/core/domain/use-cases/OrderUseCase'
@@ -7,13 +6,15 @@ import { ProductUseCase } from '@/core/domain/use-cases/ProductUseCase'
 import { CPF } from '@/core/domain/value-objects/CPF'
 import { OrderStatus } from '@/core/domain/value-objects/OrderStatus'
 import { PaymentStatus, PaymentStatusMessage } from '@/core/domain/value-objects/PaymentStatus'
-import { ProductCategory, ProductCategoryEnum } from '@/core/domain/value-objects/ProductCategory'
-import { ProductImage } from '@/core/domain/value-objects/ProductImage'
 import { MercadoPagoPaymentGatewayFake } from '@/infra/gateways/MercadoPagoPaymentGatewayFake'
 import { ComboRepositoryMemory } from '@/infra/repositories/memory/ComboRepository'
 import { CustomerRepositoryMemory } from '@/infra/repositories/memory/CustomerRepository'
 import { OrderRepositoryMemory } from '@/infra/repositories/memory/OrderRepository'
 import { ProductRepositoryMemory } from '@/infra/repositories/memory/ProductRepository'
+import { Product } from '@/shared-kernel/entities/Product'
+import { ProductCategory, ProductCategoryEnum } from '@/shared-kernel/value-objects/ProductCategory'
+import { ProductImage } from '@/shared-kernel/value-objects/ProductImage'
+
 import { beforeAll, beforeEach, describe, expect, it } from 'vitest'
 
 let orderRepositoryMemory: OrderRepositoryMemory

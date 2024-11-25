@@ -1,6 +1,6 @@
 import { ProductUseCase } from '@/core/domain/use-cases/ProductUseCase'
-import { ProductCategory, ProductCategoryEnum } from '@/core/domain/value-objects/ProductCategory'
 import { ProductRepositoryMemory } from '@/infra/repositories/memory/ProductRepository'
+import { ProductCategory, ProductCategoryEnum } from '@/shared-kernel/value-objects/ProductCategory'
 import { beforeAll, describe, expect, it } from 'vitest'
 
 let productRepositoryMemory: ProductRepositoryMemory

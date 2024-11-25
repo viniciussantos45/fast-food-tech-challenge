@@ -1,6 +1,6 @@
-import { IComboRepository } from '../../repositories/ComboRepository'
-import { Combo } from '../entities/Combo'
-import { Product } from '../entities/Product'
+import { Combo } from '@/shared-kernel/entities/Combo'
+import { Product } from '@/shared-kernel/entities/Product'
+import { IComboRepository } from '../../../shared-kernel/repositories/ComboRepository'
 
 export class ComboUseCase {
   private comboRepository: IComboRepository

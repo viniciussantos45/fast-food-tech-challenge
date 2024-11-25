@@ -1,4 +1,4 @@
-import { ProductCategoryEnum } from '@/core/domain/value-objects/ProductCategory'
+import { ProductCategoryEnum } from '@/shared-kernel/value-objects/ProductCategory'
 
 export const editProductSchema = {
   description: 'Editar um produto pelo id',

@@ -1,8 +1,9 @@
-import { Product } from '@/core/domain/entities/Product'
 import { ComboUseCase } from '@/core/domain/use-cases/ComboUseCase'
-import { ProductCategory, ProductCategoryEnum } from '@/core/domain/value-objects/ProductCategory'
-import { ProductImage } from '@/core/domain/value-objects/ProductImage'
 import { ComboRepositoryMemory } from '@/infra/repositories/memory/ComboRepository'
+import { Product } from '@/shared-kernel/entities/Product'
+import { ProductCategory, ProductCategoryEnum } from '@/shared-kernel/value-objects/ProductCategory'
+import { ProductImage } from '@/shared-kernel/value-objects/ProductImage'
+
 import { describe, expect, it } from 'vitest'
 
 const comboRepositoryMemory = new ComboRepositoryMemory()

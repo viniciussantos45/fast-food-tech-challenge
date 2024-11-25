@@ -1,8 +1,9 @@
 import { ProductUseCase } from '@/core/domain/use-cases/ProductUseCase'
-import { ProductCategory } from '@/core/domain/value-objects/ProductCategory'
 import { ProductRepository } from '@/infra/repositories/prisma/ProductRepository'
-import { FastifyReply, FastifyRequest } from 'fastify'
+import { ProductCategory } from '@/shared-kernel/value-objects/ProductCategory'
 import { ProductCreateDto, ProductEditDto } from '../dtos/ProductDto'
+
+import { FastifyReply, FastifyRequest } from 'fastify'
 
 const productRepository = new ProductRepository()
 const productUseCase = new ProductUseCase(productRepository)

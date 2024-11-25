@@ -1,4 +1,4 @@
-import { ProductCategoryEnum } from '@/core/domain/value-objects/ProductCategory'
+import { ProductCategoryEnum } from '@/shared-kernel/value-objects/ProductCategory'
 import { FastifySchema } from 'fastify'
 
 export const createProductSchema: FastifySchema = {
