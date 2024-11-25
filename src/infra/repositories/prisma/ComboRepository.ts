@@ -9,16 +9,16 @@ export class ComboRepository implements IComboRepository {
     this.prisma = new PrismaClient()
   }
 
-  async saveCombo(combo: Combo): Promise<void> {
+  async saveCombo(_combo: Combo): Promise<void> {
     throw new Error('Method not implemented.')
   }
-  getComboById(comboId: number): Promise<Combo | null> {
+  getComboById(_comboId: number): Promise<Combo | null> {
     throw new Error('Method not implemented.')
   }
-  updateCombo(combo: Combo): Promise<void> {
+  updateCombo(_combo: Combo): Promise<void> {
     throw new Error('Method not implemented.')
   }
-  deleteCombo(comboId: number): Promise<void> {
+  deleteCombo(_comboId: number): Promise<void> {
     throw new Error('Method not implemented.')
   }
 }
