@@ -77,3 +77,13 @@ jobs:
       - name: Push Docker image to ECR
         run: |
           docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.us-east-1.amazonaws.com/fast-food-order:latest
+
+      - name: Install kubectl
+        uses: azure/setup-kubectl@v4
+        id: install
+
+      - name: Configure kubectl
+        run: aws eks --region us-east-1 update-kubeconfig --name ${{ secrets.EKS_CLUSTER_NAME }}
+
+      - name: Deploy to EKS
+        run: kubectl apply -f K8S/db -f K8S/app
