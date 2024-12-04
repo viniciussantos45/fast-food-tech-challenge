@@ -1,7 +1,5 @@
 # FAST FOOD TECH CHALLENGE - FASE 4
 
-#### docker #node #yarn #typescript #fastify #prisma #postgres
-
 ## Microsservice - ORDER
 
 This project is an API for a fast food system.
