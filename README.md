@@ -398,6 +398,10 @@ yarn test:cucumber
 
 ![Infra Cloud and pipelines](./docs/Diagram-infra.png)
 
+### Microsservices Flow Diagram
+
+![Flow Diagram](./docs/Diagrama%20de%20fluxo%20-%20microsservices%20.svg)
+
 ## GitHub Actions Workflow
 
 ### Purpose
